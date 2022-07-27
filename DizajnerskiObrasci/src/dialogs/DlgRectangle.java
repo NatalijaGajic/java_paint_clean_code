@@ -126,15 +126,16 @@ public class DlgRectangle extends DlgSurfaceShape {
 			Rectangle rect = (Rectangle)shape;
 			
 			int upperLeftX = rect.getUpperLeftPoint().getX();
-			int upperLeftY = rect.getUpperLeftPoint().getY();
 			getTxtXCoord().setText(String.valueOf(upperLeftX));
+			
+			int upperLeftY = rect.getUpperLeftPoint().getY();
 			getTxtXCoord().setText(String.valueOf(upperLeftY));
 			
-			int height = rect.getHeight();
-			txtHeight.setText(String.valueOf(height));
+			String height = String.valueOf(rect.getHeight());
+			txtHeight.setText(height);
 			
-			int width = rect.getWidth();
-			txtWidth.setText(String.valueOf(width));
+			String width = String.valueOf(rect.getWidth());
+			txtWidth.setText(width);
 			
 			Color borderColor = rect.getColor();
 			getTxtBorderColor().setBackground(borderColor);

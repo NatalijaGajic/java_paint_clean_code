@@ -39,7 +39,12 @@ public class DlgPoint extends DlgShape {
 	public void setModifyDialogFields(Shape shape) {
 		if(shape instanceof Point) {
 			Point point = (Point) shape;
-			setCreateDialogFields(point);
+			
+			String xCoord = String.valueOf(point.getX());
+			getTxtXCoord().setText(xCoord);
+			
+			String yCoord = String.valueOf(point.getY());
+			getTxtYCoord().setText(yCoord);	
 			
 			Color borderColor = point.getColor();
 			getTxtBorderColor().setBackground(borderColor);
@@ -48,14 +53,11 @@ public class DlgPoint extends DlgShape {
 	}
 
 	public Shape getShapeFromDialog() {
-		String trimedXCoordValue = getTxtXCoord().getText().trim();
-		String trimedYCoordValue = getTxtYCoord().getText().trim();
-		int x = Integer.parseInt(trimedXCoordValue);
-		int y = Integer.parseInt(trimedYCoordValue);
-		Point point = new Point(x,y);
+		int x = Integer.parseInt(getTxtXCoord().getText());
+		int y = Integer.parseInt( getTxtYCoord().getText());	
 		Color borderColor = getBorderColor();
-		point.setColor(borderColor);
-		return point;	
+		
+		return new Point(x, y, borderColor);	
 	}
 	
 

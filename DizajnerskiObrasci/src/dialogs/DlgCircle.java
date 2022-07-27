@@ -114,18 +114,13 @@ public class DlgCircle extends DlgSurfaceShape {
 
 	@Override
 	public Shape getShapeFromDialog() {
-		
-		String trimedCenterXValue = getTxtXCoord().getText().trim();	
-		int centerX = Integer.parseInt(trimedCenterXValue);
-		String trimedCenterYValue = getTxtYCoord().getText().trim();
-		int centerY = Integer.parseInt(trimedCenterYValue);
+			
+		int centerX = Integer.parseInt(getTxtXCoord().getText());
+		int centerY = Integer.parseInt(getTxtYCoord().getText());
 		Point center = new Point(centerX, centerY);
 		
-		String trimedRadiusValue = txtRadius.getText().trim();
-		int radius = Integer.parseInt(trimedRadiusValue);
-		
+		int radius = Integer.parseInt(txtRadius.getText());
 		Color borderColor = getBorderColor();
-		
 		Color innerColor = getFillColor();
 		
 		return new Circle(center, radius, borderColor, innerColor);

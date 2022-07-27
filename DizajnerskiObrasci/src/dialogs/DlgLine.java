@@ -108,11 +108,16 @@ public class DlgLine extends DlgShape{
 			Point startPoint = line.getStartPoint();
 			Point endPoint = line.getEndPoint();
 			
-			setCreateDialogFields(startPoint);
+			String xCoord = String.valueOf(startPoint.getX());
+			getTxtXCoord().setText(xCoord);
+			
+			String yCoord = String.valueOf(startPoint.getY());
+			getTxtYCoord().setText(yCoord);	
 			
 			String endXString = String.valueOf(endPoint.getX());
-			String endYString = String.valueOf(endPoint.getY());
 			this.txtEndPointXCoord.setText(endXString);
+			
+			String endYString = String.valueOf(endPoint.getY());
 			this.txtEndPointYCoord.setText(endYString);
 			
 			Color borderColor = line.getColor();
@@ -126,21 +131,17 @@ public class DlgLine extends DlgShape{
 	@Override
 	public Shape getShapeFromDialog() {
 		
-		String trimedStartXCoordValue = getTxtXCoord().getText().trim();
-		String trimedStartYCoordValue = getTxtYCoord().getText().trim();
-		int startX = Integer.parseInt(trimedStartXCoordValue);
-		int startY = Integer.parseInt(trimedStartYCoordValue);
+		int startX = Integer.parseInt(getTxtXCoord().getText());
+		int startY = Integer.parseInt(getTxtYCoord().getText());
 		Point startPoint = new Point(startX,startY);
 		
-		String trimedEndXCoordValue = getTxtXCoord().getText().trim();
-		String trimedEndYCoordValue = getTxtYCoord().getText().trim();
-		int endX = Integer.parseInt(trimedEndXCoordValue);
-		int endY = Integer.parseInt(trimedEndYCoordValue);
+		int endX = Integer.parseInt(getTxtXCoord().getText());
+		int endY = Integer.parseInt(getTxtYCoord().getText());
 		Point endPoint = new Point(endX,endY);
 		
 		Color borderColor = getBorderColor();
-		Line line = new Line(startPoint, endPoint, borderColor);
-		return line;
+		
+		return new Line(startPoint, endPoint, borderColor);
 	}
 
 	public JTextField getTxtEndPointXCoord() {
