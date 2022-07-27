@@ -157,7 +157,7 @@ public class FrmDrawing extends JFrame {
 					} else if (selected instanceof Line) {
 						Line line = (Line) selected;
 						DlgLine dlg = new DlgLine();
-						dlg.setLine(line);
+						//dlg.setLine(line);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Rectangle) {

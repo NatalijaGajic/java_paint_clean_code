@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import geometry.Point;
+
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -101,14 +103,14 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		gbc_lblXCoord.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
 		gbc_lblXCoord.gridx = 1;
-		gbc_lblXCoord.gridy = 1;
+		gbc_lblXCoord.gridy = 0;
 		contentPanel.add(lblXCoord, gbc_lblXCoord);
 		
 		GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
 		gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
 		gbc_txtXCoord.gridx = 5;
-		gbc_txtXCoord.gridy = 1;
+		gbc_txtXCoord.gridy = 0;
 		contentPanel.add(txtXCoord, gbc_txtXCoord);
 		txtXCoord.setColumns(12);
 		txtXCoord.addKeyListener(inputListener);
@@ -117,14 +119,14 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		gbc_lblYCoord.fill = GridBagConstraints.BOTH;
 		gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
 		gbc_lblYCoord.gridx = 1;
-		gbc_lblYCoord.gridy = 2;
+		gbc_lblYCoord.gridy = 1;
 		contentPanel.add(lblYCoord, gbc_lblYCoord);
 		
 		GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
 		gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
 		gbc_txtYCoord.gridx = 5;
-		gbc_txtYCoord.gridy = 2;
+		gbc_txtYCoord.gridy = 1;
 		contentPanel.add(txtYCoord, gbc_txtYCoord);
 		txtYCoord.setColumns(12);
 		txtYCoord.addKeyListener(inputListener);
@@ -133,7 +135,7 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		gbc_btnBorderColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnBorderColor.insets = new Insets(0, 0, 0, 5);
 		gbc_btnBorderColor.gridx = 1;
-		gbc_btnBorderColor.gridy = 3;
+		gbc_btnBorderColor.gridy = 2;
 		contentPanel.add(btnBorderColor, gbc_btnBorderColor);
 		
 		txtBorderColor.setEditable(false);
@@ -141,7 +143,7 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		GridBagConstraints gbc_txtBorderColor = new GridBagConstraints();
 		gbc_txtBorderColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBorderColor.gridx = 5;
-		gbc_txtBorderColor.gridy = 3;
+		gbc_txtBorderColor.gridy = 2;
 		contentPanel.add(txtBorderColor, gbc_txtBorderColor);
 		txtBorderColor.setColumns(12);
 
@@ -191,6 +193,15 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		});
 	}
 
+	@Override
+	public void setCreateDialogFields(Point point) {
+		String xCoord = String.valueOf(point.getX());
+		String yCoord = String.valueOf(point.getY());
+		getTxtXCoord().setText(xCoord);
+		getTxtYCoord().setText(yCoord);	
+	}
+	
+	
 	public JPanel getContentPanel() {
 		return contentPanel;
 	}

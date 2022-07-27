@@ -44,14 +44,6 @@ public class DlgPoint extends DlgShape {
 		}
 	}
 
-	@Override
-	public void setCreateDialogFields(Point point) {
-		String xCoord = String.valueOf(point.getX());
-		String yCoord = String.valueOf(point.getY());
-		getTxtXCoord().setText(xCoord);
-		getTxtYCoord().setText(yCoord);
-	}
-
 	public Shape getShapeFromDialog() {
 		String trimedXCoordValue = getTxtXCoord().getText().trim();
 		String trimedYCoordValue = getTxtYCoord().getText().trim();

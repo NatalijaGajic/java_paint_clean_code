@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
+import geometry.Point;
+
 public abstract class DlgSurfaceShape extends DlgShape{
 
 	private Color fillColor;
@@ -29,7 +31,7 @@ public abstract class DlgSurfaceShape extends DlgShape{
 		gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnFillColor.insets = new Insets(0, 0, 5, 5);
 		gbc_btnFillColor.gridx = 1;
-		gbc_btnFillColor.gridy = 4;
+		gbc_btnFillColor.gridy = 3;
 		getContentPanel().add(btnFillColor, gbc_btnFillColor);
 		
 		txtFillColor.setBackground(Color.WHITE);
@@ -38,7 +40,7 @@ public abstract class DlgSurfaceShape extends DlgShape{
 		gbc_txtFillColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFillColor.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFillColor.gridx = 5;
-		gbc_txtFillColor.gridy = 4;
+		gbc_txtFillColor.gridy = 3;
 		getContentPanel().add(txtFillColor, gbc_txtFillColor);
 		txtFillColor.setColumns(12);
 	}
