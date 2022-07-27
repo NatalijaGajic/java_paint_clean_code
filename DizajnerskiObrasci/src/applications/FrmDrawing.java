@@ -169,7 +169,7 @@ public class FrmDrawing extends JFrame {
 					} else if (selected instanceof Circle) {
 						Circle circle = (Circle) selected;
 						DlgCircle dlg = new DlgCircle();
-						dlg.setNewCircle(circle);
+						//dlg.setNewCircle(circle);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Donut) {

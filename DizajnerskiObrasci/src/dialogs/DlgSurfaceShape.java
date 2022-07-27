@@ -51,9 +51,15 @@ public abstract class DlgSurfaceShape extends DlgShape{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				fillColor = JColorChooser.showDialog(getContentPane(), "Choose fill color", fillColor);
-				btnFillColor.setBackground(fillColor);
+				txtFillColor.setBackground(fillColor);
 			}
 		});
+	}
+	
+	
+
+	public JButton getBtnFillColor() {
+		return btnFillColor;
 	}
 
 	public Color getFillColor() {
@@ -63,4 +69,10 @@ public abstract class DlgSurfaceShape extends DlgShape{
 	public void setFillColor(Color fillColor) {
 		this.fillColor = fillColor;
 	}
+
+	public TextField getTxtFillColor() {
+		return txtFillColor;
+	}
+	
+	
 }

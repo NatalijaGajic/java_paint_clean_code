@@ -40,7 +40,10 @@ public class DlgPoint extends DlgShape {
 		if(shape instanceof Point) {
 			Point point = (Point) shape;
 			setCreateDialogFields(point);
-			getTxtBorderColor().setBackground(point.getColor());
+			
+			Color borderColor = point.getColor();
+			getTxtBorderColor().setBackground(borderColor);
+			setBorderColor(borderColor);
 		}
 	}
 

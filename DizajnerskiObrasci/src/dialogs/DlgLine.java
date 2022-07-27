@@ -107,19 +107,17 @@ public class DlgLine extends DlgShape{
 			Line line = (Line) shape;
 			Point startPoint = line.getStartPoint();
 			Point endPoint = line.getEndPoint();
-
 			
 			setCreateDialogFields(startPoint);
 			
-			int endX = endPoint.getX();
-			int endY = endPoint.getY();
-			String endXString = String.valueOf(endX);
-			String endYString = String.valueOf(endY);
+			String endXString = String.valueOf(endPoint.getX());
+			String endYString = String.valueOf(endPoint.getY());
 			this.txtEndPointXCoord.setText(endXString);
 			this.txtEndPointYCoord.setText(endYString);
 			
 			Color borderColor = line.getColor();
 			getTxtBorderColor().setBackground(borderColor);
+			setBorderColor(borderColor);
 		}
 		
 	}
