@@ -34,8 +34,9 @@ public abstract class DlgSurfaceShape extends DlgShape{
 		gbc_btnFillColor.gridy = 3;
 		getContentPanel().add(btnFillColor, gbc_btnFillColor);
 		
-		txtFillColor.setBackground(Color.WHITE);
+		
 		txtFillColor.setEditable(false);
+		txtFillColor.setBackground(Color.WHITE);
 		GridBagConstraints gbc_txtFillColor = new GridBagConstraints();
 		gbc_txtFillColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFillColor.insets = new Insets(0, 0, 5, 0);
