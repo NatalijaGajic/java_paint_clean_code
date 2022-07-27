@@ -1,4 +1,4 @@
-package modification;
+package dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry.Circle;
+import geometry.Donut;
 import geometry.Point;
 
 import javax.swing.JLabel;
@@ -20,17 +20,17 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DlgChangeCircle extends JDialog {
+public class DlgDonut extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtCX;
-	private JTextField txtCY;
-	private JTextField txtRadius;
-	private Circle circle=new Circle();
+	private JTextField txtCeX;
+	private JTextField txtCeY;
+	private JTextField txtRad;
+	private JTextField txtIRad;
+	private Donut donut = new Donut();
 	private JPanel edgeColor = new JPanel();
 	private JPanel innerColor = new JPanel();
 
@@ -39,7 +39,7 @@ public class DlgChangeCircle extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgChangeCircle dialog = new DlgChangeCircle();
+			DlgDonut dialog = new DlgDonut();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -50,9 +50,9 @@ public class DlgChangeCircle extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgChangeCircle() {
+	public DlgDonut() {
 		setModal(true);
-		setBounds(100, 100, 274, 300);
+		setBounds(100, 100, 313, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -61,18 +61,18 @@ public class DlgChangeCircle extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.NORTH);
 			{
-				JLabel lblEditCircle = new JLabel("Edit Circle");
-				panel.add(lblEditCircle);
+				JLabel lblEditDonut = new JLabel("Edit Donut");
+				panel.add(lblEditDonut);
 			}
 		}
 		{
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{86, 100, 0, 0};
-			gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+			gbl_panel.columnWidths = new int[]{97, 0, 0, 0};
+			gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			{
 				JLabel lblCenterX = new JLabel("Center X:");
@@ -84,15 +84,15 @@ public class DlgChangeCircle extends JDialog {
 				panel.add(lblCenterX, gbc_lblCenterX);
 			}
 			{
-				txtCX = new JTextField();
-				GridBagConstraints gbc_txtCX = new GridBagConstraints();
-				gbc_txtCX.gridwidth = 2;
-				gbc_txtCX.insets = new Insets(0, 0, 5, 5);
-				gbc_txtCX.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtCX.gridx = 1;
-				gbc_txtCX.gridy = 0;
-				panel.add(txtCX, gbc_txtCX);
-				txtCX.setColumns(10);
+				txtCeX = new JTextField();
+				GridBagConstraints gbc_txtCeX = new GridBagConstraints();
+				gbc_txtCeX.gridwidth = 2;
+				gbc_txtCeX.insets = new Insets(0, 0, 5, 5);
+				gbc_txtCeX.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtCeX.gridx = 1;
+				gbc_txtCeX.gridy = 0;
+				panel.add(txtCeX, gbc_txtCeX);
+				txtCeX.setColumns(10);
 			}
 			{
 				JLabel lblCenterY = new JLabel("Center Y:");
@@ -104,15 +104,15 @@ public class DlgChangeCircle extends JDialog {
 				panel.add(lblCenterY, gbc_lblCenterY);
 			}
 			{
-				txtCY = new JTextField();
-				GridBagConstraints gbc_txtCY = new GridBagConstraints();
-				gbc_txtCY.gridwidth = 2;
-				gbc_txtCY.insets = new Insets(0, 0, 5, 5);
-				gbc_txtCY.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtCY.gridx = 1;
-				gbc_txtCY.gridy = 1;
-				panel.add(txtCY, gbc_txtCY);
-				txtCY.setColumns(10);
+				txtCeY = new JTextField();
+				GridBagConstraints gbc_txtCeY = new GridBagConstraints();
+				gbc_txtCeY.gridwidth = 2;
+				gbc_txtCeY.insets = new Insets(0, 0, 5, 5);
+				gbc_txtCeY.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtCeY.gridx = 1;
+				gbc_txtCeY.gridy = 1;
+				panel.add(txtCeY, gbc_txtCeY);
+				txtCeY.setColumns(10);
 			}
 			{
 				JLabel lblRadius = new JLabel("Radius:");
@@ -124,15 +124,35 @@ public class DlgChangeCircle extends JDialog {
 				panel.add(lblRadius, gbc_lblRadius);
 			}
 			{
-				txtRadius = new JTextField();
-				GridBagConstraints gbc_txtRadius = new GridBagConstraints();
-				gbc_txtRadius.gridwidth = 2;
-				gbc_txtRadius.insets = new Insets(0, 0, 5, 5);
-				gbc_txtRadius.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtRadius.gridx = 1;
-				gbc_txtRadius.gridy = 2;
-				panel.add(txtRadius, gbc_txtRadius);
-				txtRadius.setColumns(10);
+				txtRad = new JTextField();
+				GridBagConstraints gbc_txtRad = new GridBagConstraints();
+				gbc_txtRad.gridwidth = 2;
+				gbc_txtRad.insets = new Insets(0, 0, 5, 5);
+				gbc_txtRad.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtRad.gridx = 1;
+				gbc_txtRad.gridy = 2;
+				panel.add(txtRad, gbc_txtRad);
+				txtRad.setColumns(10);
+			}
+			{
+				JLabel lblInnerRadius = new JLabel("Inner Radius:");
+				GridBagConstraints gbc_lblInnerRadius = new GridBagConstraints();
+				gbc_lblInnerRadius.anchor = GridBagConstraints.EAST;
+				gbc_lblInnerRadius.insets = new Insets(0, 0, 5, 5);
+				gbc_lblInnerRadius.gridx = 0;
+				gbc_lblInnerRadius.gridy = 3;
+				panel.add(lblInnerRadius, gbc_lblInnerRadius);
+			}
+			{
+				txtIRad = new JTextField();
+				GridBagConstraints gbc_txtIRad = new GridBagConstraints();
+				gbc_txtIRad.gridwidth = 2;
+				gbc_txtIRad.insets = new Insets(0, 0, 5, 5);
+				gbc_txtIRad.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtIRad.gridx = 1;
+				gbc_txtIRad.gridy = 3;
+				panel.add(txtIRad, gbc_txtIRad);
+				txtIRad.setColumns(10);
 			}
 			{
 				JLabel lblEdgeColor = new JLabel("Edge Color:");
@@ -140,24 +160,25 @@ public class DlgChangeCircle extends JDialog {
 				gbc_lblEdgeColor.anchor = GridBagConstraints.EAST;
 				gbc_lblEdgeColor.insets = new Insets(0, 0, 5, 5);
 				gbc_lblEdgeColor.gridx = 0;
-				gbc_lblEdgeColor.gridy = 3;
+				gbc_lblEdgeColor.gridy = 4;
 				panel.add(lblEdgeColor, gbc_lblEdgeColor);
 			}
 			{
 				JButton btnChooseColor = new JButton("Choose Color");
 				btnChooseColor.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Color color=JColorChooser.showDialog(null, "Choose edge color", circle.getColor());
+						Color color=JColorChooser.showDialog(null, "Choose edge color", donut.getColor());
 						if(color!=null) {
-							circle.setColor(color);
+							donut.setColor(color);
 							edgeColor.setBackground(color);
 						}
 					}
 				});
 				GridBagConstraints gbc_btnChooseColor = new GridBagConstraints();
+				gbc_btnChooseColor.anchor = GridBagConstraints.WEST;
 				gbc_btnChooseColor.insets = new Insets(0, 0, 5, 5);
 				gbc_btnChooseColor.gridx = 1;
-				gbc_btnChooseColor.gridy = 3;
+				gbc_btnChooseColor.gridy = 4;
 				panel.add(btnChooseColor, gbc_btnChooseColor);
 			}
 			{
@@ -166,7 +187,7 @@ public class DlgChangeCircle extends JDialog {
 				gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 				gbc_panel_1.fill = GridBagConstraints.BOTH;
 				gbc_panel_1.gridx = 2;
-				gbc_panel_1.gridy = 3;
+				gbc_panel_1.gridy = 4;
 				panel.add(panel_1, gbc_panel_1);
 				{
 					
@@ -179,24 +200,25 @@ public class DlgChangeCircle extends JDialog {
 				gbc_lblInnerColor.anchor = GridBagConstraints.EAST;
 				gbc_lblInnerColor.insets = new Insets(0, 0, 0, 5);
 				gbc_lblInnerColor.gridx = 0;
-				gbc_lblInnerColor.gridy = 4;
+				gbc_lblInnerColor.gridy = 5;
 				panel.add(lblInnerColor, gbc_lblInnerColor);
 			}
 			{
 				JButton btnChooseColor_1 = new JButton("Choose Color");
 				btnChooseColor_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Color color=JColorChooser.showDialog(null, "Choose inner color", circle.getInnerColor());
+						Color color=JColorChooser.showDialog(null, "Choose inner color", donut.getInnerColor());
 						if(color!=null) {
-							circle.setInnerColor(color);
-							innerColor.setBackground(circle.getInnerColor());
+							donut.setInnerColor(color);
+							innerColor.setBackground(donut.getInnerColor());
 						}
 					}
 				});
 				GridBagConstraints gbc_btnChooseColor_1 = new GridBagConstraints();
 				gbc_btnChooseColor_1.insets = new Insets(0, 0, 0, 5);
+				gbc_btnChooseColor_1.anchor = GridBagConstraints.WEST;
 				gbc_btnChooseColor_1.gridx = 1;
-				gbc_btnChooseColor_1.gridy = 4;
+				gbc_btnChooseColor_1.gridy = 5;
 				panel.add(btnChooseColor_1, gbc_btnChooseColor_1);
 			}
 			{
@@ -204,7 +226,7 @@ public class DlgChangeCircle extends JDialog {
 				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 				gbc_panel_1.fill = GridBagConstraints.BOTH;
 				gbc_panel_1.gridx = 2;
-				gbc_panel_1.gridy = 4;
+				gbc_panel_1.gridy = 5;
 				panel.add(panel_1, gbc_panel_1);
 				{
 					
@@ -220,22 +242,24 @@ public class DlgChangeCircle extends JDialog {
 				JButton okButton = new JButton("Confirm");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						String[]options= {"OK"};
 						try {
-							int corX=Integer.parseInt(txtCX.getText());
-							int corY=Integer.parseInt(txtCY.getText());
-							int radius=Integer.parseInt(txtRadius.getText());
-							if(corX<1||corY<1||radius<1) {
+							int cX=Integer.parseInt(txtCeX.getText());
+							int cY=Integer.parseInt(txtCeY.getText());
+							int radiusA=Integer.parseInt(txtRad.getText());
+							int innerRad=Integer.parseInt(txtIRad.getText());
+							if(cX<1||cY<1||radiusA<1||innerRad<1) {
 								JOptionPane.showOptionDialog(null, "Invalid input.", "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 								return;
 							}
-							circle.setCenter(new Point(corX, corY));
-							circle.setRadius(radius);
+							donut.setCenter(new Point(cX, cY));
+							donut.setRadius(radiusA);
+							donut.setInnerRadius(innerRad);
 							dispose();
 						} catch(Exception e1) {
 							JOptionPane.showOptionDialog(null, "Invalid input.", "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 						}
-						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -246,7 +270,7 @@ public class DlgChangeCircle extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						circle=null;
+						donut=null;
 						dispose();
 					}
 				});
@@ -256,17 +280,19 @@ public class DlgChangeCircle extends JDialog {
 		}
 	}
 	
-	public Circle getNewCircle() {
-		return circle;
+	public Donut getNewDonut() {
+		return donut;
 	}
 	
-	public void setNewCircle(Circle circle) {
-		this.circle=circle;
-		txtCX.setText("" + circle.getCenter().getX());
-		txtCY.setText("" + circle.getCenter().getY());
-		txtRadius.setText("" + circle.getRadius());
-		edgeColor.setBackground(circle.getColor());
-		innerColor.setBackground(circle.getInnerColor());
+	public void setNewDonut(Donut donut) {
+		this.donut=donut;
+		txtCeX.setText("" + donut.getCenter().getX());
+		txtCeY.setText("" + donut.getCenter().getY());
+		txtRad.setText("" + donut.getRadius());
+		txtIRad.setText("" + donut.getInnerRadius());
+		edgeColor.setBackground(donut.getColor());
+		innerColor.setBackground(donut.getInnerColor());
 	}
+
 
 }

@@ -1,4 +1,4 @@
-package modification;
+package dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,7 +23,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DlgChangeLine extends JDialog {
+public class DlgLine extends JDialog{
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX1;
@@ -38,7 +38,7 @@ public class DlgChangeLine extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgChangeLine dialog = new DlgChangeLine();
+			DlgLine dialog = new DlgLine();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public class DlgChangeLine extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgChangeLine() {
+	public DlgLine() {
 		setModal(true);
 		setBounds(100, 100, 263, 300);
 		getContentPane().setLayout(new BorderLayout());

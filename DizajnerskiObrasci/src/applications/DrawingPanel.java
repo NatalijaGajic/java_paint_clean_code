@@ -4,23 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import dialogues.DlgCircleDraw;
-import dialogues.DlgDonutDraw;
-import dialogues.DlgRectangleDraw;
-import geometry.Circle;
-import geometry.Donut;
-import geometry.DrawingModel;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
-import geometry.Shape;
+import dialogs.*;
+import geometry.*;
 
 public class DrawingPanel extends JPanel{
 	
@@ -77,20 +66,20 @@ public class DrawingPanel extends JPanel{
 					startPoint=null;
 				}
 			}else if (frame.getTglbtnRectangle().isSelected()) {
-				DlgRectangleDraw dlg=new DlgRectangleDraw();
+				DlgRectangle dlg=new DlgRectangle();
 				dlg.setVisible(true);
-					model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), frame.getActiveColor(), frame.getActiveInnerColor()));
+					//model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), frame.getActiveColor(), frame.getActiveInnerColor()));
 	
 			}else if (frame.getTglbtnCircle().isSelected()) {
-				DlgCircleDraw dlg=new DlgCircleDraw();
+				DlgCircle dlg=new DlgCircle();
 				dlg.setVisible(true);
-				model.add(new Circle(new Point(x, y),dlg.getRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
+				//model.add(new Circle(new Point(x, y),dlg.getRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
 				
 			} else if (frame.getTglbtnDonut().isSelected()) {
-				DlgDonutDraw dlg = new DlgDonutDraw();
+				DlgDonut dlg = new DlgDonut();
 				dlg.setVisible(true);
 				
-				model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
+				//model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
 		
 			}
 		}
