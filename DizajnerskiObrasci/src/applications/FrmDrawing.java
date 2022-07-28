@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -15,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import dialogues.DlgCircleDraw;
+import dialogues.DlgDonutDraw;
+import dialogues.DlgRectangleDraw;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.DrawingModel;
@@ -51,11 +57,15 @@ public class FrmDrawing extends JFrame {
 	private final ButtonGroup btnShapes = new ButtonGroup();
 	private final ButtonGroup btnMode = new ButtonGroup();
 
-	private DrawingPanel view = new DrawingPanel(this);
+	private DrawingPanel view = new DrawingPanel();
 	private DrawingModel model = new DrawingModel();
 
 	private Color activeEdgeColor = Color.BLACK;
 	private Color activeInnerColor = Color.WHITE;
+	
+	private Point startPoint;
+	private Shape selected;
+	
 
 	/**
 	 * Launch the application.
@@ -101,6 +111,7 @@ public class FrmDrawing extends JFrame {
 		addBtnModifyListener();
 		addBtnDeleteListener();
 		addBtnExitListener();
+		addViewListener();
 		buildFrame();
 		
 		view.setModel(model);
@@ -189,7 +200,6 @@ public class FrmDrawing extends JFrame {
 		btnModify.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Shape selected = view.getSelected();
 				if (selected != null) {
 					if (selected instanceof Point) {
 						Point point = (Point) selected;
@@ -233,7 +243,6 @@ public class FrmDrawing extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] options = { "Yes", "No" };
-				Shape selected = view.getSelected();
 				if (selected != null) {
 					int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
 							JOptionPane.ERROR_MESSAGE, null, options, options[0]);
@@ -254,6 +263,66 @@ public class FrmDrawing extends JFrame {
 			}
 		});
 	}
+	
+	private void addViewListener() {
+		view.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				thisMouseClicked(arg0);
+			}
+		});
+	}
+	
+	protected void thisMouseClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		
+		if(tglbtnSelect.isSelected()) {
+			selected = null;
+			Iterator<Shape> it = model.getShapes().iterator();
+			while(it.hasNext()) {
+				Shape shape = it.next();
+				shape.setSelected(false);
+				if(shape.contains(e.getX(), e.getY()))
+					selected = shape;
+			}
+			
+			if (selected != null) {
+				selected.setSelected(true);
+			}
+			
+		} else if (tglbtnDraw.isSelected()) {
+			Iterator<Shape> it = model.getShapes().iterator();
+			while(it.hasNext()) {
+				Shape shape = it.next();
+				shape.setSelected(false);
+			}
+			
+			if (tglbtnPoint.isSelected()) {
+				model.add(new Point(x, y, this.getActiveEdgeColor()));
+			} else if (tglbtnLine.isSelected()) {
+				if (startPoint == null)
+					startPoint = new Point(x, y);
+				else {
+					model.add(new Line(startPoint, new Point(x, y), this.getActiveEdgeColor()));
+					startPoint = null;
+				}
+			} else if (tglbtnRectangle.isSelected()) {
+				DlgRectangleDraw dlg = new DlgRectangleDraw();
+				dlg.setVisible(true);
+				model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+			} else if (tglbtnCircle.isSelected()) {
+				DlgCircleDraw dlg = new DlgCircleDraw();
+				dlg.setVisible(true);
+				model.add(new Circle(new Point(x, y),dlg.getRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+			} else if (tglbtnDonut.isSelected()) {
+				DlgDonutDraw dlg = new DlgDonutDraw();
+				dlg.setVisible(true);
+				model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+			}
+		}
+		repaint();
+	}
+		
 	
 
 	public JToggleButton getTglbtnSelect() {
