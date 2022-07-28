@@ -153,8 +153,8 @@ public class Rectangle extends SurfaceShape {
 	}
 	
 	public String toString() {
-		return "Gore levo: " + getUpperLeftPoint() + ", visina: " 
-				+ getHeight() + ", sirina: " + getWidth();
+		return "Upper left point: " + getUpperLeftPoint() + ", height: " 
+				+ getHeight() + ", width: " + getWidth();
 	}
 
 	@Override
