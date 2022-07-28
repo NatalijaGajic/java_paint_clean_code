@@ -48,24 +48,29 @@ public class DlgCircle extends DlgSurfaceShape {
 	public DlgCircle() {
 		lblRadius = new JLabel("Radius:");
 		txtRadius = new JTextField();
-		addToDialog();
+		addToDlgSurfaceShapeDialog();
 	}
 	
-	private void addToDialog() {
-		GridBagConstraints gbc_lblRadius = new GridBagConstraints();
-		gbc_lblRadius.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRadius.gridx = 1;
-		gbc_lblRadius.gridy = 4;
-		getContentPanel().add(lblRadius, gbc_lblRadius);
-		
-		GridBagConstraints gbc_txtRadius = new GridBagConstraints();
-		gbc_txtRadius.insets = new Insets(0, 0, 5, 5);
-		gbc_txtRadius.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtRadius.gridx = 5;
-		gbc_txtRadius.gridy = 4;
-		getContentPanel().add(txtRadius, gbc_txtRadius);
-		txtRadius.setColumns(12);
-		txtRadius.addKeyListener(getInputListener());
+	private void addToDlgSurfaceShapeDialog() {
+		{
+			GridBagConstraints gbc_lblRadius = new GridBagConstraints();
+			gbc_lblRadius.anchor = GridBagConstraints.EAST;
+			gbc_lblRadius.insets = new Insets(0, 0, 5, 5);
+			gbc_lblRadius.gridx = 0;
+			gbc_lblRadius.gridy = 2;
+			getPanel().add(lblRadius, gbc_lblRadius);
+		}
+		{
+			GridBagConstraints gbc_txtRadius = new GridBagConstraints();
+			gbc_txtRadius.gridwidth = 2;
+			gbc_txtRadius.insets = new Insets(0, 0, 5, 5);
+			gbc_txtRadius.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtRadius.gridx = 1;
+			gbc_txtRadius.gridy = 2;
+			getPanel().add(txtRadius, gbc_txtRadius);
+			txtRadius.setColumns(10);
+			txtRadius.addKeyListener(getInputListener());
+		}
 	}
 
 	@Override
@@ -100,13 +105,13 @@ public class DlgCircle extends DlgSurfaceShape {
 			String radius = String.valueOf(circle.getRadius());
 			txtRadius.setText(radius);
 			
-			Color borderColor = circle.getColor();
-			getTxtBorderColor().setBackground(borderColor);
-			setBorderColor(borderColor);
+			Color edgeColor = circle.getColor();
+			getPnlEdgeColor().setBackground(edgeColor);
+			setEdgeColor(edgeColor);
 			
 			Color innerColor = circle.getInnerColor();
-			getTxtFillColor().setBackground(innerColor);
-			setFillColor(innerColor);
+			getPnlInnerColor().setBackground(innerColor);
+			setInnerColor(innerColor);
 					
 		}
 		
@@ -120,10 +125,10 @@ public class DlgCircle extends DlgSurfaceShape {
 		Point center = new Point(centerX, centerY);
 		
 		int radius = Integer.parseInt(txtRadius.getText());
-		Color borderColor = getBorderColor();
-		Color innerColor = getFillColor();
+		Color edgeColor = getEdgeColor();
+		Color innerColor = getInnerColor();
 		
-		return new Circle(center, radius, borderColor, innerColor);
+		return new Circle(center, radius, edgeColor, innerColor);
 		
 	}
 

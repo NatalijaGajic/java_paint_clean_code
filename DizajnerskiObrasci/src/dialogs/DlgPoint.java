@@ -46,18 +46,18 @@ public class DlgPoint extends DlgShape {
 			String yCoord = String.valueOf(point.getY());
 			getTxtYCoord().setText(yCoord);	
 			
-			Color borderColor = point.getColor();
-			getTxtBorderColor().setBackground(borderColor);
-			setBorderColor(borderColor);
+			Color edgeColor = point.getColor();
+			getPnlEdgeColor().setBackground(edgeColor);
+			setEdgeColor(edgeColor);
 		}
 	}
 
 	public Shape getShapeFromDialog() {
 		int x = Integer.parseInt(getTxtXCoord().getText());
 		int y = Integer.parseInt( getTxtYCoord().getText());	
-		Color borderColor = getBorderColor();
+		Color edgeColor = getEdgeColor();
 		
-		return new Point(x, y, borderColor);	
+		return new Point(x, y, edgeColor);	
 	}
 	
 

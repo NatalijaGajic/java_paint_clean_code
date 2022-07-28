@@ -3,77 +3,97 @@ package dialogs;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import geometry.Point;
 
 public abstract class DlgSurfaceShape extends DlgShape{
 
-	private Color fillColor;
-	private JButton btnFillColor;
-	private TextField txtFillColor;
-
+	private JPanel pnlInnerColor;
+	private JLabel lblInnerColor;
+	private JButton btnInnerColor;
+	private Color innerColor;
+	
+	
 	public DlgSurfaceShape() {
-		fillColor = Color.WHITE;
-		txtFillColor = new TextField();
-		btnFillColor = new JButton("Fill color");
-		addBtnFillColorListener();
-		addToDialog();
-	}
-	
-	private void addToDialog() {
-		GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
-		gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnFillColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnFillColor.gridx = 1;
-		gbc_btnFillColor.gridy = 3;
-		getContentPanel().add(btnFillColor, gbc_btnFillColor);
 		
-		
-		txtFillColor.setEditable(false);
-		txtFillColor.setBackground(Color.WHITE);
-		GridBagConstraints gbc_txtFillColor = new GridBagConstraints();
-		gbc_txtFillColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFillColor.insets = new Insets(0, 0, 5, 0);
-		gbc_txtFillColor.gridx = 5;
-		gbc_txtFillColor.gridy = 3;
-		getContentPanel().add(txtFillColor, gbc_txtFillColor);
-		txtFillColor.setColumns(12);
+		pnlInnerColor = new JPanel();
+		lblInnerColor = new JLabel("Inner Color:");
+		btnInnerColor = new JButton("Choose color");
+		addBtnInnerColorListener();
+		addToShapeDialog();
 	}
+
 	
 
-	private void addBtnFillColorListener() {
-		btnFillColor.addActionListener(new ActionListener() {
+	public void addToShapeDialog() {
+		{
+			GridBagConstraints gbc_lblInnerColor = new GridBagConstraints();
+			gbc_lblInnerColor.anchor = GridBagConstraints.EAST;
+			gbc_lblInnerColor.insets = new Insets(0, 0, 0, 5);
+			gbc_lblInnerColor.gridx = 0;
+			gbc_lblInnerColor.gridy = 5;
+			getPanel().add(lblInnerColor, gbc_lblInnerColor);
+		}
+		{
+			
+			GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
+			gbc_btnInnerColor.insets = new Insets(0, 0, 0, 5);
+			gbc_btnInnerColor.anchor = GridBagConstraints.WEST;
+			gbc_btnInnerColor.gridx = 1;
+			gbc_btnInnerColor.gridy = 5;
+			getPanel().add(btnInnerColor, gbc_btnInnerColor);
+		}
+		{
+			JPanel panel_1 = new JPanel();
+			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+			gbc_panel_1.fill = GridBagConstraints.BOTH;
+			gbc_panel_1.gridx = 2;
+			gbc_panel_1.gridy = 5;
+			getPanel().add(panel_1, gbc_panel_1);
+			{
+				
+				panel_1.add(pnlInnerColor);
+			}
+		}
+		
+	}
+
+	
+	private void addBtnInnerColorListener() {
+		
+		btnInnerColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				fillColor = JColorChooser.showDialog(getContentPane(), "Choose fill color", fillColor);
-				txtFillColor.setBackground(fillColor);
+				innerColor = JColorChooser.showDialog(getContentPane(), "Choose inner color", innerColor);
+				pnlInnerColor.setBackground(innerColor);
 			}
 		});
 	}
 	
+
+	public JButton getBtnInnerColor() {
+		return btnInnerColor;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+
+	public JPanel getPnlInnerColor() {
+		return pnlInnerColor;
+	}
 	
-
-	public JButton getBtnFillColor() {
-		return btnFillColor;
-	}
-
-	public Color getFillColor() {
-		return fillColor;
-	}
-
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
-	}
-
-	public TextField getTxtFillColor() {
-		return txtFillColor;
-	}
+	
 	
 	
 }

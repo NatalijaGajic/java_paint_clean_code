@@ -21,15 +21,15 @@ class DlgRectangleTests {
 	}
 
 	@Test
-	public void testBtnBorderColorClicked() {
-		dialogRectangle.getBtnBorderColor().doClick();
-		assertEquals(dialogRectangle.getBorderColor(), dialogRectangle.getTxtBorderColor().getBackground());
+	public void testBtnEdgeColorClicked() {
+		dialogRectangle.getBtnEdgeColor().doClick();
+		assertEquals(dialogRectangle.getEdgeColor(), dialogRectangle.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnFillColorClicked() {
-		dialogRectangle.getBtnFillColor().doClick();
-		assertEquals(dialogRectangle.getFillColor(), dialogRectangle.getTxtFillColor().getBackground());
+	public void testBtnInnerColorClicked() {
+		dialogRectangle.getBtnInnerColor().doClick();
+		assertEquals(dialogRectangle.getInnerColor(), dialogRectangle.getPnlInnerColor().getBackground());
 	}
 
 	@Test
@@ -79,8 +79,8 @@ class DlgRectangleTests {
 		dialogRectangle.getTxtYCoord().setText("2");
 		dialogRectangle.getTxtWidth().setText("3");
 		dialogRectangle.getTxtHeight().setText("4");
-		dialogRectangle.setBorderColor(Color.GREEN);
-		dialogRectangle.setFillColor(Color.BLUE);
+		dialogRectangle.setEdgeColor(Color.GREEN);
+		dialogRectangle.setInnerColor(Color.BLUE);
 		Rectangle expected = new Rectangle(new Point(1,2), 4, 3, Color.GREEN, Color.BLUE);
 		Rectangle actual = (Rectangle)dialogRectangle.getShapeFromDialog();
 		assertEquals(expected, actual);

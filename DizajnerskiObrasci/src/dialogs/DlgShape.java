@@ -27,8 +27,10 @@ import javax.swing.JOptionPane;
 public abstract class DlgShape extends JDialog implements Dialog {
 	
 	private JPanel contentPanel;
-	private JPanel btnPanel;
-	private Color borderColor;
+	private JPanel pnlEdgeColor;
+	private JPanel pnlButton; 
+	private JPanel panel;
+	private Color edgeColor;
 	private JButton btnOk;
 	private JButton btnCancel;
 	private KeyAdapter inputListener;
@@ -37,25 +39,34 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	private JLabel lblYCoord;
 	private JTextField txtXCoord;
 	private JTextField txtYCoord;
-	private JButton btnBorderColor;
-	private JTextField txtBorderColor;
+	private JButton btnEdgeColor;
+
+
+	/**
+	 * Create the dialog.
+	 */
+
 
 	public DlgShape() {
+		
 		contentPanel = new JPanel();
+		pnlEdgeColor = new JPanel();
+		pnlButton = new JPanel();
+		panel = new JPanel();
 		lblXCoord = new JLabel("X coordinate:");
 		txtXCoord = new JTextField();
 		lblYCoord = new JLabel("Y coordinate:");
 		txtYCoord = new JTextField();
-		btnBorderColor = new JButton("Border color");
-		txtBorderColor = new JTextField();
+		btnEdgeColor = new JButton("Choose color");
 		btnOk = new JButton("OK");
 		btnCancel = new JButton("Cancel");
-		borderColor = Color.BLACK;
+		edgeColor = Color.BLACK;
 		initializeCharListener();
 		buildDialog();
-		addBtnBorderColorListener();
+		addBtnEdgeColorListener();
 		addBtnOkListener();
 		addBtnCancelListener();
+		
 	}
 
 	private void initializeCharListener() {
@@ -82,90 +93,120 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	}
 
 	public void buildDialog() {
+		
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 354, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		
-		btnPanel = new JPanel();
-		btnPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(btnPanel, BorderLayout.SOUTH);
+		contentPanel.add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{104, 145, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
+		{
+			
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 0;
+			panel.add(lblXCoord, gbc_lblXCoord);
+			
+		}
+		{
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.gridwidth = 2;
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 0;
+			panel.add(txtXCoord, gbc_txtXCoord);
+			txtXCoord.setColumns(10);
+			txtXCoord.addKeyListener(inputListener);
+			
+		}
+		{
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 1;
+			panel.add(lblYCoord, gbc_lblYCoord);
+			
+		}
+		{
+			
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.gridwidth = 2;
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 1;
+			panel.add(txtYCoord, gbc_txtYCoord);
+			txtYCoord.setColumns(10);
+			txtYCoord.addKeyListener(inputListener);
+			
+		}
+		{
+			JLabel lblEdgeColor = new JLabel("Edge Color:");
+			GridBagConstraints gbc_lblEdgeColor = new GridBagConstraints();
+			gbc_lblEdgeColor.anchor = GridBagConstraints.EAST;
+			gbc_lblEdgeColor.insets = new Insets(0, 0, 5, 5);
+			gbc_lblEdgeColor.gridx = 0;
+			gbc_lblEdgeColor.gridy = 4;
+			panel.add(lblEdgeColor, gbc_lblEdgeColor);
+		}
+		{
+			
+			GridBagConstraints gbc_btnEdgeColor = new GridBagConstraints();
+			gbc_btnEdgeColor.anchor = GridBagConstraints.WEST;
+			gbc_btnEdgeColor.insets = new Insets(0, 0, 5, 5);
+			gbc_btnEdgeColor.gridx = 1;
+			gbc_btnEdgeColor.gridy = 4;
+			panel.add(btnEdgeColor, gbc_btnEdgeColor);
+			
+		}
+		{
+			JPanel panel_1 = new JPanel();
+			GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+			gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+			gbc_panel_1.fill = GridBagConstraints.BOTH;
+			gbc_panel_1.gridx = 2;
+			gbc_panel_1.gridy = 4;
+			panel.add(panel_1, gbc_panel_1);
+			{
+				panel_1.add(pnlEdgeColor);
+			}
+		}
 		
-		GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
-		gbc_lblXCoord.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
-		gbc_lblXCoord.gridx = 1;
-		gbc_lblXCoord.gridy = 0;
-		contentPanel.add(lblXCoord, gbc_lblXCoord);
-		
-		GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
-		gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
-		gbc_txtXCoord.gridx = 5;
-		gbc_txtXCoord.gridy = 0;
-		contentPanel.add(txtXCoord, gbc_txtXCoord);
-		txtXCoord.setColumns(12);
-		txtXCoord.addKeyListener(inputListener);
-		
-		GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
-		gbc_lblYCoord.fill = GridBagConstraints.BOTH;
-		gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
-		gbc_lblYCoord.gridx = 1;
-		gbc_lblYCoord.gridy = 1;
-		contentPanel.add(lblYCoord, gbc_lblYCoord);
-		
-		GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
-		gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
-		gbc_txtYCoord.gridx = 5;
-		gbc_txtYCoord.gridy = 1;
-		contentPanel.add(txtYCoord, gbc_txtYCoord);
-		txtYCoord.setColumns(12);
-		txtYCoord.addKeyListener(inputListener);
-		
-		GridBagConstraints gbc_btnBorderColor = new GridBagConstraints();
-		gbc_btnBorderColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnBorderColor.insets = new Insets(0, 0, 0, 5);
-		gbc_btnBorderColor.gridx = 1;
-		gbc_btnBorderColor.gridy = 2;
-		contentPanel.add(btnBorderColor, gbc_btnBorderColor);
-		
-		txtBorderColor.setEditable(false);
-		txtBorderColor.setBackground(Color.BLACK);
-		GridBagConstraints gbc_txtBorderColor = new GridBagConstraints();
-		gbc_txtBorderColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtBorderColor.gridx = 5;
-		gbc_txtBorderColor.gridy = 2;
-		contentPanel.add(txtBorderColor, gbc_txtBorderColor);
-		txtBorderColor.setColumns(12);
+		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(pnlButton, BorderLayout.SOUTH);
 
 		btnOk.setActionCommand("OK");
-		btnPanel.add(btnOk);
+		pnlButton.add(btnOk);
 		getRootPane().setDefaultButton(btnOk);
 
 		btnCancel.setActionCommand("Cancel");
-		btnPanel.add(btnCancel);
+		pnlButton.add(btnCancel);
 		
 	}
 
-	private void addBtnBorderColorListener() {
-		btnBorderColor.addActionListener(new ActionListener() {
+	private void addBtnEdgeColorListener() {
+		btnEdgeColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				borderColor = JColorChooser.showDialog(getContentPane(), "Choose border color", borderColor);
-				txtBorderColor.setBackground(borderColor);
+				edgeColor = JColorChooser.showDialog(getContentPane(), "Choose edge color", edgeColor);
+				pnlEdgeColor.setBackground(edgeColor);
 			}
 		});
 	}
-
+	
 	private void addBtnOkListener() {
 		btnOk.addActionListener(new ActionListener() {
 			@Override
@@ -211,12 +252,12 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		return inputListener;
 	}
 
-	public Color getBorderColor() {
-		return borderColor;
+	public Color getEdgeColor() {
+		return edgeColor;
 	}
 
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
+	public void setEdgeColor(Color edgeColor) {
+		this.edgeColor = edgeColor;
 	}
 
 	public boolean isAccepted() {
@@ -243,18 +284,6 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		this.txtYCoord = txtYCoord;
 	}
 
-	public JTextField getTxtBorderColor() {
-		return txtBorderColor;
-	}
-
-	public void setTxtBorderColor(JTextField txtBorderColor) {
-		this.txtBorderColor = txtBorderColor;
-	}
-
-	public JButton getBtnBorderColor() {
-		return btnBorderColor;
-	}
-
 	public JButton getBtnOk() {
 		return btnOk;
 	}
@@ -262,6 +291,19 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	public JButton getBtnCancel() {
 		return btnCancel;
 	}
+
+	public JPanel getPnlEdgeColor() {
+		return pnlEdgeColor;
+	}
+
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public JButton getBtnEdgeColor() {
+		return btnEdgeColor;
+	}
+	
 	
 	
 	

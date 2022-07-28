@@ -21,15 +21,15 @@ class DlgCircleTests {
 	}
 
 	@Test
-	public void testBtnBorderColorClicked() {
-		dialogCircle.getBtnBorderColor().doClick();
-		assertEquals(dialogCircle.getBorderColor(), dialogCircle.getTxtBorderColor().getBackground());
+	public void testBtnEdgeColorClicked() {
+		dialogCircle.getBtnEdgeColor().doClick();
+		assertEquals(dialogCircle.getEdgeColor(), dialogCircle.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnFillColorClicked() {
-		dialogCircle.getBtnFillColor().doClick();
-		assertEquals(dialogCircle.getFillColor(), dialogCircle.getTxtFillColor().getBackground());
+	public void testBtnInnerColorClicked() {
+		dialogCircle.getBtnInnerColor().doClick();
+		assertEquals(dialogCircle.getInnerColor(), dialogCircle.getPnlInnerColor().getBackground());
 	}
 
 	@Test
@@ -64,8 +64,8 @@ class DlgCircleTests {
 		dialogCircle.getTxtXCoord().setText("1");
 		dialogCircle.getTxtYCoord().setText("2");
 		dialogCircle.getTxtRadius().setText("3");
-		dialogCircle.setBorderColor(Color.GREEN);
-		dialogCircle.setFillColor(Color.BLUE);
+		dialogCircle.setEdgeColor(Color.GREEN);
+		dialogCircle.setInnerColor(Color.BLUE);
 		
 		Circle actual = (Circle) dialogCircle.getShapeFromDialog();
 		

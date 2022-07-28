@@ -52,39 +52,52 @@ public class DlgRectangle extends DlgSurfaceShape {
 		txtHeight = new JTextField();
 		lblWidth = new JLabel("Width:");
 		txtWidth = new JTextField();
-		addToDialog();
+		addToDlgSurfaceShapeDialog();
 	}
 	
-	private void addToDialog() {
-		GridBagConstraints gbc_lblHeight = new GridBagConstraints();
-		gbc_lblHeight.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHeight.gridx = 1;
-		gbc_lblHeight.gridy = 4;
-		getContentPanel().add(lblHeight, gbc_lblHeight);
-		
-		GridBagConstraints gbc_txtHeight = new GridBagConstraints();
-		gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtHeight.insets = new Insets(0, 0, 5, 5);
-		gbc_txtHeight.gridx = 5;
-		gbc_txtHeight.gridy = 4;
-		getContentPanel().add(txtHeight, gbc_txtHeight);
-		txtHeight.setColumns(12);
-		txtHeight.addKeyListener(getInputListener());
-		
-		GridBagConstraints gbc_lblWidth = new GridBagConstraints();
-		gbc_lblWidth.insets = new Insets(0, 0, 0, 5);
-		gbc_lblWidth.gridx = 1;
-		gbc_lblWidth.gridy = 5;
-		getContentPanel().add(lblWidth, gbc_lblWidth);
-		
-		GridBagConstraints gbc_txtWidth = new GridBagConstraints();
-		gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtWidth.insets = new Insets(0, 0, 0, 5);
-		gbc_txtWidth.gridx = 5;
-		gbc_txtWidth.gridy = 5;
-		getContentPanel().add(txtWidth, gbc_txtWidth);
-		txtWidth.setColumns(12);
-		txtWidth.addKeyListener(getInputListener());
+	private void addToDlgSurfaceShapeDialog() {
+		{
+			JLabel lblHeight = new JLabel("Height:");
+			GridBagConstraints gbc_lblHeight = new GridBagConstraints();
+			gbc_lblHeight.anchor = GridBagConstraints.EAST;
+			gbc_lblHeight.insets = new Insets(0, 0, 5, 5);
+			gbc_lblHeight.gridx = 0;
+			gbc_lblHeight.gridy = 2;
+			getPanel().add(lblHeight, gbc_lblHeight);
+		}
+		{
+			txtHeight = new JTextField();
+			GridBagConstraints gbc_txtHeight = new GridBagConstraints();
+			gbc_txtHeight.gridwidth = 2;
+			gbc_txtHeight.insets = new Insets(0, 0, 5, 5);
+			gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtHeight.gridx = 1;
+			gbc_txtHeight.gridy = 2;
+			getPanel().add(txtHeight, gbc_txtHeight);
+			txtHeight.setColumns(10);
+			txtHeight.addKeyListener(getInputListener());
+		}
+		{
+			JLabel lblWidth = new JLabel("Width:");
+			GridBagConstraints gbc_lblWidth = new GridBagConstraints();
+			gbc_lblWidth.anchor = GridBagConstraints.EAST;
+			gbc_lblWidth.insets = new Insets(0, 0, 5, 5);
+			gbc_lblWidth.gridx = 0;
+			gbc_lblWidth.gridy = 3;
+			getPanel().add(lblWidth, gbc_lblWidth);
+		}
+		{
+			txtWidth = new JTextField();
+			GridBagConstraints gbc_txtWidth = new GridBagConstraints();
+			gbc_txtWidth.gridwidth = 2;
+			gbc_txtWidth.insets = new Insets(0, 0, 5, 5);
+			gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtWidth.gridx = 1;
+			gbc_txtWidth.gridy = 3;
+			getPanel().add(txtWidth, gbc_txtWidth);
+			txtWidth.setColumns(10);
+			txtWidth.addKeyListener(getInputListener());
+		}
 	}
 	
 
@@ -137,13 +150,13 @@ public class DlgRectangle extends DlgSurfaceShape {
 			String width = String.valueOf(rect.getWidth());
 			txtWidth.setText(width);
 			
-			Color borderColor = rect.getColor();
-			getTxtBorderColor().setBackground(borderColor);
-			setBorderColor(borderColor);
+			Color edgColor = rect.getColor();
+			getPnlEdgeColor().setBackground(edgColor);
+			setEdgeColor(edgColor);
 			
 			Color innerColor = rect.getInnerColor();
-			getTxtFillColor().setBackground(innerColor);
-			setFillColor(innerColor);
+			getPnlInnerColor().setBackground(innerColor);
+			setInnerColor(innerColor);
 		}
 		
 	}
@@ -154,10 +167,10 @@ public class DlgRectangle extends DlgSurfaceShape {
 		int y = Integer.parseInt(getTxtYCoord().getText());
 		int height = Integer.parseInt(txtHeight.getText());
 		int  width = Integer.parseInt(txtWidth.getText());
-		Color borderColor = getBorderColor();
-		Color fillColor = getFillColor();
+		Color edgeColor = getEdgeColor();
+		Color innerColor = getInnerColor();
 		
-		return new Rectangle(new Point(x,y), height, width, borderColor, fillColor);
+		return new Rectangle(new Point(x,y), height, width, edgeColor, innerColor);
 		
 	}
 

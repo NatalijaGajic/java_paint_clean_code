@@ -20,9 +20,9 @@ class DlgPointTests {
 	}
 
 	@Test
-	public void testBtnBorderColorClicked() {
-		dialogPoint.getBtnBorderColor().doClick();
-		assertEquals(dialogPoint.getBorderColor(), dialogPoint.getTxtBorderColor().getBackground());
+	public void testBtnEdgeColorClicked() {
+		dialogPoint.getBtnEdgeColor().doClick();
+		assertEquals(dialogPoint.getEdgeColor(), dialogPoint.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
@@ -46,7 +46,7 @@ class DlgPointTests {
 		dialogPoint.getTxtXCoord().setText("1");
 		dialogPoint.getTxtYCoord().setText("2");
 		Point actual = (Point) dialogPoint.getShapeFromDialog();
-		dialogPoint.setBorderColor(Color.GREEN);
+		dialogPoint.setEdgeColor(Color.GREEN);
 		Point expected = new Point(1, 2, Color.GREEN);
 		assertEquals(expected, actual);
 	}

@@ -47,40 +47,50 @@ public class DlgLine extends DlgShape{
 		txtEndPointXCoord = new JTextField();
 		lblEndPointYCoord = new JLabel("Y coordinate of end point:");
 		txtEndPointYCoord = new JTextField();
-		addToDialog();
+		addToDlgSurfaceShapeDialog();
 	}
 	
-	private void addToDialog() {
-		GridBagConstraints gbc_lblEndPointXCoord = new GridBagConstraints();
-		gbc_lblEndPointXCoord.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEndPointXCoord.gridx = 1;
-		gbc_lblEndPointXCoord.gridy = 3;
-		getContentPanel().add(lblEndPointXCoord, gbc_lblEndPointXCoord);
+	private void addToDlgSurfaceShapeDialog() {
 		
-		GridBagConstraints gbc_txtEndPointXCoord = new GridBagConstraints();
-		gbc_txtEndPointXCoord.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEndPointXCoord.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEndPointXCoord.gridx = 5;
-		gbc_txtEndPointXCoord.gridy = 3;
-		getContentPanel().add(txtEndPointXCoord, gbc_txtEndPointXCoord);
-		txtEndPointXCoord.setColumns(12);
-		txtEndPointXCoord.addKeyListener(getInputListener());
-		
-		GridBagConstraints gbc_lblEndPointYCoord = new GridBagConstraints();
-		gbc_lblEndPointYCoord.insets = new Insets(0, 0, 0, 5);
-		gbc_lblEndPointYCoord.gridx = 1;
-		gbc_lblEndPointYCoord.gridy = 4;
-		getContentPanel().add(lblEndPointYCoord, gbc_lblEndPointYCoord);
-		
-		GridBagConstraints gbc_txtEndPointYCoord = new GridBagConstraints();
-		gbc_txtEndPointYCoord.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEndPointYCoord.insets = new Insets(0, 0, 0, 5);
-		gbc_txtEndPointYCoord.gridx = 5;
-		gbc_txtEndPointYCoord.gridy = 4;
-		getContentPanel().add(txtEndPointYCoord, gbc_txtEndPointYCoord);
-		txtEndPointYCoord.setColumns(12);
-		txtEndPointYCoord.addKeyListener(getInputListener());
-	}
+		{
+			GridBagConstraints gbc_lblEndPointXCoord = new GridBagConstraints();
+			gbc_lblEndPointXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblEndPointXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblEndPointXCoord.gridx = 0;
+			gbc_lblEndPointXCoord.gridy = 2;
+			getPanel().add(lblEndPointXCoord, gbc_lblEndPointXCoord);
+		}
+		{
+			GridBagConstraints gbc_txtEndPointXCoord = new GridBagConstraints();
+			gbc_txtEndPointXCoord.gridwidth = 2;
+			gbc_txtEndPointXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_txtEndPointXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtEndPointXCoord.gridx = 1;
+			gbc_txtEndPointXCoord.gridy = 2;
+			getPanel().add(txtEndPointXCoord, gbc_txtEndPointXCoord);
+			txtEndPointXCoord.setColumns(10);
+			txtEndPointXCoord.addKeyListener(getInputListener());
+		}
+		{
+			GridBagConstraints gbc_lblEndPointYCoord = new GridBagConstraints();
+			gbc_lblEndPointYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblEndPointYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblEndPointYCoord.gridx = 0;
+			gbc_lblEndPointYCoord.gridy = 3;
+			getPanel().add(lblEndPointYCoord, gbc_lblEndPointYCoord);
+		}
+		{
+			GridBagConstraints gbc_txtEndPointYCoord = new GridBagConstraints();
+			gbc_txtEndPointYCoord.gridwidth = 2;
+			gbc_txtEndPointYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_txtEndPointYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtEndPointYCoord.gridx = 1;
+			gbc_txtEndPointYCoord.gridy = 3;
+			getPanel().add(txtEndPointYCoord, gbc_txtEndPointYCoord);
+			txtEndPointYCoord.setColumns(10);
+			txtEndPointYCoord.addKeyListener(getInputListener());
+		}
+	}	
 	
 
 	@Override
@@ -120,9 +130,9 @@ public class DlgLine extends DlgShape{
 			String endYString = String.valueOf(endPoint.getY());
 			this.txtEndPointYCoord.setText(endYString);
 			
-			Color borderColor = line.getColor();
-			getTxtBorderColor().setBackground(borderColor);
-			setBorderColor(borderColor);
+			Color edgeColor = line.getColor();
+			getPnlEdgeColor().setBackground(edgeColor);
+			setEdgeColor(edgeColor);
 		}
 		
 	}
@@ -135,13 +145,13 @@ public class DlgLine extends DlgShape{
 		int startY = Integer.parseInt(getTxtYCoord().getText());
 		Point startPoint = new Point(startX,startY);
 		
-		int endX = Integer.parseInt(getTxtXCoord().getText());
-		int endY = Integer.parseInt(getTxtYCoord().getText());
+		int endX = Integer.parseInt(getTxtEndPointXCoord().getText());
+		int endY = Integer.parseInt(getTxtEndPointYCoord().getText());
 		Point endPoint = new Point(endX,endY);
 		
-		Color borderColor = getBorderColor();
+		Color edgeColor = getEdgeColor();
 		
-		return new Line(startPoint, endPoint, borderColor);
+		return new Line(startPoint, endPoint, edgeColor);
 	}
 
 	public JTextField getTxtEndPointXCoord() {

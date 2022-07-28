@@ -21,9 +21,9 @@ public class DlgLineTests {
 	}
 
 	@Test
-	public void testBtnBorderColorClicked() {
-		dialogLine.getBtnBorderColor().doClick();
-		assertEquals(dialogLine.getBorderColor(), dialogLine.getTxtBorderColor().getBackground());
+	public void testBtnEdgeColorClicked() {
+		dialogLine.getBtnEdgeColor().doClick();
+		assertEquals(dialogLine.getEdgeColor(), dialogLine.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class DlgLineTests {
 		dialogLine.getTxtEndPointXCoord().setText("3");
 		dialogLine.getTxtEndPointYCoord().setText("4");
 		Line actual = (Line) dialogLine.getShapeFromDialog();
-		dialogLine.setBorderColor(Color.GREEN);
+		dialogLine.setEdgeColor(Color.GREEN);
 		Line expected = new Line(new Point(1,2), new Point(3,4), Color.GREEN);
 		assertEquals(expected, actual);
 	}
