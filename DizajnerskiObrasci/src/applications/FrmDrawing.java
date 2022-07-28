@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
-import dialogs.*;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.DrawingModel;
@@ -23,6 +22,11 @@ import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
+import modification.DlgChangeCircle;
+import modification.DlgChangeDonut;
+import modification.DlgChangeLine;
+import modification.DlgChangePoint;
+import modification.DlgChangeRectangle;
 
 public class FrmDrawing extends JFrame {
 
@@ -150,31 +154,31 @@ public class FrmDrawing extends JFrame {
 				if (selected != null) {
 					if (selected instanceof Point) {
 						Point point = (Point) selected;
-						DlgPoint dlg = new DlgPoint();
-						//dlg.setPoint(point);
+						DlgChangePoint dlg = new DlgChangePoint();
+						dlg.setPoint(point);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Line) {
 						Line line = (Line) selected;
-						DlgLine dlg = new DlgLine();
-						//dlg.setLine(line);
+						DlgChangeLine dlg = new DlgChangeLine();
+						dlg.setLine(line);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Rectangle) {
 						Rectangle rectangle = (Rectangle) selected;
-						DlgRectangle dlg = new DlgRectangle();
+						DlgChangeRectangle dlg = new DlgChangeRectangle();
 						dlg.setNewRec(rectangle);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Circle) {
 						Circle circle = (Circle) selected;
-						DlgCircle dlg = new DlgCircle();
-						//dlg.setNewCircle(circle);
+						DlgChangeCircle dlg = new DlgChangeCircle();
+						dlg.setNewCircle(circle);
 						dlg.setModal(true);
 						dlg.setVisible(true);
 					} else if (selected instanceof Donut) {
 						Donut donut = (Donut) selected;
-						DlgDonut dlg = new DlgDonut();
+						DlgChangeDonut dlg = new DlgChangeDonut();
 						dlg.setNewDonut(donut);
 						dlg.setModal(true);
 						dlg.setVisible(true);

@@ -196,8 +196,9 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	@Override
 	public void setCreateDialogFields(Point point) {
 		String xCoord = String.valueOf(point.getX());
-		String yCoord = String.valueOf(point.getY());
 		getTxtXCoord().setText(xCoord);
+		
+		String yCoord = String.valueOf(point.getY());
 		getTxtYCoord().setText(yCoord);	
 	}
 	
