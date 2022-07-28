@@ -68,29 +68,29 @@ public class DrawingPanel extends JPanel{
 				}
 			
 				 if (frame.getTglbtnPoint().isSelected()) {
-				model.add(new Point(x, y, frame.getActiveColor()));
+				model.add(new Point(x, y, frame.getActiveEdgeColor()));
 			}else if(frame.getTglbtnLine().isSelected()) {
 				if(startPoint==null)
 					startPoint=new Point(x, y);
 				else {
-					model.add(new Line(startPoint, new Point(x, y), frame.getActiveColor()));
+					model.add(new Line(startPoint, new Point(x, y), frame.getActiveEdgeColor()));
 					startPoint=null;
 				}
 			}else if (frame.getTglbtnRectangle().isSelected()) {
 				DlgRectangleDraw dlg=new DlgRectangleDraw();
 				dlg.setVisible(true);
-					model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), frame.getActiveColor(), frame.getActiveInnerColor()));
+					model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), frame.getActiveEdgeColor(), frame.getActiveInnerColor()));
 	
 			}else if (frame.getTglbtnCircle().isSelected()) {
 				DlgCircleDraw dlg=new DlgCircleDraw();
 				dlg.setVisible(true);
-				model.add(new Circle(new Point(x, y),dlg.getRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
+				model.add(new Circle(new Point(x, y),dlg.getRadius(), frame.getActiveEdgeColor(), frame.getActiveInnerColor()));
 				
 			} else if (frame.getTglbtnDonut().isSelected()) {
 				DlgDonutDraw dlg = new DlgDonutDraw();
 				dlg.setVisible(true);
 				
-				model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), frame.getActiveColor(), frame.getActiveInnerColor()));
+				model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), frame.getActiveEdgeColor(), frame.getActiveInnerColor()));
 		
 			}
 		}

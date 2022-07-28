@@ -31,20 +31,30 @@ import modification.DlgChangeRectangle;
 public class FrmDrawing extends JFrame {
 
 	private JPanel contentPane;
-	private final ButtonGroup btnShapes = new ButtonGroup();
+	private JPanel pnlNorth;
+	private JPanel pnlSouth;
+	private JPanel pnlColors;
+	private JPanel pnlActiveEdgeColor;
+	private JPanel pnlActiveInnerColor;
+	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
 	private JToggleButton tglbtnPoint;
 	private JToggleButton tglbtnLine;
 	private JToggleButton tglbtnRectangle;
 	private JToggleButton tglbtnCircle;
 	private JToggleButton tglbtnDonut;
-	private JToggleButton tglbtnDraw;
+	private JButton btnActiveEdgeColor;
+	private JButton btnActiveInnerColor;
+	private JButton btnModify;
+	private JButton btnDelete;
+	private JButton btnExit;
+	private final ButtonGroup btnShapes = new ButtonGroup();
 	private final ButtonGroup btnMode = new ButtonGroup();
 
-	private DrawingPanel panel_5 = new DrawingPanel(this);
+	private DrawingPanel view = new DrawingPanel(this);
 	private DrawingModel model = new DrawingModel();
 
-	private Color activeColor = Color.BLACK;
+	private Color activeEdgeColor = Color.BLACK;
 	private Color activeInnerColor = Color.WHITE;
 
 	/**
@@ -68,89 +78,118 @@ public class FrmDrawing extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmDrawing() {
+		contentPane = new JPanel();
+		pnlNorth = new JPanel();
+		pnlSouth = new JPanel();
+		pnlColors = new JPanel();
+		pnlActiveEdgeColor = new JPanel();
+		pnlActiveInnerColor = new JPanel();
+		tglbtnDraw = new JToggleButton("Draw");
+		tglbtnSelect = new JToggleButton("Select");
+		tglbtnPoint = new JToggleButton("Point");
+		tglbtnLine = new JToggleButton("Line");
+		tglbtnRectangle = new JToggleButton("Rectangle");
+		tglbtnCircle = new JToggleButton("Circle");
+		tglbtnDonut = new JToggleButton("Donut");
+		btnActiveEdgeColor = new JButton("Active Edge Color");
+		btnActiveInnerColor = new JButton("Active Inner Color");
+		btnModify = new JButton("Modify");
+		btnDelete = new JButton("Delete");
+		btnExit = new JButton("Exit");
+		addBtnActiveEdgeColorListener();
+		addBtnActiveInnerColorListener();
+		addBtnModifyListener();
+		addBtnDeleteListener();
+		addBtnExitListener();
+		buildFrame();
+		
+		view.setModel(model);
+		view.setBackground(Color.WHITE);
+		contentPane.add(view, BorderLayout.CENTER);
+		
+	}
+	
+	private void buildFrame() {
 		setTitle("Dizajnerski obrasci");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 728, 424);
-		contentPane = new JPanel();
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-
-		tglbtnPoint = new JToggleButton("Point");
-		panel.add(tglbtnPoint);
+		
+		contentPane.add(pnlNorth, BorderLayout.NORTH);
+		contentPane.add(pnlSouth, BorderLayout.SOUTH);
+		
+		pnlNorth.add(tglbtnPoint);
 		btnShapes.add(tglbtnPoint);
-
-		tglbtnLine = new JToggleButton("Line");
-		panel.add(tglbtnLine);
+		
+		pnlNorth.add(tglbtnLine);
 		btnShapes.add(tglbtnLine);
-
-		tglbtnRectangle = new JToggleButton("Rectangle");
-		panel.add(tglbtnRectangle);
+		
+		pnlNorth.add(tglbtnRectangle);
 		btnShapes.add(tglbtnRectangle);
-
-		tglbtnCircle = new JToggleButton("Circle");
-		panel.add(tglbtnCircle);
+		
+		pnlNorth.add(tglbtnCircle);
 		btnShapes.add(tglbtnCircle);
-
-		tglbtnDonut = new JToggleButton("Donut");
-		panel.add(tglbtnDonut);
+		
+		pnlNorth.add(tglbtnDonut);
 		btnShapes.add(tglbtnDonut);
+		
+		pnlNorth.add(pnlColors);
+		
+		pnlColors.add(btnActiveEdgeColor);
+		pnlActiveEdgeColor.setBackground(activeEdgeColor);
+		pnlColors.add(pnlActiveEdgeColor);
+		
+		pnlColors.add(btnActiveInnerColor);
+		pnlActiveInnerColor.setBackground(activeInnerColor);
+		pnlColors.add(pnlActiveInnerColor);
 
-		panel_5.setModel(model);
+		pnlSouth.add(tglbtnDraw);
+		btnMode.add(tglbtnDraw);
+		
+		pnlSouth.add(tglbtnSelect);
+		btnMode.add(tglbtnSelect);
 
-		JPanel panel_3 = new JPanel();
-		JButton btnActiveEdgeColor = new JButton("Active Edge Color");
+		pnlSouth.add(btnModify);
+
+		pnlSouth.add(btnDelete);
+		
+		pnlSouth.add(btnExit);
+
+		pnlNorth.repaint();
+	}
+	
+	private void addBtnActiveEdgeColorListener() {
 		btnActiveEdgeColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				activeColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
-				if (activeColor != null) {
-					panel_3.setBackground(activeColor);
+				activeEdgeColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
+				if (activeEdgeColor != null) {
+					pnlActiveEdgeColor.setBackground(activeEdgeColor);
 				}
 			}
 		});
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-
-		panel_2.add(btnActiveEdgeColor);
-
-		panel_3.setBackground(activeColor);
-		panel_2.add(panel_3);
-		JPanel panel_4 = new JPanel();
-		JButton btnActiveInnerColor = new JButton("Active Inner Color");
+	}
+	
+	private void addBtnActiveInnerColorListener() {
 		btnActiveInnerColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				activeInnerColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
 				if (activeInnerColor != null) {
-					panel_4.setBackground(activeInnerColor);
+					pnlActiveInnerColor.setBackground(activeInnerColor);
 				}
 			}
 		});
-		panel_2.add(btnActiveInnerColor);
-
-		panel_4.setBackground(activeInnerColor);
-		panel_2.add(panel_4);
-
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
-
-		tglbtnDraw = new JToggleButton("Draw");
-		panel_1.add(tglbtnDraw);
-		btnMode.add(tglbtnDraw);
-
-		tglbtnSelect = new JToggleButton("Select");
-		panel_1.add(tglbtnSelect);
-		btnMode.add(tglbtnSelect);
-
-		JButton btnModify = new JButton("Modify");
+	}
+	
+	private void addBtnModifyListener() {
 		btnModify.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Shape selected = panel_5.getSelected();
+				Shape selected = view.getSelected();
 				if (selected != null) {
 					if (selected instanceof Point) {
 						Point point = (Point) selected;
@@ -184,43 +223,38 @@ public class FrmDrawing extends JFrame {
 						dlg.setVisible(true);
 					}
 				}
-				panel_5.repaint();
+				view.repaint();
 			}
 		});
-		panel_1.add(btnModify);
-
-		JButton btnDelete = new JButton("Delete");
+	}
+	
+	private void addBtnDeleteListener() {
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] options = { "Yes", "No" };
-				Shape selected = panel_5.getSelected();
+				Shape selected = view.getSelected();
 				if (selected != null) {
 					int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
 							JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 					if (option == 0) {
-						panel_5.getShapes().remove(selected);
-						panel_5.repaint();
+						view.getShapes().remove(selected);
+						view.repaint();
 					}
 				}
 			}
 		});
-		panel_1.add(btnDelete);
-
-		JButton btnExit = new JButton("Exit");
+	}
+	
+	private void addBtnExitListener() {
 		btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		panel_1.add(btnExit);
-
-		panel_5.setBackground(Color.WHITE);
-		contentPane.add(panel_5, BorderLayout.CENTER);
-
-		panel.repaint();
 	}
+	
 
 	public JToggleButton getTglbtnSelect() {
 		return tglbtnSelect;
@@ -274,12 +308,12 @@ public class FrmDrawing extends JFrame {
 		return btnShapes;
 	}
 
-	public Color getActiveColor() {
-		return activeColor;
+	public Color getActiveEdgeColor() {
+		return activeEdgeColor;
 	}
 
-	public void setActiveColor(Color activeColor) {
-		this.activeColor = activeColor;
+	public void setActiveEdgeColor(Color activeEdgeColor) {
+		this.activeEdgeColor = activeEdgeColor;
 	}
 
 	public Color getActiveInnerColor() {
