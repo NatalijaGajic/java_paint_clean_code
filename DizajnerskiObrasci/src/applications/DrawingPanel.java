@@ -3,9 +3,13 @@ import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JPanel;
-import geometry.DrawingModel;
 import geometry.Shape;
 
+/**
+ * View 
+ * @author Natalija
+ *
+ */
 public class DrawingPanel extends JPanel{
 	
 	private DrawingModel model;

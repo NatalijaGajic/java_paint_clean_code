@@ -23,7 +23,6 @@ import dialogues.DlgDonutDraw;
 import dialogues.DlgRectangleDraw;
 import geometry.Circle;
 import geometry.Donut;
-import geometry.DrawingModel;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
@@ -34,7 +33,7 @@ import modification.DlgChangeLine;
 import modification.DlgChangePoint;
 import modification.DlgChangeRectangle;
 
-public class FrmDrawing extends JFrame {
+public class DrawingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel pnlNorth;
@@ -75,7 +74,7 @@ public class FrmDrawing extends JFrame {
 			@Override
 			public void run() {
 				try {
-					FrmDrawing frame = new FrmDrawing();
+					DrawingFrame frame = new DrawingFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -87,7 +86,7 @@ public class FrmDrawing extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmDrawing() {
+	public DrawingFrame() {
 		contentPane = new JPanel();
 		pnlNorth = new JPanel();
 		pnlSouth = new JPanel();
@@ -298,32 +297,30 @@ public class FrmDrawing extends JFrame {
 			}
 			
 			if (tglbtnPoint.isSelected()) {
-				model.add(new Point(x, y, this.getActiveEdgeColor()));
+				model.addShape(new Point(x, y, this.getActiveEdgeColor()));
 			} else if (tglbtnLine.isSelected()) {
 				if (startPoint == null)
 					startPoint = new Point(x, y);
 				else {
-					model.add(new Line(startPoint, new Point(x, y), this.getActiveEdgeColor()));
+					model.addShape(new Line(startPoint, new Point(x, y), this.getActiveEdgeColor()));
 					startPoint = null;
 				}
 			} else if (tglbtnRectangle.isSelected()) {
 				DlgRectangleDraw dlg = new DlgRectangleDraw();
 				dlg.setVisible(true);
-				model.add(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				model.addShape(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
 			} else if (tglbtnCircle.isSelected()) {
 				DlgCircleDraw dlg = new DlgCircleDraw();
 				dlg.setVisible(true);
-				model.add(new Circle(new Point(x, y),dlg.getRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				model.addShape(new Circle(new Point(x, y),dlg.getRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
 			} else if (tglbtnDonut.isSelected()) {
 				DlgDonutDraw dlg = new DlgDonutDraw();
 				dlg.setVisible(true);
-				model.add(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				model.addShape(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
 			}
 		}
 		repaint();
 	}
-		
-	
 
 	public JToggleButton getTglbtnSelect() {
 		return tglbtnSelect;

@@ -2,9 +2,8 @@ package controllers;
 
 import java.awt.event.MouseEvent;
 
-import geometry.DrawingModel;
-import views.DrawingFrame;
-import views.DrawingView;
+import applications.DrawingFrame;
+import applications.DrawingModel;
 
 public class DrawingController {
 
