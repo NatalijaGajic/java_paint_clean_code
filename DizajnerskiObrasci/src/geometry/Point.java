@@ -85,6 +85,11 @@ public class Point extends Shape{
 		}
 	}
 	
+	@Override
+	public Point clone() {
+		return new Point(x, y, isSelected(), getColor());
+	}
+	
 	public int getX() {
 		return this.x;
 	}
@@ -110,6 +115,18 @@ public class Point extends Shape{
 	public void moveOn(int x, int y) {
 		this.x=x;
 		this.y=y;
+		
+	}
+
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Point) {
+			Point p = (Point) shape;
+			this.x = p.x;
+			this.y = p.y;
+			this.setSelected(p.isSelected());
+			this.setColor(p.getColor());
+		}
 		
 	}
 

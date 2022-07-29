@@ -93,6 +93,11 @@ public class Line extends Shape{
 		}
 	}
 	
+	@Override
+	public Line clone() {
+		return new Line(startPoint.clone(), endPoint.clone(), isSelected(), getColor());
+	}
+	
 	public Point getStartPoint() {
 		return startPoint;
 	}
@@ -118,6 +123,18 @@ public class Line extends Shape{
 		// TODO Auto-generated method stub
 		startPoint.moveOn(x, y);
 		endPoint.moveOn(x, y);
+	}
+
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Line) {
+			Line l = (Line)shape;
+			this.startPoint = l.getStartPoint().clone();
+			this.endPoint = l.getEndPoint().clone();
+			this.setSelected(l.isSelected());
+			this.setColor(l.getColor());
+		}
+		
 	}
 
 

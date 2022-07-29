@@ -96,4 +96,20 @@ class DonutTests {
 		String expected = "Center: " + donut.getCenter() + ", radius: " + donut.getRadius() + ", inner radius=" + donut.getInnerRadius(); 
 		assertEquals(expected, donut.toString());
 	}
+	
+	@Test 
+	public void testClone() {
+		Circle clonedDonut = donut.clone();
+		assertEquals(donut, clonedDonut);
+		assertFalse(clonedDonut == donut);
+	}
+	
+	@Test
+	public void testSetShapeFields() {
+		Donut oldRefrence = donut;
+		Donut donutWithNewFileds = new Donut(new Point(44,44), 55, 44, true, Color.BLUE, Color.GREEN);
+		donut.setShapeFileds(donutWithNewFileds);
+		assertEquals(donutWithNewFileds, donut);
+		assertTrue(oldRefrence == donut);
+	}
 }

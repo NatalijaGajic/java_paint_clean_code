@@ -85,5 +85,21 @@ class PointTests {
 		String expected = "(" + point.getX() + ", " + point.getY() + ")";
 		assertEquals(expected, point.toString());
 	}
+	
+	@Test 
+	public void testClone() {
+		Point clonedPoint = point.clone();
+		assertEquals(point, clonedPoint);
+		assertFalse(clonedPoint == point);
+	}
+	
+	@Test
+	public void testSetShapeFields() {
+		Point oldRefrence = point;
+		Point pointWithNewFileds = new Point(44, 44, true, Color.BLUE);
+		point.setShapeFileds(pointWithNewFileds);
+		assertEquals(pointWithNewFileds, point);
+		assertTrue(oldRefrence == point);
+	}
 
 }

@@ -8,7 +8,6 @@ public class Rectangle extends SurfaceShape {
 	private Point upperLeftPoint = new Point();
 	private int height;
 	private int width;
-	private boolean selected;
 	
 	public Rectangle() {
 
@@ -32,7 +31,7 @@ public class Rectangle extends SurfaceShape {
 	
 	public Rectangle(Point upperLeftPoint, int height, int width, boolean selected) {
 		this(upperLeftPoint, height, width);
-		this.selected = selected;
+		setSelected(selected);
 	}
 	
 	public Rectangle(Point upperLeftPoint, int height, int width, boolean selected, Color color) {
@@ -119,6 +118,11 @@ public class Rectangle extends SurfaceShape {
 			return false;
 		}
 	}
+	
+	@Override
+	public Rectangle clone() {
+		return new Rectangle(upperLeftPoint.clone(), height, width, isSelected(), getColor(), getInnerColor());
+	}
 
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
@@ -144,13 +148,6 @@ public class Rectangle extends SurfaceShape {
 		this.width = width;
 	}
 
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
 	
 	public String toString() {
 		return "Upper left point: " + getUpperLeftPoint() + ", height: " 
@@ -162,6 +159,20 @@ public class Rectangle extends SurfaceShape {
 		// TODO Auto-generated method stub
 		upperLeftPoint.setX(x);
 		upperLeftPoint.setY(y);
+	}
+
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Rectangle) {
+			Rectangle rect = (Rectangle)shape;
+			this.upperLeftPoint = rect.upperLeftPoint.clone();
+			this.height = rect.height;
+			this.width = rect.width;
+			this.setSelected(rect.isSelected());
+			this.setColor(rect.getColor());
+			this.setInnerColor(rect.getInnerColor());
+		}
+		
 	}
 
 }

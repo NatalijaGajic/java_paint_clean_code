@@ -99,6 +99,11 @@ public class Circle extends SurfaceShape {
 	public boolean contains(Point p) {
 		return this.getCenter().distance(p.getX(), p.getY()) <= radius;
 	}
+	
+	@Override
+	public Circle clone() {
+		return new Circle(center.clone(), radius, isSelected(), getColor(), getInnerColor());
+	}
 
 	public Point getCenter() {
 		return center;
@@ -128,6 +133,19 @@ public class Circle extends SurfaceShape {
 	public void moveOn(int x, int y) {
 		this.center.setX(x);
 		this.center.setY(y);
+	}
+
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Circle) {
+			Circle circ = (Circle)shape;
+			this.center = circ.center.clone();
+			this.radius = circ.radius;
+			this.setSelected(circ.isSelected());
+			this.setColor(circ.getColor());
+			this.setInnerColor(circ.getInnerColor());
+		}
+		
 	}
 
 }

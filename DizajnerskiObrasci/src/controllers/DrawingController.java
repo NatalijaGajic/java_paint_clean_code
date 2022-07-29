@@ -1,7 +1,5 @@
 package controllers;
 
-import java.awt.event.MouseEvent;
-
 import applications.DrawingFrame;
 import applications.DrawingModel;
 import commands.CmdAdd;
@@ -18,9 +16,9 @@ public class DrawingController {
 		this.frame = frame;
 	}
 	
-	public void addShapeIfAccepted(Dialog dlgPoint) {
-		if(dlgPoint.isAccepted()) {
-			Shape shape = dlgPoint.getShapeFromDialog();
+	public void addShapeIfAccepted(Dialog dlg) {
+		if(dlg.isAccepted()) {
+			Shape shape = dlg.getShapeFromDialog();
 			makeCmdAddShape(shape);
 		}
 	}

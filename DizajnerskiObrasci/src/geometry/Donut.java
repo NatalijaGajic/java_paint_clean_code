@@ -86,6 +86,11 @@ private int innerRadius;
 		}
 	}
 	
+	@Override
+	public Donut clone() {
+		return new Donut(getCenter().clone(), getRadius(), innerRadius, isSelected(), getColor(), getInnerColor());
+	}
+	
 	public int getInnerRadius() {
 		return this.innerRadius;
 	}
@@ -97,6 +102,17 @@ private int innerRadius;
 	public String toString() {
 		return super.toString() + ", inner radius=" + innerRadius;
 	}
+	
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Donut) {
+			super.setShapeFileds(shape);
+			Donut donut = (Donut)shape;
+			this.innerRadius = donut.innerRadius;
+		}
+		
+	}
+
 
 
 }

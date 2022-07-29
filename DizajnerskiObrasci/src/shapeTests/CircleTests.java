@@ -95,5 +95,21 @@ class CircleTests {
 		String expected = "Center: " + circle.getCenter() + ", radius: " + circle.getRadius();
 		assertEquals(expected, circle.toString());
 	}
+	
+	@Test 
+	public void testClone() {
+		Circle clonedCircle = circle.clone();
+		assertEquals(circle, clonedCircle);
+		assertFalse(clonedCircle == circle);
+	}
+	
+	@Test
+	public void testSetShapeFields() {
+		Circle oldRefrence = circle;
+		Circle circleWithNewFileds = new Circle(new Point(44,44), 55, true, Color.BLUE, Color.GREEN);
+		circle.setShapeFileds(circleWithNewFileds);
+		assertEquals(circleWithNewFileds, circle);
+		assertTrue(oldRefrence == circle);
+	}
 
 }

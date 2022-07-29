@@ -111,5 +111,21 @@ class LineTests {
 		String expected = startPoint + "->" + endPoint;
 		assertEquals(expected, line.toString());
 	}
+	
+	@Test 
+	public void testClone() {
+		Line clonedLine = line.clone();
+		assertEquals(line, clonedLine);
+		assertFalse(clonedLine == line);
+	}
+	
+	@Test
+	public void testSetShapeFields() {
+		Line oldRefrence = line;
+		Line lineWithNewFileds = new Line(new Point(44,44), new Point(55,55), true, Color.BLUE);
+		line.setShapeFileds(lineWithNewFileds);
+		assertEquals(lineWithNewFileds, line);
+		assertTrue(oldRefrence == line);
+	}
 
 }
