@@ -44,6 +44,10 @@ public class DrawingModel {
 		selectedShapes.remove(index);
 	}
 	
+	public boolean doesContainShape(Shape shape) {
+		return shapes.contains(shape);
+	}
+	
 	public List<Shape> getShapes(){
 		return shapes;
 	}

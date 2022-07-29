@@ -235,12 +235,15 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	}
 
 	@Override
-	public void setCreateDialogFields(Point point) {
+	public void setCreateDialogFields(Point point, Color edgeColor) {
 		String xCoord = String.valueOf(point.getX());
 		getTxtXCoord().setText(xCoord);
 		
 		String yCoord = String.valueOf(point.getY());
-		getTxtYCoord().setText(yCoord);	
+		getTxtYCoord().setText(yCoord);
+		
+		getPnlEdgeColor().setBackground(edgeColor);
+		setEdgeColor(edgeColor);
 	}
 	
 	

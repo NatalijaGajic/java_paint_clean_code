@@ -55,6 +55,7 @@ public class DlgDonut extends DlgSurfaceShape {
 		txtRad = new JTextField();
 		lblInnerRadius = new JLabel("Inner Radius:");
 		txtIRad = new JTextField();
+		addToDlgSurfaceShape();
 	}
 	
 	public void addToDlgSurfaceShape() {
@@ -181,6 +182,13 @@ public class DlgDonut extends DlgSurfaceShape {
 
 	public JTextField getTxtIRad() {
 		return txtIRad;
+	}
+
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
 	}
 	
 	

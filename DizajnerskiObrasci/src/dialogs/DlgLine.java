@@ -105,6 +105,17 @@ public class DlgLine extends DlgShape{
 			return false;
 		return true;
 	}
+	
+	public void setCreateDialogFields(Point startPoint, Point endPoint, Color edgeColor) {
+		super.setCreateDialogFields(startPoint, edgeColor);
+		
+		String endXString = String.valueOf(endPoint.getX());
+		this.txtEndPointXCoord.setText(endXString);
+		
+		String endYString = String.valueOf(endPoint.getY());
+		this.txtEndPointYCoord.setText(endYString);
+		
+	}
 
 	@Override
 	public boolean areValuesValid() {

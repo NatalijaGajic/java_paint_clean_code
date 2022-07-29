@@ -182,6 +182,14 @@ public class DlgRectangle extends DlgSurfaceShape {
 		return txtWidth;
 	}
 
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
+		
+	}
+
 	
 	
 }

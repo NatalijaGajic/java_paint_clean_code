@@ -3,3 +3,7 @@
 /applications/
 /controllers/
 /views/
+/command/
+/commands/
+/dialogs/
+/commandTests/

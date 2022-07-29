@@ -135,6 +135,13 @@ public class DlgCircle extends DlgSurfaceShape {
 	public JTextField getTxtRadius() {
 		return txtRadius;
 	}
+
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
+	}
 	
 	
 	

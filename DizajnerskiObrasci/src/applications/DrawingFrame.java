@@ -18,9 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
-import dialogues.DlgCircleDraw;
-import dialogues.DlgDonutDraw;
-import dialogues.DlgRectangleDraw;
+import controllers.DrawingController;
+import dialogs.*;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.Line;
@@ -58,6 +57,7 @@ public class DrawingFrame extends JFrame {
 
 	private DrawingPanel view = new DrawingPanel();
 	private DrawingModel model = new DrawingModel();
+	private DrawingController controller = new DrawingController(model, this);
 
 	private Color activeEdgeColor = Color.BLACK;
 	private Color activeInnerColor = Color.WHITE;
@@ -271,7 +271,7 @@ public class DrawingFrame extends JFrame {
 		});
 	}
 	
-	protected void thisMouseClicked(MouseEvent e) {
+	private void thisMouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
 		
@@ -296,27 +296,38 @@ public class DrawingFrame extends JFrame {
 				shape.setSelected(false);
 			}
 			
+			Point point = new Point(x, y);
+			
 			if (tglbtnPoint.isSelected()) {
-				model.addShape(new Point(x, y, this.getActiveEdgeColor()));
+				DlgPoint dlgPoint = new DlgPoint();
+				dlgPoint.setCreateDialogFields(point, activeEdgeColor);
+				dlgPoint.setVisible(true);
+				controller.addShapeIfAccepted(dlgPoint);
 			} else if (tglbtnLine.isSelected()) {
 				if (startPoint == null)
 					startPoint = new Point(x, y);
 				else {
-					model.addShape(new Line(startPoint, new Point(x, y), this.getActiveEdgeColor()));
+					DlgLine dlgLine = new DlgLine();
+					dlgLine.setCreateDialogFields(startPoint, point, activeEdgeColor);
+					dlgLine.setVisible(true);
+					controller.addShapeIfAccepted(dlgLine);
 					startPoint = null;
 				}
 			} else if (tglbtnRectangle.isSelected()) {
-				DlgRectangleDraw dlg = new DlgRectangleDraw();
-				dlg.setVisible(true);
-				model.addShape(new Rectangle(new Point (x,y), dlg.getHeightR(), dlg.getWidthR(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				DlgRectangle dlgRect = new DlgRectangle();
+				dlgRect.setCreateDialogFields(point, activeEdgeColor, activeInnerColor);
+				dlgRect.setVisible(true);
+				controller.addShapeIfAccepted(dlgRect);
 			} else if (tglbtnCircle.isSelected()) {
-				DlgCircleDraw dlg = new DlgCircleDraw();
-				dlg.setVisible(true);
-				model.addShape(new Circle(new Point(x, y),dlg.getRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				DlgCircle dlgCircle = new DlgCircle();
+				dlgCircle.setCreateDialogFields(point, activeEdgeColor, activeInnerColor);
+				dlgCircle.setVisible(true);
+				controller.addShapeIfAccepted(dlgCircle);
 			} else if (tglbtnDonut.isSelected()) {
-				DlgDonutDraw dlg = new DlgDonutDraw();
-				dlg.setVisible(true);
-				model.addShape(new Donut(new Point(x, y), dlg.getRadius(), dlg.getInnerRadius(), this.getActiveEdgeColor(), this.getActiveInnerColor()));
+				DlgDonut dlgDonut = new DlgDonut();
+				dlgDonut.setCreateDialogFields(point, activeEdgeColor, activeInnerColor);
+				dlgDonut.setVisible(true);
+				controller.addShapeIfAccepted(dlgDonut);
 			}
 		}
 		repaint();
