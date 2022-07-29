@@ -7,10 +7,10 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import applications.DrawingFrame;
 import applications.DrawingModel;
 import controllers.DrawingController;
 import dialogs.*;
+import frame.DrawingFrame;
 import geometry.*;
 
 
@@ -20,7 +20,11 @@ class DrawingControllerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController controller;
-	private Rectangle testedShape;
+	private Point testPoint;
+	private Line testLine;
+	private Rectangle testRectangle;
+	private Circle testCircle;
+	private Donut testDonut;
 	
 	
 	@BeforeEach
@@ -30,54 +34,251 @@ class DrawingControllerTests {
 		controller = new DrawingController(model, frame);
 		frame.getView().setModel(model);
 		frame.setController(controller);
-		testedShape = new Rectangle(new Point(1,1), 40, 50, false, Color.white, Color.black);
+		testPoint = new Point(1, 1, false, Color.BLACK);
+		testLine = new Line(new Point(1,1), new Point(2,2), false, Color.BLACK);
+		testRectangle = new Rectangle(new Point(1,1), 40, 50, false, Color.WHITE, Color.BLACK);
+		testCircle = new Circle(new Point(1, 1), 10, false, Color.WHITE, Color.BLACK);
+		testDonut = new Donut(new Point(1, 1), 10, 5, false, Color.WHITE, Color.BLACK);
 	}
 	
+	
 	@Test
-	public void testAddShapeIfAcceptedWhenAccepted() {
-		DlgRectangle dlg = new DlgRectangle();
-		dlg.setModifyDialogFields(testedShape);
+	public void testAddPointIfAcceptedWhenAccepted() {
+		DlgPoint dlg = new DlgPoint();
+		dlg.setModifyDialogFields(testPoint);
 		dlg.setAccepted(true);
 		
 		controller.addShapeIfAccepted(dlg);
-		assertTrue(model.doesContainShape(testedShape));
+		assertTrue(model.doesContainShape(testPoint));
 	}
 	
 	@Test
-	public void testModifyShapeIfAcceptedWhenAccepted() {
-		model.addShape(testedShape);
+	public void testAddPointIfAcceptedWhenNotAccepted() {
+		DlgPoint dlg = new DlgPoint();
+		testPoint.setX(12345);
+		dlg.setModifyDialogFields(testPoint);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testPoint));
+	}
+	
+	@Test
+	public void testModifyPointIfAcceptedWhenAccepted() {
+		model.addShape(testPoint);
+		DlgPoint dlg = new DlgPoint();
+		Point modifiedShape = new Point(10, 10, false, Color.blue);
+		dlg.setModifyDialogFields(testPoint);
+		dlg.setAccepted(true);
+		
+		controller.modifyShapeIfAccepted(dlg, testPoint);
+		assertTrue(model.doesContainShape(testPoint));
+		assertTrue(testPoint.equals(testPoint));
+	}
+	
+	@Test
+	public void testModifyPointIfAcceptedWhenNotAccepted() {
+		model.addShape(testPoint);
+		DlgPoint dlg = new DlgPoint();
+		Point modifiedShape = new Point(10, 12345, false, Color.blue);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(false);
+		
+		controller.modifyShapeIfAccepted(dlg, testPoint);
+		assertTrue(model.doesContainShape(testPoint));
+		assertFalse(testPoint.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testAddLineIfAcceptedWhenAccepted() {
+		DlgLine dlg = new DlgLine();
+		dlg.setModifyDialogFields(testLine);
+		dlg.setAccepted(true);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertTrue(model.doesContainShape(testLine));
+	}
+	
+	@Test
+	public void testAddLineIfAcceptedWhenNotAccepted() {
+		DlgLine dlg = new DlgLine();
+		dlg.setModifyDialogFields(testLine);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testLine));
+	}
+	
+	@Test
+	public void testModifyLineIfAcceptedWhenAccepted() {
+		model.addShape(testLine);
+		DlgLine dlg = new DlgLine();
+		Line modifiedShape = new Line(new Point(0, 0), new Point(3, 3), false, Color.blue);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(true);
+		
+		controller.modifyShapeIfAccepted(dlg, testLine);
+		assertTrue(model.doesContainShape(testLine));
+		assertTrue(testLine.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testModifyLineIfAcceptedWhenNotAccepted() {
+		model.addShape(testLine);
+		DlgLine dlg = new DlgLine();
+		Line modifiedShape = new Line(new Point(0, 0), new Point(3, 3), false, Color.blue);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(false);
+		
+		controller.modifyShapeIfAccepted(dlg, testLine);
+		assertTrue(model.doesContainShape(testLine));
+		assertFalse(testLine.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testAddRectangleIfAcceptedWhenAccepted() {
+		DlgRectangle dlg = new DlgRectangle();
+		dlg.setModifyDialogFields(testRectangle);
+		dlg.setAccepted(true);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertTrue(model.doesContainShape(testRectangle));
+	}
+	
+	@Test
+	public void testAddRectangleIfAcceptedWhenNotAccepted() {
+		DlgRectangle dlg = new DlgRectangle();
+		testRectangle.setHeight(0);
+		dlg.setModifyDialogFields(testRectangle);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testRectangle));
+	}
+	
+	@Test
+	public void testModifyRectangleIfAcceptedWhenAccepted() {
+		model.addShape(testRectangle);
 		DlgRectangle dlg = new DlgRectangle();
 		Rectangle modifiedShape = new Rectangle(new Point(0, 0), 10, 10, false, Color.green, Color.blue);
 		dlg.setModifyDialogFields(modifiedShape);
 		dlg.setAccepted(true);
 		
-		controller.modifyShapeIfAccepted(dlg, testedShape);
-		assertTrue(model.doesContainShape(testedShape));
-		assertTrue(testedShape.equals(modifiedShape));
+		controller.modifyShapeIfAccepted(dlg, testRectangle);
+		assertTrue(model.doesContainShape(testRectangle));
+		assertTrue(testRectangle.equals(modifiedShape));
 	}
 	
 	@Test
-	public void testAddShapeIfAcceptedWhenNotAccepted() {
-		DlgRectangle dlg = new DlgRectangle();
-		testedShape.setHeight(0);
-		dlg.setModifyDialogFields(testedShape);
-		dlg.setAccepted(false);
-		
-		controller.addShapeIfAccepted(dlg);
-		assertFalse(model.doesContainShape(testedShape));
-	}
-	
-	@Test
-	public void testModifyShapeIfAcceptedWhenNotAccepted() {
-		model.addShape(testedShape);
+	public void testModifyRectangleIfAcceptedWhenNotAccepted() {
+		model.addShape(testRectangle);
 		DlgRectangle dlg = new DlgRectangle();
 		Rectangle modifiedShape = new Rectangle(new Point(0, 0), 0, 10, false, Color.green, Color.blue);
 		dlg.setModifyDialogFields(modifiedShape);
 		dlg.setAccepted(false);
 		
-		controller.modifyShapeIfAccepted(dlg, testedShape);
-		assertTrue(model.doesContainShape(testedShape));
-		assertFalse(testedShape.equals(modifiedShape));
+		controller.modifyShapeIfAccepted(dlg, testRectangle);
+		assertTrue(model.doesContainShape(testRectangle));
+		assertFalse(testRectangle.equals(modifiedShape));
 	}
+	
+	
+	@Test
+	public void testAddCircleIfAcceptedWhenAccepted() {
+		DlgCircle dlg = new DlgCircle();
+		dlg.setModifyDialogFields(testCircle);
+		dlg.setAccepted(true);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertTrue(model.doesContainShape(testCircle));
+	}
+	
+	@Test
+	public void testAddCircleIfAcceptedWhenNotAccepted() {
+		DlgCircle dlg = new DlgCircle();
+		testCircle.setRadius(0);
+		dlg.setModifyDialogFields(testCircle);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testCircle));
+	}
+	
+	@Test
+	public void testModifyCircleIfAcceptedWhenAccepted() {
+		model.addShape(testCircle);
+		DlgCircle dlg = new DlgCircle();
+		Circle modifiedShape = new Circle(new Point(10, 10), 6, false, Color.blue, Color.green);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(true);
+		
+		controller.modifyShapeIfAccepted(dlg, testCircle);
+		assertTrue(model.doesContainShape(testCircle));
+		assertTrue(testCircle.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testModifyCircleIfAcceptedWhenNotAccepted() {
+		model.addShape(testCircle);
+		DlgCircle dlg = new DlgCircle();
+		Circle modifiedShape = new Circle(new Point(10, 10), 0, false, Color.blue, Color.green);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(false);
+		
+		controller.modifyShapeIfAccepted(dlg, testCircle);
+		assertTrue(model.doesContainShape(testCircle));
+		assertFalse(testCircle.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testAddDonutIfAcceptedWhenAccepted() {
+		DlgDonut dlg = new DlgDonut();
+		dlg.setModifyDialogFields(testDonut);
+		dlg.setAccepted(true);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertTrue(model.doesContainShape(testDonut));
+	}
+	
+	@Test
+	public void testAddDonutIfAcceptedWhenNotAccepted() {
+		DlgDonut dlg = new DlgDonut();
+		testDonut.setRadius(0);
+		dlg.setModifyDialogFields(testDonut);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testDonut));
+	}
+	
+	@Test
+	public void testModifyDonutIfAcceptedWhenAccepted() {
+		model.addShape(testDonut);
+		DlgDonut dlg = new DlgDonut();
+		Donut modifiedShape = new Donut(new Point(10, 10), 15, 10, false, Color.blue, Color.green);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(true);
+		
+		controller.modifyShapeIfAccepted(dlg, testDonut);
+		assertTrue(model.doesContainShape(testDonut));
+		assertTrue(testDonut.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testModifyDonutIfAcceptedWhenNotAccepted() {
+		model.addShape(testDonut);
+		DlgDonut dlg = new DlgDonut();
+		Donut modifiedShape = new Donut(new Point(10, 10), 15, 20, false, Color.blue, Color.green);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(false);
+		
+		controller.modifyShapeIfAccepted(dlg, testDonut);
+		assertTrue(model.doesContainShape(testDonut));
+		assertFalse(testDonut.equals(modifiedShape));
+	}
+	
+	//TODO:  testSelectOrDeselectShapeShapeIsNotSelected, testSelectOrDeselectShapeShapeIsSelected
+
+
 
 }

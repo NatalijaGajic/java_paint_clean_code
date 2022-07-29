@@ -75,6 +75,14 @@ public class Line extends Shape{
 		}
 	}
 	
+	public boolean contains(Point p) {
+		if ((startPoint.distance(p.getX(), p.getY()) + endPoint.distance(p.getX(), p.getY())) - length() <= 0.05) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public double length() {
 		return startPoint.distance(endPoint.getX(), endPoint.getY());
 	}

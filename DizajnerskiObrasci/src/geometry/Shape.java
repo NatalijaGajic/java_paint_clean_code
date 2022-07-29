@@ -10,6 +10,7 @@ public abstract class Shape implements Moveable, Comparable, Cloneable {
 	
 	public abstract void draw(Graphics g );
 	public abstract boolean contains(int x, int y);
+	public abstract boolean contains(Point point);
 	public abstract Shape clone();
 	public abstract void setShapeFileds(Shape shape);
 

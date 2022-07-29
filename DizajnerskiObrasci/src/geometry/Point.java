@@ -64,6 +64,10 @@ public class Point extends Shape{
 		return this.distance(x, y) <= 3 ;
 	}
 	
+	public boolean contains(Point point) {
+		return this.distance(point.x, point.y) <=3;
+	}
+	
 	public double distance(int x2, int y2) {
 		double dx = this.x - x2;
 		double dy = this.y - y2;
