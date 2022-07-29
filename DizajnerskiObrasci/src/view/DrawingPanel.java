@@ -1,9 +1,10 @@
-package applications;
+package view;
 import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JPanel;
 import geometry.Shape;
+import model.DrawingModel;
 
 /**
  * View 

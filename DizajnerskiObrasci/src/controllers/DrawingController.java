@@ -8,11 +8,11 @@ import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import applications.DrawingModel;
 import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
+import model.DrawingModel;
 
 public class DrawingController {
 

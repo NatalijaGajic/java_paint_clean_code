@@ -12,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import applications.DrawingModel;
-import applications.DrawingPanel;
 import controllers.DrawingController;
 import dialogs.DlgCircle;
 import dialogs.DlgDonut;
@@ -22,6 +20,8 @@ import dialogs.DlgPoint;
 import dialogs.DlgRectangle;
 import geometry.Point;
 import geometry.Shape;
+import model.DrawingModel;
+import view.DrawingPanel;
 
 public class DrawingFrame extends JFrame {
 

@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import applications.DrawingModel;
 import commands.CmdAdd;
 import geometry.Point;
+import model.DrawingModel;
 
 class CmdAddTests {
 

@@ -7,11 +7,11 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import applications.DrawingModel;
 import controllers.DrawingController;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
+import model.DrawingModel;
 
 
 class DrawingControllerTests {

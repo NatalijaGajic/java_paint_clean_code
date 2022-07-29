@@ -1,7 +1,7 @@
 package commands;
 
-import applications.DrawingModel;
 import geometry.Shape;
+import model.DrawingModel;
 
 public class CmdAdd implements Command{
 
