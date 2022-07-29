@@ -142,7 +142,7 @@ public class DlgRectangle extends DlgSurfaceShape {
 			getTxtXCoord().setText(String.valueOf(upperLeftX));
 			
 			int upperLeftY = rect.getUpperLeftPoint().getY();
-			getTxtXCoord().setText(String.valueOf(upperLeftY));
+			getTxtYCoord().setText(String.valueOf(upperLeftY));
 			
 			String height = String.valueOf(rect.getHeight());
 			txtHeight.setText(height);

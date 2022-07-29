@@ -2,7 +2,7 @@ package controllers;
 
 import applications.DrawingFrame;
 import applications.DrawingModel;
-import commands.CmdAdd;
+import commands.*;
 import dialogs.*;
 import geometry.*;
 
@@ -19,11 +19,24 @@ public class DrawingController {
 	public void addShapeIfAccepted(Dialog dlg) {
 		if(dlg.isAccepted()) {
 			Shape shape = dlg.getShapeFromDialog();
-			makeCmdAddShape(shape);
+			executeCmdAddShape(shape);
 		}
 	}
 	
-	private void makeCmdAddShape(Shape shape) {
+	public void modifyShapeIfAccepted(Dialog dlg, Shape selectedShape) {
+		if(dlg.isAccepted()) {
+			Shape shapeWithNeValues = dlg.getShapeFromDialog();
+			executeCmdModifyShape(selectedShape, shapeWithNeValues);
+		}
+	}
+	
+	private void executeCmdModifyShape(Shape selectedShape, Shape shapeWithNeValues) {
+		CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNeValues);
+		cmdModify.execute();
+		
+	}
+
+	private void executeCmdAddShape(Shape shape) {
 		CmdAdd cmdAdd = new CmdAdd(model, shape);
 		cmdAdd.execute();
 	}

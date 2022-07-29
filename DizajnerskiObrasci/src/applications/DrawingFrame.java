@@ -202,34 +202,34 @@ public class DrawingFrame extends JFrame {
 				if (selected != null) {
 					if (selected instanceof Point) {
 						Point point = (Point) selected;
-						DlgChangePoint dlg = new DlgChangePoint();
-						dlg.setPoint(point);
-						dlg.setModal(true);
+						DlgPoint dlg = new DlgPoint();
+						dlg.setModifyDialogFields(point);
 						dlg.setVisible(true);
+						controller.modifyShapeIfAccepted(dlg, point);
 					} else if (selected instanceof Line) {
 						Line line = (Line) selected;
-						DlgChangeLine dlg = new DlgChangeLine();
-						dlg.setLine(line);
-						dlg.setModal(true);
+						DlgLine dlg = new DlgLine();
+						dlg.setModifyDialogFields(line);
 						dlg.setVisible(true);
+						controller.modifyShapeIfAccepted(dlg, line);
 					} else if (selected instanceof Rectangle) {
 						Rectangle rectangle = (Rectangle) selected;
-						DlgChangeRectangle dlg = new DlgChangeRectangle();
-						dlg.setNewRec(rectangle);
-						dlg.setModal(true);
+						DlgRectangle dlg = new DlgRectangle();
+						dlg.setModifyDialogFields(rectangle);
 						dlg.setVisible(true);
-					} else if (selected instanceof Circle) {
-						Circle circle = (Circle) selected;
-						DlgChangeCircle dlg = new DlgChangeCircle();
-						dlg.setNewCircle(circle);
-						dlg.setModal(true);
-						dlg.setVisible(true);
+						controller.modifyShapeIfAccepted(dlg, rectangle);
 					} else if (selected instanceof Donut) {
 						Donut donut = (Donut) selected;
-						DlgChangeDonut dlg = new DlgChangeDonut();
-						dlg.setNewDonut(donut);
-						dlg.setModal(true);
+						DlgDonut dlg = new DlgDonut();
+						dlg.setModifyDialogFields(donut);
 						dlg.setVisible(true);
+						controller.modifyShapeIfAccepted(dlg, donut);
+					} else if (selected instanceof Circle) {
+						Circle circle = (Circle) selected;
+						DlgCircle dlg = new DlgCircle();
+						dlg.setModifyDialogFields(circle);
+						dlg.setVisible(true);
+						controller.modifyShapeIfAccepted(dlg, circle);
 					}
 				}
 				view.repaint();
@@ -412,5 +412,19 @@ public class DrawingFrame extends JFrame {
 	public void setTglbtnDraw(JToggleButton tglbtnDraw) {
 		this.tglbtnDraw = tglbtnDraw;
 	}
+
+	public DrawingPanel getView() {
+		return view;
+	}
+
+	public void setView(DrawingPanel view) {
+		this.view = view;
+	}
+
+	public void setController(DrawingController controller) {
+		this.controller = controller;
+	}
+	
+	
 
 }

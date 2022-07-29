@@ -7,3 +7,6 @@
 /commands/
 /dialogs/
 /commandTests/
+/controllersTest.class
+/controllerTests/
+/frameTests/
