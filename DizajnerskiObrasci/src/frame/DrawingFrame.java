@@ -115,12 +115,12 @@ public class DrawingFrame extends JFrame {
 	private void addViewListener() {
 		view.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				mouseClicked(arg0);
+				handleMouseClicked(arg0);
 			}
 		});
 	}
 	
-	public void mouseClicked(MouseEvent click) {
+	public void handleMouseClicked(MouseEvent click) {
 		int x = click.getX();
 		int y = click.getY();
 		Point clickedPoint = new Point(x, y);

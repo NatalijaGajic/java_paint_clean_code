@@ -1,7 +1,9 @@
 package controllers;
 
 import java.awt.Color;
+import java.awt.List;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JColorChooser;
@@ -55,19 +57,20 @@ public class DrawingController {
 	}
 	
 	public void modifyShape() {
-		if (selected != null) {
-			if (selected instanceof Point) {
-				modifyPointIfAccepted(selected);
-			} else if (selected instanceof Line) {
-				modifyLineIfAccepted(selected);
-			} else if (selected instanceof Rectangle) {
-				modifyRectangleIfAccepted(selected);
-			} else if (selected instanceof Donut) {
-				modifyDonutIfAccepted(selected);
-			} else if (selected instanceof Circle) {
-				modifyCircleIfAccepted(selected);
-			}
+		Shape selectedShape = model.getSelectedShape();
+
+		if (selectedShape instanceof Point) {
+			modifyPointIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Line) {
+			modifyLineIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Rectangle) {
+			modifyRectangleIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Donut) {
+			modifyDonutIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Circle) {
+			modifyCircleIfAccepted(selectedShape);
 		}
+		
 		frame.getView().repaint();
 	}
 	
@@ -83,16 +86,33 @@ public class DrawingController {
 		}
 	}
 	
-	//TODO: selected shapes in model
+	/**
+	 * Start at the end of the list, (de)select the last added shape that contains the point of the click
+	 * @param click
+	 */
 	public void selectOrDeselectShape(Point click) {
-		selected = null;
-		Iterator<Shape> it = model.getShapes().iterator();
-		while(it.hasNext()) {
-			Shape shape = it.next();
-			shape.setSelected(false);
-			if(shape.contains(click))
-				selected = shape;
+		for(int indexOfShape = model.getNumberOfShapes() - 1; indexOfShape >= 0; indexOfShape--) {
+			Shape shape = model.getShapeAtIndex(indexOfShape);
+			
+			if(shape.contains(click) && !shape.isSelected()) {
+				executeCmdSelectShape(shape);
+				break;
+			}else if(shape.contains(click) && shape.isSelected()) {
+				executeCmdDeselectShape(shape);
+				break;
+			}
 		}
+		
+	}
+	
+	private void executeCmdSelectShape(Shape shape) {
+		CmdSelect cmdSelect = new CmdSelect(model, shape);
+		cmdSelect.execute();
+	}
+	
+	private void executeCmdDeselectShape(Shape shape) {
+		CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
+		cmdDeselect.execute();
 	}
 	
 	public void setActiveEdgeColor() {

@@ -6,8 +6,8 @@ import geometry.Shape;
 
 public class DrawingModel {
 
-	List<Shape> shapes = new ArrayList<Shape>();
-	List<Shape> selectedShapes = new ArrayList<Shape>();
+	ArrayList<Shape> shapes = new ArrayList<Shape>();
+	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	
 	public DrawingModel() {
 	}
@@ -48,12 +48,35 @@ public class DrawingModel {
 		return shapes.contains(shape);
 	}
 	
-	public List<Shape> getShapes(){
+	public ArrayList<Shape> getShapes(){
 		return shapes;
 	}
 	
-	public List<Shape> getSelectedShapes(){
+	public ArrayList<Shape> getSelectedShapes(){
 		return selectedShapes;
 	}
 	
+	public int getNumberOfShapes() {
+		return shapes.size();
+	}
+	
+	public int getNumberOfSelectedShapes() {
+		return selectedShapes.size();
+	}
+	
+	public void clearSelectedShapes() {
+		selectedShapes.clear();
+	}
+	
+	public Shape getSelectedShape() {
+		return selectedShapes.get(0);
+	}
+	
+	public Shape getShapeByIndex(int index) {
+		return shapes.get(index);
+	}
+	
+	public boolean doesContainSelectedShape(Shape shape) {
+		return selectedShapes.contains(shape);
+	}
 }

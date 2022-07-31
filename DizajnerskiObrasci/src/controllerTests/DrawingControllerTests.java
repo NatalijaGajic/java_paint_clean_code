@@ -20,6 +20,7 @@ class DrawingControllerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController controller;
+	private Point click;
 	private Point testPoint;
 	private Line testLine;
 	private Rectangle testRectangle;
@@ -32,6 +33,7 @@ class DrawingControllerTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		controller = new DrawingController(model, frame);
+		click = new Point(10, 10);
 		frame.getView().setModel(model);
 		frame.setController(controller);
 		testPoint = new Point(1, 1, false, Color.BLACK);
@@ -277,8 +279,24 @@ class DrawingControllerTests {
 		assertFalse(testDonut.equals(modifiedShape));
 	}
 	
-	//TODO:  testSelectOrDeselectShapeShapeIsNotSelected, testSelectOrDeselectShapeShapeIsSelected
+	@Test
+	public void testSelectOrDeselectShapeShapeIsNotSelected() {
+		Point point = new Point(10, 10, false, Color.BLACK);
+		model.addShape(point);
+		controller.selectOrDeselectShape(click);
+		assertTrue(point.isSelected());
+		assertTrue(model.doesContainSelectedShape(point));
+	}
 
+	@Test
+	public void testSelectOrDeselectShapeShapeIsSelected() {
+		Point point = new Point(10, 10, true, Color.BLACK);
+		model.addShape(point);
+		model.addSelectedShape(point);
+		controller.selectOrDeselectShape(click);
+		assertFalse(point.isSelected());
+		assertFalse(model.doesContainSelectedShape(point));
+	}
 
 
 }
