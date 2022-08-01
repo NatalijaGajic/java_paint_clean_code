@@ -79,4 +79,24 @@ public class DrawingModel {
 	public boolean doesContainSelectedShape(Shape shape) {
 		return selectedShapes.contains(shape);
 	}
+	
+	public void removeShapes(ArrayList<Shape> shapesToRemove) {
+		shapes.removeAll(shapesToRemove);
+	}
+	
+	public int getIndexOfShape(Shape shape) {
+		return shapes.indexOf(shape);
+	}
+	
+	public void addShapeAtIndex(int index, Shape shape) {
+		shapes.add(index, shape);
+	}
+	
+	public void addSelectedShapes(ArrayList<Shape> shapes) {
+		selectedShapes.addAll(shapes);
+	}
+	
+	public void addShapes(ArrayList<Shape> shapesToAdd) {
+		shapes.addAll(shapesToAdd);
+	}
 }

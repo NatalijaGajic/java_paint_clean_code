@@ -76,13 +76,12 @@ public class DrawingController {
 	
 	public void deleteShapes() {
 		String[] options = { "Yes", "No" };
-		if (selected != null) {
-			int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
-					JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-			if (option == 0) {
-				model.getShapes().remove(selected);
-				frame.getView().repaint();
-			}
+		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
+				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+		if (option == 0) {
+			ArrayList<Shape> shapesToDelete = model.getSelectedShapes();
+			executeCmdDeleteShapes(shapesToDelete);
+			frame.getView().repaint();
 		}
 	}
 	
@@ -113,6 +112,11 @@ public class DrawingController {
 	private void executeCmdDeselectShape(Shape shape) {
 		CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
 		cmdDeselect.execute();
+	}
+	
+	private void executeCmdDeleteShapes(ArrayList<Shape> shapesToDelete) {
+		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
+		cmdDelete.execute();
 	}
 	
 	public void setActiveEdgeColor() {

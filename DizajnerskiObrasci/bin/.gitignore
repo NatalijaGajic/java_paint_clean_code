@@ -7,3 +7,5 @@
 /frame/
 /controllers/
 /dialogs/
+/commands/
+/commandTests/
