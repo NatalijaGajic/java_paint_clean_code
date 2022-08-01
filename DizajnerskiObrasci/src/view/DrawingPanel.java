@@ -1,4 +1,5 @@
 package view;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ public class DrawingPanel extends JPanel{
 	private DrawingModel model;
 
 	public DrawingPanel() {
+		setBackground(Color.WHITE);
 	}
 		 
 	public void paint(Graphics g) {

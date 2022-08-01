@@ -7,7 +7,6 @@ import javax.swing.JMenuItem;
 public class FrameMenuBar extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
-	//private DrawingController controller;
 	private JMenu fileMenu;
 
 	private JMenu menuOpen;

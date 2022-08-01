@@ -36,10 +36,10 @@ public class DrawingFrame extends JFrame {
 	private FrameOptionsToolBar optionsToolBar;
 	private FrameMenuBar menuBar;
 
-	private DrawingPanel view = new DrawingPanel();
-	private DrawingModel model = new DrawingModel();
-	private DrawingController controller = new DrawingController(model, this);
-
+	private DrawingPanel view;
+	private DrawingController controller;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,15 +61,13 @@ public class DrawingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public DrawingFrame() {
+		view = new DrawingPanel();
 		createPanels();
 		createToolBars();
 		scrollPane = new FrameScrollPane();
 		menuBar = new FrameMenuBar();
 		addViewListener();
 		buildFrame();
-		
-		view.setModel(model);
-		view.setBackground(Color.WHITE);
 				
 	}
 	
@@ -109,6 +107,7 @@ public class DrawingFrame extends JFrame {
 		pnlWest.add(optionsToolBar);
 		
 		pnlSouth.add(scrollPane);
+		
 	}
 	
 
@@ -171,6 +170,9 @@ public class DrawingFrame extends JFrame {
 		return optionsToolBar;
 	}
 	
+	public void setControllerForToolBars(DrawingController controller) {
+		colorToolBar.setController(controller);
+		optionsToolBar.setController(controller);
+	}
 	
-
 }

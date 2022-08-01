@@ -81,6 +81,9 @@ public class FrameColorToolBar extends JToolBar{
 		return btnActiveInnerColor;
 	}
 	
+	public void setController(DrawingController controller) {
+		this.controller = controller;
+	}
 	
 	
 	

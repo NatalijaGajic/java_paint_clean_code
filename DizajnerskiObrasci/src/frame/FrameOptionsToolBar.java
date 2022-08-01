@@ -106,6 +106,9 @@ public class FrameOptionsToolBar extends JToolBar{
 		return btnDelete;
 	}
 	
+	public void setController(DrawingController controller) {
+		this.controller = controller;
+	}
 	
 
 }

@@ -175,7 +175,7 @@ public class DrawingController {
 	}
 	
 	public void modifyPointIfAccepted(Shape selectedShape) {
-		Point point = (Point) selected;
+		Point point = (Point) selectedShape;
 		DlgPoint dlg = new DlgPoint();
 		dlg.setModifyDialogFields(point);
 		dlg.setVisible(true);
@@ -183,7 +183,7 @@ public class DrawingController {
 	}
 	
 	public void modifyLineIfAccepted(Shape selectedShape) {
-		Point point = (Point) selected;
+		Point point = (Point) selectedShape;
 		DlgPoint dlg = new DlgPoint();
 		dlg.setModifyDialogFields(point);
 		dlg.setVisible(true);
@@ -191,7 +191,7 @@ public class DrawingController {
 	}
 	
 	public void modifyRectangleIfAccepted(Shape selectedShape) {
-		Rectangle rectangle = (Rectangle) selected;
+		Rectangle rectangle = (Rectangle) selectedShape;
 		DlgRectangle dlg = new DlgRectangle();
 		dlg.setModifyDialogFields(rectangle);
 		dlg.setVisible(true);
@@ -199,7 +199,7 @@ public class DrawingController {
 	}
 	
 	public void modifyDonutIfAccepted(Shape selectedShape) {
-		Donut donut = (Donut) selected;
+		Donut donut = (Donut) selectedShape;
 		DlgDonut dlg = new DlgDonut();
 		dlg.setModifyDialogFields(donut);
 		dlg.setVisible(true);
@@ -207,7 +207,7 @@ public class DrawingController {
 	}
 	
 	public void modifyCircleIfAccepted(Shape selectedShape) {
-		Circle circle = (Circle) selected;
+		Circle circle = (Circle) selectedShape;
 		DlgCircle dlg = new DlgCircle();
 		dlg.setModifyDialogFields(circle);
 		dlg.setVisible(true);
