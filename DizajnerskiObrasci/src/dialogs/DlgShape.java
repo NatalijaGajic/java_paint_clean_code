@@ -201,8 +201,11 @@ public abstract class DlgShape extends JDialog implements Dialog {
 		btnEdgeColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				edgeColor = JColorChooser.showDialog(getContentPane(), "Choose edge color", edgeColor);
-				pnlEdgeColor.setBackground(edgeColor);
+				Color chosenColor = JColorChooser.showDialog(getContentPane(), "Choose edge color", edgeColor);
+				if(chosenColor != null) {
+					edgeColor = chosenColor;
+					pnlEdgeColor.setBackground(edgeColor);
+				}
 			}
 		});
 	}

@@ -70,8 +70,11 @@ public abstract class DlgSurfaceShape extends DlgShape{
 		btnInnerColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				innerColor = JColorChooser.showDialog(getContentPane(), "Choose inner color", innerColor);
-				pnlInnerColor.setBackground(innerColor);
+				Color chosenColor = JColorChooser.showDialog(getContentPane(), "Choose inner color", innerColor);
+				if(chosenColor != null) {
+					innerColor = chosenColor;
+					pnlInnerColor.setBackground(innerColor);
+				}
 			}
 		});
 	}

@@ -116,16 +116,18 @@ public class DrawingController {
 	}
 	
 	public void setActiveEdgeColor() {
-		activeEdgeColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
-		if (activeEdgeColor != null) {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
+		if (chosenColor != null) {
+			activeEdgeColor = chosenColor;
 			JPanel activeEdgeColorPanel = frame.getColorToolBar().getPnlActiveEdgeColor();
 			activeEdgeColorPanel.setBackground(activeEdgeColor);
 		}
 	}
 	
 	public void setActiveInnerColor() {
-		activeInnerColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
-		if (activeInnerColor != null) {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
+		if (chosenColor != null) {
+			activeInnerColor = chosenColor;
 			JPanel pnlActiveInnerColor = frame.getColorToolBar().getPnlActiveInnerColor();
 			pnlActiveInnerColor.setBackground(activeInnerColor);
 		}
