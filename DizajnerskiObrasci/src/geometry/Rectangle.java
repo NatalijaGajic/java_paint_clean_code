@@ -43,18 +43,6 @@ public class Rectangle extends SurfaceShape {
 		this(upperLeftPoint, height, width, selected, color);
 		setInnerColor(innerColor);
 	}
-	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Rectangle) {
-			return (int) (this.area() - ((Rectangle) o).area());	
-		}
-		return 0;
-	}
-	
-	@Override
-	public void moveBy(int byX, int byY) {
-		upperLeftPoint.moveBy(byX, byY);
-	}
 
 	@Override
 	public void draw(Graphics g) {
@@ -77,10 +65,6 @@ public class Rectangle extends SurfaceShape {
 	public void fill(Graphics g) {
 		g.setColor(getInnerColor());
 		g.fillRect(this.upperLeftPoint.getX()+1, this.getUpperLeftPoint().getY()+1, width-1, height-1);
-	}
-	
-	public double area() {
-		return width * height;
 	}
 	
 	public boolean equals(Object obj) {
@@ -152,13 +136,6 @@ public class Rectangle extends SurfaceShape {
 	public String toString() {
 		return "Upper left point: " + getUpperLeftPoint() + ", height: " 
 				+ getHeight() + ", width: " + getWidth();
-	}
-
-	@Override
-	public void moveOn(int x, int y) {
-		// TODO Auto-generated method stub
-		upperLeftPoint.setX(x);
-		upperLeftPoint.setY(y);
 	}
 
 	@Override

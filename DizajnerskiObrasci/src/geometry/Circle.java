@@ -40,19 +40,6 @@ public class Circle extends SurfaceShape {
 	}
 	
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Circle) {
-			return this.radius - ((Circle)o).radius;
-		}
-		return 0;
-	}
-	
-	@Override
-	public void moveBy(int byX, int byY) {
-		center.moveBy(byX, byY);
-	}
-	
-	@Override
 	public void fill(Graphics g) {
 		g.setColor(getInnerColor());
 		g.fillOval(this.center.getX() - radius + 1, this.center.getY() - radius + 1, (radius * 2) - 2, (radius * 2) - 2);	
@@ -87,11 +74,7 @@ public class Circle extends SurfaceShape {
 			return false;
 		}
 	}
-	
-	public double area() {
-		return radius * radius * Math.PI;
-	}
-	
+
 	public boolean contains(int x, int y) {
 		return this.getCenter().distance(x, y) <= radius;
 	}
@@ -117,22 +100,12 @@ public class Circle extends SurfaceShape {
 		return radius;
 	}
 
-	public void setRadius(int radius) {//throws Exception {
-		//if(radius > 0) //{
+	public void setRadius(int radius) {
 			this.radius = radius;
-		//} //else //{
-			//throw new NumberFormatException("Radius has to be a value greater then 0!");
-		//}	
 	}
 	
 	public String toString() {
 		return "Center: " + center + ", radius: " + radius;
-	}
-
-	@Override
-	public void moveOn(int x, int y) {
-		this.center.setX(x);
-		this.center.setY(y);
 	}
 
 	@Override

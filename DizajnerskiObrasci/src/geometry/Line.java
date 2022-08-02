@@ -32,20 +32,6 @@ public class Line extends Shape{
 		setColor(color);
 	}
 
-	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Line) {
-			return (int) (this.length() - ((Line) o).length() );
-		} 
-		return 0;
-	}
-
-	@Override
-	public void moveBy(int byX, int byY) {
-		startPoint.moveBy(byX, byY);
-		endPoint.moveBy(byX, byY);
-	}
-	
 	public Point middleOfLine() {
 		int middleByX = (this.startPoint.getX() + this.endPoint.getX()) / 2;
 		int middleByY = (this.startPoint.getY() + this.endPoint.getY()) / 2;
@@ -124,13 +110,6 @@ public class Line extends Shape{
 	
 	public String toString() {
 		return startPoint + "->" + endPoint;
-	}
-
-	@Override
-	public void moveOn(int x, int y) {
-		// TODO Auto-generated method stub
-		startPoint.moveOn(x, y);
-		endPoint.moveOn(x, y);
 	}
 
 	@Override

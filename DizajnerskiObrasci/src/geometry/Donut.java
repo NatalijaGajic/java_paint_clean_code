@@ -50,17 +50,6 @@ private int innerRadius;
 		g.fillOval(getCenter().getX() - getInnerRadius(), getCenter().getY() - getInnerRadius(), getInnerRadius() * 2, getInnerRadius() * 2);
 	}
 	
-	public int compareTo(Object o) {
-		if (o instanceof Donut) {
-			return (int) (this.area() - ((Donut) o).area());
-		}
-		return 0;
-	}
-	
-	public double area() {
-		return super.area() - innerRadius * innerRadius * Math.PI;
-	}
-	
 	public boolean contains(int x, int y) {
 		double dFromCenter = this.getCenter().distance(x, y);
 		return super.contains(x, y) && dFromCenter > innerRadius;

@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="C:/Users/Natalija/Downloads/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Natalija/Documents/master/reinzenjering/design_patterns_java-main/design-patterns/lib/heksagon.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

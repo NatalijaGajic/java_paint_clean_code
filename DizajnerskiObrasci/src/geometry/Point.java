@@ -31,21 +31,7 @@ public class Point extends Shape{
 		this(x, y, selected);
 		setColor(color);
 	}
-	
-	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Point) {
-			Point start = new Point(0, 0);
-			return  (int) (this.distance(start.getX(), start.getY()) - ((Point) o).distance(start.getX(), start.getY()));
-		}
-		return 0;
-	}
-	
-	@Override
-	public void moveBy(int byX, int byY) {
-		this.x = this.x + byX;
-		this.y += byY;
-	}	
+
 	
 	@Override
 	public void draw(Graphics g) {
@@ -115,12 +101,6 @@ public class Point extends Shape{
 		return "(" + getX() + ", " + getY() + ")";
 	}
 
-	@Override
-	public void moveOn(int x, int y) {
-		this.x=x;
-		this.y=y;
-		
-	}
 
 	@Override
 	public void setShapeFileds(Shape shape) {
