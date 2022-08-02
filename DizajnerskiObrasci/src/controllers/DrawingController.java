@@ -118,6 +118,11 @@ public class DrawingController {
 		cmdDelete.execute();
 	}
 	
+	private void executeCmdShapeToBack(Shape shapeToMove) {
+		CmdToBack cmdToBack = new CmdToBack(model, shapeToMove);
+		cmdToBack.execute();
+	}
+	
 	public void setActiveEdgeColor() {
 		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
 		if (chosenColor != null) {
@@ -223,12 +228,20 @@ public class DrawingController {
 		
 	}
 	
+	public void moveShapeToBack() {
+		Shape selectedShape = model.getSelectedShape();
+		if(model.getIndexOfShape(selectedShape) == 0)
+			return;
+		executeCmdShapeToBack(selectedShape);
+		frame.getView().repaint();
+	}
+	
 	public void updateObservableButtons(int numberOfSelectedShapes) {
 		
 		if(numberOfSelectedShapes == 0) {
 			disableNoneSelectedButtons();
 		} else if(numberOfSelectedShapes == 1) {
-			
+			//TODO: Position buttons additionally observe shapes; when one is selected, then one added, they should be enabled 
 			if(model.getNumberOfShapes() == 1) {
 				disablePositionButtons();
 			}else {

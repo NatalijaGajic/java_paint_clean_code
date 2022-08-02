@@ -34,6 +34,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		createButtons();
 		addBtnModifyListener();
 		addBtnDeleteListener();
+		addMovePositionButtonsListeners();
 		addButtonsToToolBar();
 		addButtonsToButtonGroup();
 		disableButtons();
@@ -100,6 +101,15 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.deleteShapes();
+			}
+		});
+	}
+	
+	private void addMovePositionButtonsListeners() {
+		btnToBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.moveShapeToBack();
 			}
 		});
 	}
