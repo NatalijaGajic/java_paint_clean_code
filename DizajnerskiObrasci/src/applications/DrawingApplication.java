@@ -3,6 +3,7 @@ package applications;
 import controllers.DrawingController;
 import frame.DrawingFrame;
 import model.DrawingModel;
+import observer.CollectionOfSelectedShapes;
 import view.DrawingPanel;
 
 public class DrawingApplication {
@@ -14,6 +15,7 @@ public class DrawingApplication {
 		DrawingController controller = new DrawingController(model, frame);
 		DrawingPanel view = frame.getView();
 		
+		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
 		frame.setController(controller);
 		frame.setControllerForToolBars(controller);
 		frame.setView(view);

@@ -3,11 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import geometry.Shape;
+import observer.CollectionOfSelectedShapes;
 
 public class DrawingModel {
 
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
-	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
+	CollectionOfSelectedShapes collectionOfSelectedShapes = new CollectionOfSelectedShapes();
 	
 	public DrawingModel() {
 	}
@@ -29,19 +30,19 @@ public class DrawingModel {
 	}
 	
 	public void addSelectedShape(Shape s) {
-		selectedShapes.add(s);
+		collectionOfSelectedShapes.add(s);
 	}
 	
 	public void removeSelectedShape(Shape s) {
-		selectedShapes.remove(s);
+		collectionOfSelectedShapes.remove(s);
 	}
 	
 	public Shape getSelectedShapeAtIndex(int index) {
-		return selectedShapes.get(index);
+		return collectionOfSelectedShapes.get(index);
 	}
 	
 	public void removeSelectedShapeAtIndex(int index) {
-		selectedShapes.remove(index);
+		collectionOfSelectedShapes.remove(index);
 	}
 	
 	public boolean doesContainShape(Shape shape) {
@@ -53,7 +54,7 @@ public class DrawingModel {
 	}
 	
 	public ArrayList<Shape> getSelectedShapes(){
-		return selectedShapes;
+		return collectionOfSelectedShapes.getSelectedShapes();
 	}
 	
 	public int getNumberOfShapes() {
@@ -61,15 +62,15 @@ public class DrawingModel {
 	}
 	
 	public int getNumberOfSelectedShapes() {
-		return selectedShapes.size();
+		return collectionOfSelectedShapes.size();
 	}
 	
 	public void clearSelectedShapes() {
-		selectedShapes.clear();
+		collectionOfSelectedShapes.clear();
 	}
 	
 	public Shape getSelectedShape() {
-		return selectedShapes.get(0);
+		return collectionOfSelectedShapes.get(0);
 	}
 	
 	public Shape getShapeByIndex(int index) {
@@ -77,7 +78,7 @@ public class DrawingModel {
 	}
 	
 	public boolean doesContainSelectedShape(Shape shape) {
-		return selectedShapes.contains(shape);
+		return collectionOfSelectedShapes.contains(shape);
 	}
 	
 	public void removeShapes(ArrayList<Shape> shapesToRemove) {
@@ -93,10 +94,16 @@ public class DrawingModel {
 	}
 	
 	public void addSelectedShapes(ArrayList<Shape> shapes) {
-		selectedShapes.addAll(shapes);
+		collectionOfSelectedShapes.addAll(shapes);
 	}
 	
 	public void addShapes(ArrayList<Shape> shapesToAdd) {
 		shapes.addAll(shapesToAdd);
 	}
+
+	public CollectionOfSelectedShapes getCollectionOfSelectedShapes() {
+		return collectionOfSelectedShapes;
+	}
+	
+	
 }

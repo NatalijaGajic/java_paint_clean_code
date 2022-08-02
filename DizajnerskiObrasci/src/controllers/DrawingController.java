@@ -24,7 +24,6 @@ public class DrawingController {
 	private Color activeInnerColor = Color.WHITE;
 	
 	private Point startPoint;
-	private Shape selected;
 	
 	public DrawingController(DrawingModel model, DrawingFrame frame){
 		this.model = model;
@@ -222,5 +221,82 @@ public class DrawingController {
 	
 	public void modifyHexagonIfAccepted(Shape selectedShape) {
 		
+	}
+	
+	public void updateObservableButtons(int numberOfSelectedShapes) {
+		
+		if(numberOfSelectedShapes == 0) {
+			disableNoneSelectedButtons();
+		} else if(numberOfSelectedShapes == 1) {
+			
+			if(model.getNumberOfShapes() == 1) {
+				disablePositionButtons();
+			}else {
+				enablePositionButtons();
+			}
+			
+			enableOneSelectedButtons();
+			
+		}else {
+			enableMultipleSelectedButtons();
+		}
+	}
+	
+	private void disableNoneSelectedButtons() {
+		frame.getOptionsToolBar().getBtnDelete().setEnabled(false);
+		frame.getOptionsToolBar().getBtnModify().setEnabled(false);
+		disablePositionButtons();
+	}
+	
+	private void disablePositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(false);
+		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToBack().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToFront().setEnabled(false);
+	}
+	
+	private void enablePositionButtons() {
+		Shape selectedShape = model.getSelectedShape();
+		int indexOfSelectedShape = model.getIndexOfShape(selectedShape);
+		
+		if(indexOfSelectedShape == 0) {
+			enableToFrontPositionButtons();
+		}else if(indexOfSelectedShape == model.getNumberOfShapes() - 1) {
+			enableToBackPositionButtons();
+		}else {
+			enableAllPositionButtons();
+		}
+	}
+	
+	private void enableToFrontPositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToBack().setEnabled(false);
+		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(true);
+		frame.getOptionsToolBar().getBtnToFront().setEnabled(true);
+	}
+	
+	private void enableToBackPositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(true);
+		frame.getOptionsToolBar().getBtnToBack().setEnabled(true);
+		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToFront().setEnabled(false);
+	}
+	
+	private void enableAllPositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(true);
+		frame.getOptionsToolBar().getBtnToBack().setEnabled(true);
+		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(true);
+		frame.getOptionsToolBar().getBtnToFront().setEnabled(true);		
+	}
+	
+	private void enableOneSelectedButtons() {
+		frame.getOptionsToolBar().getBtnModify().setEnabled(true);
+		frame.getOptionsToolBar().getBtnDelete().setEnabled(true);
+	}
+	
+	private void enableMultipleSelectedButtons() {
+		frame.getOptionsToolBar().getBtnDelete().setEnabled(true);
+		frame.getOptionsToolBar().getBtnModify().setEnabled(false);
+		disablePositionButtons();
 	}
 }

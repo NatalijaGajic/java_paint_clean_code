@@ -10,8 +10,9 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import controllers.DrawingController;
+import observer.SelectedShapesObserver;
 
-public class FrameOptionsToolBar extends JToolBar{
+public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver {
 
 	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
@@ -35,6 +36,7 @@ public class FrameOptionsToolBar extends JToolBar{
 		addBtnDeleteListener();
 		addButtonsToToolBar();
 		addButtonsToButtonGroup();
+		disableButtons();
 	}
 	
 	private void createButtons() {
@@ -63,6 +65,18 @@ public class FrameOptionsToolBar extends JToolBar{
 		add(btnUndo);
 		add(btnRedo);
 		add(btnExecuteLog);
+	}
+	
+	private void disableButtons() {
+		btnModify.setEnabled(false);
+		btnDelete.setEnabled(false);
+		btnToBack.setEnabled(false);
+		btnToFront.setEnabled(false);
+		btnBringToFront.setEnabled(false);
+		btnBringToBack.setEnabled(false);
+		btnUndo.setEnabled(false);
+		btnRedo.setEnabled(false);
+		btnExecuteLog.setEnabled(false);
 	}
 	
 	
@@ -97,6 +111,28 @@ public class FrameOptionsToolBar extends JToolBar{
 	public boolean isTglBtnDrawSelected() {
 		return tglbtnDraw.isSelected();
 	}
+	
+	public boolean isBtnDeleteEnabled() {
+		return btnDelete.isEnabled();
+	}
+	
+	public boolean isBtnModifyEnabled() {
+		return btnModify.isEnabled();
+	}
+	
+	public boolean isBtnBringToFrontEnabled() {
+		return btnBringToFront.isEnabled();
+	}
+	public boolean isBtnBringToBackEnabled() {
+		return btnBringToBack.isEnabled();
+	}
+	
+	public boolean isBtnToFrontEnabled() {
+		return btnToFront.isEnabled();
+	}
+	public boolean isBtnToBackEnabled() {
+		return btnToBack.isEnabled();
+	}
 
 	public JButton getBtnModify() {
 		return btnModify;
@@ -106,8 +142,29 @@ public class FrameOptionsToolBar extends JToolBar{
 		return btnDelete;
 	}
 	
+	public JButton getBtnToBack() {
+		return btnToBack;
+	}
+
+	public JButton getBtnToFront() {
+		return btnToFront;
+	}
+
+	public JButton getBtnBringToFront() {
+		return btnBringToFront;
+	}
+
+	public JButton getBtnBringToBack() {
+		return btnBringToBack;
+	}
+
 	public void setController(DrawingController controller) {
 		this.controller = controller;
+	}
+
+	@Override
+	public void update(int numberOfSelectedShapes) {
+		controller.updateObservableButtons(numberOfSelectedShapes);
 	}
 	
 
