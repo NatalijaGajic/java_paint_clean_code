@@ -123,6 +123,11 @@ public class DrawingController {
 		cmdToBack.execute();
 	}
 	
+	private void executeCmdShapeToFront(Shape shapeToMove) {
+		CmdToFront cmdToFront = new CmdToFront(model, shapeToMove);
+		cmdToFront.execute();
+	}
+	
 	public void setActiveEdgeColor() {
 		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
 		if (chosenColor != null) {
@@ -233,6 +238,14 @@ public class DrawingController {
 		if(model.getIndexOfShape(selectedShape) == 0)
 			return;
 		executeCmdShapeToBack(selectedShape);
+		frame.getView().repaint();
+	}
+	
+	public void moveShapeToFront() {
+		Shape selectedShape = model.getSelectedShape();
+		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
+			return;
+		executeCmdShapeToFront(selectedShape);
 		frame.getView().repaint();
 	}
 	
