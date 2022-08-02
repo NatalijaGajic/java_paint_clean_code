@@ -121,6 +121,20 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 				controller.moveShapeToFront();
 			}
 		});
+		
+		btnBringToBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.bringShapeToBack();
+			}
+		});
+		
+		btnBringToFront.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.bringShapeToFront();
+			}
+		});
 	}
 	
 	public boolean isTglBtnSelectSelected() {

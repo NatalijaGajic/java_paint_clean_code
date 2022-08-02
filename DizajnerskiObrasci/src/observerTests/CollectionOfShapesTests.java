@@ -82,7 +82,7 @@ class CollectionOfShapesTests {
 		model.addSelectedShape(line);
 		assertFalse(buttonsToFrontAreEnabled());
 		model.removeShape(line);
-		model.addShapeAtIndex(3, line);
+		model.addShapeAtIndex(2, line);
 		assertTrue(buttonsToFrontAreEnabled());
 	}
 

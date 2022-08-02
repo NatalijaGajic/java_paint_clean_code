@@ -128,6 +128,16 @@ public class DrawingController {
 		cmdToFront.execute();
 	}
 	
+	private void executeCmdBringShapeToBack(Shape shapeToMove) {
+		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, shapeToMove);
+		cmdBringToBack.execute();
+	}
+	
+	private void executeCmdBringShapeToFront(Shape shapeToMove) {
+		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, shapeToMove);
+		cmdBringToFront.execute();
+	}
+	
 	public void setActiveEdgeColor() {
 		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
 		if (chosenColor != null) {
@@ -249,6 +259,23 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
+	public void bringShapeToFront() {
+		Shape selectedShape = model.getSelectedShape();
+		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
+			return;
+		executeCmdBringShapeToFront(selectedShape);
+		frame.getView().repaint();
+	}
+	
+	public void bringShapeToBack() {
+		Shape selectedShape = model.getSelectedShape();
+		if(model.getIndexOfShape(selectedShape) == 0)
+			return;
+		executeCmdBringShapeToBack(selectedShape);
+		frame.getView().repaint();
+	}
+	
+	
 	public void updateObservablePositionButtons() {
 		int numberOfSelectedShapes = model.getNumberOfSelectedShapes();
 		if(numberOfSelectedShapes == 1) { 
@@ -296,12 +323,27 @@ public class DrawingController {
 		int indexOfSelectedShape = model.getIndexOfShape(selectedShape);
 		
 		if(indexOfSelectedShape < model.getNumberOfShapes() - 1) {
+			if(indexOfSelectedShape == 0) {
+				disableToBackPositionButtons();
+			}
 			enableToFrontPositionButtons();
 		}
-		
 		if(indexOfSelectedShape > 0) {
+			if(indexOfSelectedShape == model.getNumberOfShapes() - 1) {
+				disableToFrontPositionButtons();
+			}
 			enableToBackPositionButtons();
 		}
+	}
+	
+	private void disableToFrontPositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToFront().setEnabled(false);
+	}
+	
+	private void disableToBackPositionButtons() {
+		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(false);
+		frame.getOptionsToolBar().getBtnToBack().setEnabled(false);
 	}
 	
 	private void enableToFrontPositionButtons() {

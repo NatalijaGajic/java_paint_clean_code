@@ -51,5 +51,19 @@ class FrameOptionsToolBarTests {
 		optionsToolBar.getBtnToFront().doClick();
 		verify(controller).moveShapeToFront();
 	}
+	
+	@Test
+	public void testBtnBringToBackClick() {
+		optionsToolBar.getBtnBringToBack().setEnabled(true);
+		optionsToolBar.getBtnBringToBack().doClick();
+		verify(controller).bringShapeToBack();
+	}
+	
+	@Test
+	public void testBtnBringToFrontClick() {
+		optionsToolBar.getBtnBringToFront().setEnabled(true);
+		optionsToolBar.getBtnBringToFront().doClick();
+		verify(controller).bringShapeToFront();
+	}
 
 }
