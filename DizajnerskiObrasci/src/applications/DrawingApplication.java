@@ -16,6 +16,7 @@ public class DrawingApplication {
 		DrawingPanel view = frame.getView();
 		
 		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
+		model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 		frame.setController(controller);
 		frame.setControllerForToolBars(controller);
 		frame.setView(view);

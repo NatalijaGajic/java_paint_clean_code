@@ -2,6 +2,7 @@ package frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -11,8 +12,9 @@ import javax.swing.SwingConstants;
 
 import controllers.DrawingController;
 import observer.SelectedShapesObserver;
+import observer.ShapesObserver;
 
-public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver {
+public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver {
 
 	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
@@ -175,6 +177,12 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	@Override
 	public void update(int numberOfSelectedShapes) {
 		controller.updateObservableButtons(numberOfSelectedShapes);
+	}
+
+	@Override
+	public void update() {
+		controller.updateObservablePositionButtons();
+		
 	}
 	
 

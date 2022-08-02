@@ -1,6 +1,7 @@
 package observer;
 
-public interface Subject {
+
+public interface SelectedShapesSubject {
 
 	public void registerObserver(SelectedShapesObserver o);
     public void unregisterObserver(SelectedShapesObserver o);

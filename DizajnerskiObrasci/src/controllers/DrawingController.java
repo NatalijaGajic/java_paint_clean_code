@@ -236,12 +236,22 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
+	public void updateObservablePositionButtons() {
+		int numberOfSelectedShapes = model.getNumberOfSelectedShapes();
+		if(numberOfSelectedShapes == 1) { 
+			if(model.getNumberOfShapes() == 1) {
+				disablePositionButtons();
+			}else {
+				enablePositionButtons();
+			}
+		}
+	}
+	
 	public void updateObservableButtons(int numberOfSelectedShapes) {
 		
 		if(numberOfSelectedShapes == 0) {
 			disableNoneSelectedButtons();
-		} else if(numberOfSelectedShapes == 1) {
-			//TODO: Position buttons additionally observe shapes; when one is selected, then one added, they should be enabled 
+		} else if(numberOfSelectedShapes == 1) { 
 			if(model.getNumberOfShapes() == 1) {
 				disablePositionButtons();
 			}else {
@@ -272,18 +282,16 @@ public class DrawingController {
 		Shape selectedShape = model.getSelectedShape();
 		int indexOfSelectedShape = model.getIndexOfShape(selectedShape);
 		
-		if(indexOfSelectedShape == 0) {
+		if(indexOfSelectedShape < model.getNumberOfShapes() - 1) {
 			enableToFrontPositionButtons();
-		}else if(indexOfSelectedShape == model.getNumberOfShapes() - 1) {
+		}
+		
+		if(indexOfSelectedShape > 0) {
 			enableToBackPositionButtons();
-		}else {
-			enableAllPositionButtons();
 		}
 	}
 	
 	private void enableToFrontPositionButtons() {
-		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(false);
-		frame.getOptionsToolBar().getBtnToBack().setEnabled(false);
 		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(true);
 		frame.getOptionsToolBar().getBtnToFront().setEnabled(true);
 	}
@@ -291,15 +299,6 @@ public class DrawingController {
 	private void enableToBackPositionButtons() {
 		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(true);
 		frame.getOptionsToolBar().getBtnToBack().setEnabled(true);
-		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(false);
-		frame.getOptionsToolBar().getBtnToFront().setEnabled(false);
-	}
-	
-	private void enableAllPositionButtons() {
-		frame.getOptionsToolBar().getBtnBringToBack().setEnabled(true);
-		frame.getOptionsToolBar().getBtnToBack().setEnabled(true);
-		frame.getOptionsToolBar().getBtnBringToFront().setEnabled(true);
-		frame.getOptionsToolBar().getBtnToFront().setEnabled(true);		
 	}
 	
 	private void enableOneSelectedButtons() {

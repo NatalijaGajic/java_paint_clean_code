@@ -5,14 +5,14 @@ import java.util.Iterator;
 
 import geometry.Shape;
 
-public class CollectionOfSelectedShapes implements Subject{
+public class CollectionOfSelectedShapes implements SelectedShapesSubject{
 
 	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	ArrayList<SelectedShapesObserver> observers = new ArrayList<SelectedShapesObserver>();
 	
 	@Override
 	public void registerObserver(SelectedShapesObserver o) {
-		observers.add(o);
+		observers.add((SelectedShapesObserver) o);
 	}
 
 	@Override
@@ -28,7 +28,6 @@ public class CollectionOfSelectedShapes implements Subject{
 			SelectedShapesObserver ob = it.next();
 			ob.update(numberOfSelectedShapes);
 		}
-		
 	}
 	
 	public void add(Shape shape) {

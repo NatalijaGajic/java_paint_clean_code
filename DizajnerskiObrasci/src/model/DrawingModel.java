@@ -4,29 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import geometry.Shape;
 import observer.CollectionOfSelectedShapes;
+import observer.CollectionOfShapes;
 
 public class DrawingModel {
 
-	ArrayList<Shape> shapes = new ArrayList<Shape>();
+	CollectionOfShapes collectionOfShapes = new CollectionOfShapes();
 	CollectionOfSelectedShapes collectionOfSelectedShapes = new CollectionOfSelectedShapes();
 	
 	public DrawingModel() {
 	}
 	
 	public void addShape(Shape s) {
-		shapes.add(s);
+		collectionOfShapes.add(s);
 	}
 	
 	public void removeShape(Shape s) {
-		shapes.remove(s);
+		collectionOfShapes.remove(s);
 	}
 	
 	public Shape getShapeAtIndex(int index) {
-		return shapes.get(index);
+		return collectionOfShapes.get(index);
 	}
 	
 	public void removeShapeAtIndex(int index) {
-		shapes.remove(index);
+		collectionOfShapes.remove(index);
 	}
 	
 	public void addSelectedShape(Shape s) {
@@ -46,11 +47,11 @@ public class DrawingModel {
 	}
 	
 	public boolean doesContainShape(Shape shape) {
-		return shapes.contains(shape);
+		return collectionOfShapes.contains(shape);
 	}
 	
 	public ArrayList<Shape> getShapes(){
-		return shapes;
+		return collectionOfShapes.getShapes();
 	}
 	
 	public ArrayList<Shape> getSelectedShapes(){
@@ -58,7 +59,7 @@ public class DrawingModel {
 	}
 	
 	public int getNumberOfShapes() {
-		return shapes.size();
+		return collectionOfShapes.size();
 	}
 	
 	public int getNumberOfSelectedShapes() {
@@ -74,7 +75,7 @@ public class DrawingModel {
 	}
 	
 	public Shape getShapeByIndex(int index) {
-		return shapes.get(index);
+		return collectionOfShapes.get(index);
 	}
 	
 	public boolean doesContainSelectedShape(Shape shape) {
@@ -82,15 +83,15 @@ public class DrawingModel {
 	}
 	
 	public void removeShapes(ArrayList<Shape> shapesToRemove) {
-		shapes.removeAll(shapesToRemove);
+		collectionOfShapes.removeAll(shapesToRemove);
 	}
 	
 	public int getIndexOfShape(Shape shape) {
-		return shapes.indexOf(shape);
+		return collectionOfShapes.indexOf(shape);
 	}
 	
 	public void addShapeAtIndex(int index, Shape shape) {
-		shapes.add(index, shape);
+		collectionOfShapes.add(index, shape);
 	}
 	
 	public void addSelectedShapes(ArrayList<Shape> shapes) {
@@ -98,12 +99,17 @@ public class DrawingModel {
 	}
 	
 	public void addShapes(ArrayList<Shape> shapesToAdd) {
-		shapes.addAll(shapesToAdd);
+		collectionOfShapes.addAll(shapesToAdd);
 	}
 
 	public CollectionOfSelectedShapes getCollectionOfSelectedShapes() {
 		return collectionOfSelectedShapes;
 	}
+
+	public CollectionOfShapes getCollectionOfShapes() {
+		return collectionOfShapes;
+	}
+	
 	
 	
 }
