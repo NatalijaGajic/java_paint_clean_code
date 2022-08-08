@@ -11,6 +11,7 @@ import controllers.DrawingController;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
+import hexagon.Hexagon;
 import model.DrawingModel;
 
 
@@ -26,6 +27,7 @@ class DrawingControllerTests {
 	private Rectangle testRectangle;
 	private Circle testCircle;
 	private Donut testDonut;
+	private HexagonAdapter testHexagon;
 	
 	
 	@BeforeEach
@@ -41,6 +43,7 @@ class DrawingControllerTests {
 		testRectangle = new Rectangle(new Point(1,1), 40, 50, false, Color.WHITE, Color.BLACK);
 		testCircle = new Circle(new Point(1, 1), 10, false, Color.WHITE, Color.BLACK);
 		testDonut = new Donut(new Point(1, 1), 10, 5, false, Color.WHITE, Color.BLACK);
+		testHexagon = new HexagonAdapter(new Point(1,2), 3, Color.WHITE, Color.BLACK);
 	}
 	
 	
@@ -277,6 +280,54 @@ class DrawingControllerTests {
 		controller.modifyShapeIfAccepted(dlg, testDonut);
 		assertTrue(model.doesContainShape(testDonut));
 		assertFalse(testDonut.equals(modifiedShape));
+	}
+	
+	
+	@Test
+	public void testAddHexagonIfAcceptedWhenAccepted() {
+		DlgHexagon dlg = new DlgHexagon();
+		dlg.setModifyDialogFields(testHexagon);
+		dlg.setAccepted(true);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertTrue(model.doesContainShape(testHexagon));
+	}
+	
+	@Test
+	public void testAddHexagonIfAcceptedWhenNotAccepted() {
+		DlgHexagon dlg = new DlgHexagon();
+		testHexagon.setRadius(0);
+		dlg.setModifyDialogFields(testHexagon);
+		dlg.setAccepted(false);
+		
+		controller.addShapeIfAccepted(dlg);
+		assertFalse(model.doesContainShape(testHexagon));
+	}
+	
+	@Test
+	public void testModifyHexagonIfAcceptedWhenAccepted() {
+		model.addShape(testHexagon);
+		DlgHexagon dlg = new DlgHexagon();
+		HexagonAdapter modifiedShape = new HexagonAdapter(new Point(1,2), 3, Color.blue, Color.green, false);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(true);
+		
+		controller.modifyShapeIfAccepted(dlg, testHexagon);
+		assertTrue(model.doesContainShape(testHexagon));
+		assertTrue(testHexagon.equals(modifiedShape));
+	}
+	
+	@Test
+	public void testModifyHexagonIfAcceptedWhenNotAccepted() {
+		model.addShape(testHexagon);
+		DlgHexagon dlg = new DlgHexagon();
+		HexagonAdapter modifiedShape = new HexagonAdapter(new Point(1,2), 0, Color.blue, Color.green, false);
+		dlg.setModifyDialogFields(modifiedShape);
+		dlg.setAccepted(false);
+		
+		controller.modifyShapeIfAccepted(dlg, testHexagon);
+		assertTrue(model.doesContainShape(testHexagon));
+		assertFalse(testHexagon.equals(modifiedShape));
 	}
 	
 	@Test

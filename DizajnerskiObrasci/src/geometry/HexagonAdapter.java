@@ -31,38 +31,113 @@ public class HexagonAdapter extends SurfaceShape{
 
 	@Override
 	public void fill(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		hexagon.paint(g);
 	}
+
 
 	@Override
 	public boolean contains(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+		return hexagon.doesContain(x, y);
 	}
 
 	@Override
 	public boolean contains(Point point) {
-		// TODO Auto-generated method stub
-		return false;
+		return hexagon.doesContain(point.getX(), point.getY());
 	}
 
 	@Override
 	public Shape clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HexagonAdapter(new Point(getX(), getY()), getRadius(),
+				getColor(), getInnerColor(), isSelected());
 	}
 
 	@Override
 	public void setShapeFileds(Shape shape) {
-		// TODO Auto-generated method stub
+		if(shape instanceof HexagonAdapter) {
+			HexagonAdapter hexagonAdapter = (HexagonAdapter) shape;
+			this.setX(hexagonAdapter.getX());
+			this.setY(hexagonAdapter.getY());
+			this.setRadius(hexagonAdapter.getRadius());
+			this.setColor(hexagonAdapter.getColor());
+			this.setInnerColor(hexagonAdapter.getInnerColor());
+			this.setSelected(hexagonAdapter.isSelected());
+		}
 		
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof HexagonAdapter) {
+			HexagonAdapter forwardedObjectToHexagon = (HexagonAdapter) obj;
+			
+			return (this.getX() == forwardedObjectToHexagon.getX() && this.getY() == forwardedObjectToHexagon.getY()
+					&& this.getRadius() == forwardedObjectToHexagon.getRadius());
+		}
+		
+		return false;
+	}
+	
+	public String toString() {
+		return "Center: " + new Point(this.getX(), this.getY()) + ", radius: " + this.getRadius();
+	}
+	
+	
+	public int getX() {
+		return hexagon.getX();
+	}
+
+	public void setX(int x) {
+		hexagon.setX(x);
+	}
+
+	public int getY() {
+		return hexagon.getY();
+	}
+
+	public void setY(int y) {
+		hexagon.setY(y);
+	}
+
+	public int getRadius() {
+		return hexagon.getR();
+	}
+
+	public void setRadius(int radius) {
+		hexagon.setR(radius);
+	}
+	
+	@Override
+	public Color getColor() {
+		return hexagon.getBorderColor();
+	}
+	
+	@Override
+	public Color getInnerColor() {
+		return hexagon.getAreaColor();
+	}
+	
+	@Override
+	public void setColor(Color color) {
+		hexagon.setBorderColor(color);
+	}
+	
+	@Override
+	public void setInnerColor(Color innerColor) {
+		hexagon.setAreaColor(innerColor);
+	}
+	
+	@Override
+	public void setSelected(boolean selected) {
+		hexagon.setSelected(selected);
+	}
+	
+	@Override
+	public boolean isSelected() {
+		return hexagon.isSelected();
 	}
 
 }

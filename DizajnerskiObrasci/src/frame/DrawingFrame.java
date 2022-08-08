@@ -137,6 +137,8 @@ public class DrawingFrame extends JFrame {
 				controller.drawCircleIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnDonutSelected()) {
 				controller.drawDonutIfAccepted(clickedPoint);
+			} else if (shapeToolBar.isTlgBtnHexagonSelected()) {
+				controller.drawHexagonIfAccepted(clickedPoint);
 			}
 		}
 		view.repaint(); //TODO: controller should update view

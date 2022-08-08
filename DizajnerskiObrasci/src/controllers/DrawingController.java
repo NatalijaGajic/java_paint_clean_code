@@ -68,6 +68,8 @@ public class DrawingController {
 			modifyDonutIfAccepted(selectedShape);
 		} else if (selectedShape instanceof Circle) {
 			modifyCircleIfAccepted(selectedShape);
+		} else if (selectedShape instanceof HexagonAdapter) {
+			modifyHexagonIfAccepted(selectedShape);
 		}
 		
 		frame.getView().repaint();
@@ -197,6 +199,10 @@ public class DrawingController {
 	}
 	
 	public void drawHexagonIfAccepted(Point click) {
+		DlgHexagon dlgHexagon = new DlgHexagon();
+		dlgHexagon.setCreateDialogFields(click, activeEdgeColor, activeInnerColor);
+		dlgHexagon.setVisible(true);
+		addShapeIfAccepted(dlgHexagon);
 	}
 	
 	public void modifyPointIfAccepted(Shape selectedShape) {
@@ -240,7 +246,11 @@ public class DrawingController {
 	}
 	
 	public void modifyHexagonIfAccepted(Shape selectedShape) {
-		
+		HexagonAdapter hexagonAdapter = (HexagonAdapter) selectedShape;
+		DlgHexagon dlg = new DlgHexagon();
+		dlg.setModifyDialogFields(hexagonAdapter);
+		dlg.setVisible(true);
+		modifyShapeIfAccepted(dlg, hexagonAdapter);
 	}
 	
 	public void moveShapeToBack() {
