@@ -83,8 +83,8 @@ public class HexagonAdapter extends SurfaceShape{
 	
 	public String toString() {
 		return "Hexagon:(" + this.getX() + "," + this.getY() + ") "
-				+ "R:" + this.getRadius() + ", BC" + this.getColor().getRGB() + ", "
-				+ "FC" + this.getInnerColor().getRGB();
+				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB() + ", "
+				+ "FC:" + this.getInnerColor().getRGB();
 	}
 	
 	

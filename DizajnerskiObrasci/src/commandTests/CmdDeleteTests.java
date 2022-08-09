@@ -2,12 +2,14 @@ package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import commands.CmdBringToBack;
 import commands.CmdDelete;
 import geometry.*;
 import model.DrawingModel;
@@ -28,10 +30,10 @@ class CmdDeleteTests {
 		shapesToDelete = new ArrayList<Shape>();
 		addedShapes = new ArrayList<Shape>();
 		model = new DrawingModel();
-		point = new Point(100, 100, true);
+		point = new Point(100, 100, true, Color.black);
 		circle = new Circle(new Point(11, 11), 10, true);
-		rect = new Rectangle(new Point(11, 11), 40, 40, true);
-		line = new Line(new Point(1, 1), new Point(1, 10), true);
+		rect = new Rectangle(new Point(11, 11), 40, 40, true, Color.black, Color.white);
+		line = new Line(new Point(1, 1), new Point(1, 10), true, Color.black);
 		addShapes();
 		addShapesToDelete();
 		addShapesToModel();
@@ -80,6 +82,12 @@ class CmdDeleteTests {
 		cmdDelete.unexecute();
 		ArrayList<Shape> shapes = model.getShapes();
 		assertTrue(shapes.equals(addedShapes));
+	}
+	
+	@Test
+	public void testToString() {
+		String expected =  "Deleted " + line.toString() + ";" + rect.toString() + ";" + point.toString();
+		assertEquals(expected, cmdDelete.toString());
 	}
 
 }

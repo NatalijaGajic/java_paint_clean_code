@@ -12,6 +12,7 @@ import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
+import logger.LogWriter;
 import model.DrawingModel;
 
 public class DrawingController {
@@ -19,6 +20,7 @@ public class DrawingController {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private CommandsHandler commandsHandler;
+	private LogWriter logWriter;
 	private Color activeEdgeColor;
 	private Color activeInnerColor;
 	
@@ -40,8 +42,9 @@ public class DrawingController {
 	
 	public void modifyShapeIfAccepted(Dialog dlg, Shape selectedShape) {
 		if(dlg.isAccepted()) {
-			Shape shapeWithNeValues = dlg.getShapeFromDialog();
-			executeCmdModifyShape(selectedShape, shapeWithNeValues);
+			Shape shapeWithNewValues = dlg.getShapeFromDialog();
+			shapeWithNewValues.setSelected(true);
+			executeCmdModifyShape(selectedShape, shapeWithNewValues);
 		}
 	}
 	
@@ -49,6 +52,7 @@ public class DrawingController {
 		CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNeValues);
 		cmdModify.execute();
 		commandsHandler.addExecutedCommand(cmdModify);
+		logWriter.log(cmdModify.toString());
 		
 	}
 
@@ -56,6 +60,7 @@ public class DrawingController {
 		CmdAdd cmdAdd = new CmdAdd(model, shape);
 		cmdAdd.execute();
 		commandsHandler.addExecutedCommand(cmdAdd);
+		logWriter.log(cmdAdd.toString());
 	}
 	
 	public void modifyShape() {
@@ -83,7 +88,7 @@ public class DrawingController {
 		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 		if (option == 0) {
-			ArrayList<Shape> shapesToDelete = model.getSelectedShapes();
+			ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
 			executeCmdDeleteShapes(shapesToDelete);
 			frame.getView().repaint();
 		}
@@ -112,42 +117,49 @@ public class DrawingController {
 		CmdSelect cmdSelect = new CmdSelect(model, shape);
 		cmdSelect.execute();
 		commandsHandler.addExecutedCommand(cmdSelect);
+		logWriter.log(cmdSelect.toString());
 	}
 	
 	private void executeCmdDeselectShape(Shape shape) {
 		CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
 		cmdDeselect.execute();
 		commandsHandler.addExecutedCommand(cmdDeselect);
+		logWriter.log(cmdDeselect.toString());
 	}
 	
 	private void executeCmdDeleteShapes(ArrayList<Shape> shapesToDelete) {
 		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
 		cmdDelete.execute();
 		commandsHandler.addExecutedCommand(cmdDelete);
+		logWriter.log(cmdDelete.toString());
 	}
 	
 	private void executeCmdShapeToBack(Shape shapeToMove) {
 		CmdToBack cmdToBack = new CmdToBack(model, shapeToMove);
 		cmdToBack.execute();
 		commandsHandler.addExecutedCommand(cmdToBack);
+		logWriter.log(cmdToBack.toString());
 	}
 	
 	private void executeCmdShapeToFront(Shape shapeToMove) {
 		CmdToFront cmdToFront = new CmdToFront(model, shapeToMove);
 		cmdToFront.execute();
 		commandsHandler.addExecutedCommand(cmdToFront);
+		logWriter.log(cmdToFront.toString());
 	}
 	
 	private void executeCmdBringShapeToBack(Shape shapeToMove) {
 		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, shapeToMove);
 		cmdBringToBack.execute();
 		commandsHandler.addExecutedCommand(cmdBringToBack);
+		logWriter.log(cmdBringToBack.toString());
 	}
 	
 	private void executeCmdBringShapeToFront(Shape shapeToMove) {
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, shapeToMove);
 		cmdBringToFront.execute();
 		commandsHandler.addExecutedCommand(cmdBringToFront);
+		logWriter.log(cmdBringToFront.toString());
 	}
 	
 	public void setActiveEdgeColor() {
@@ -424,6 +436,12 @@ public class DrawingController {
 	public void setCommandsHandler(CommandsHandler commandsHandler) {
 		this.commandsHandler = commandsHandler;
 	}
+
+	public void setLogWriter(LogWriter logWriter) {
+		this.logWriter = logWriter;
+	}
+	
+	
 	
 	
 	

@@ -2,6 +2,7 @@ package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ class CmdToBackTests {
 
 		model = new DrawingModel();
 		point = new Point(100, 100, true);
-		circle = new Circle(new Point(11, 11), 10, true);
+		circle = new Circle(new Point(11, 11), 10, true, Color.black, Color.white);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
 		addShapes();
@@ -76,6 +77,13 @@ class CmdToBackTests {
 		cmdToBack.unexecute();
 		int indexAfterMoving = model.getIndexOfShape(line);
 		assertEquals(indexBeforeMoving, indexAfterMoving);
+	}
+	
+	@Test
+	public void testToString() {
+		cmdToBack = new CmdToBack(model, circle);
+		String expected =  "Moved To Back " + circle.toString();
+		assertEquals(expected, cmdToBack.toString());
 	}
 
 }

@@ -95,7 +95,7 @@ class DonutTests {
 	public void testToString() {
 		String expected = "Donut:(" + donut.getCenter().getX() + "," + donut.getCenter().getY() + ")"
 				+ " OR:" + donut.getRadius() + ", IR:" + donut.getInnerRadius() + ", "
-				+ "BC" + donut.getColor().getRGB() + ", FC" + donut.getInnerColor().getRGB();
+				+ "BC:" + donut.getColor().getRGB() + ", FC:" + donut.getInnerColor().getRGB();
 		assertEquals(expected, donut.toString());
 	}
 	

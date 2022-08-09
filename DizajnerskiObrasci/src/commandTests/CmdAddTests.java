@@ -40,5 +40,10 @@ class CmdAddTests {
 		cmdAdd.unexecute();
 		assertFalse(model.doesContainShape(point));
 	}
+	
+	public void testToString() {
+		String expected =  "Added " + point.toString();
+		assertEquals(expected, cmdAdd.toString());
+	}
 
 }

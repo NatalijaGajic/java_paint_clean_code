@@ -30,5 +30,9 @@ public class CmdToBack implements Command {
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 		
 	}
+	
+	public String toString() {
+		return "Moved To Back " + shapeToMove.toString();
+	}
 
 }

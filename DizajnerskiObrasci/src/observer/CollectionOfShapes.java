@@ -37,12 +37,12 @@ public class CollectionOfShapes implements ShapesSubject {
 	}
 	
 	public void add(int index, Shape shape) {
-		shapes.add(index, shape);
+		this.shapes.add(index, shape);
 		notifyObservers();
 	}
 	
 	public void addAll(ArrayList<Shape> shapes) {
-		shapes.addAll(shapes);
+		this.shapes.addAll(shapes);
 		notifyObservers();
 	}
 	

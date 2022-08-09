@@ -30,4 +30,8 @@ public class CmdToFront implements Command{
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 		
 	}
+	
+	public String toString() {
+		return "Moved To Front " + shapeToMove.toString();
+	}
 }

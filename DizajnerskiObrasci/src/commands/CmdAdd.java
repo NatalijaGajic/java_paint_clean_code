@@ -25,5 +25,9 @@ public class CmdAdd implements Command{
 	public void unexecute() {
 		model.removeShape(shape);
 	}
+	
+	public String toString() {
+		return "Added " + shape.toString();
+	}
 
 }

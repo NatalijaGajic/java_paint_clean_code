@@ -37,5 +37,11 @@ class CmdModifyTests {
 		commandModifyPoint.unexecute();
 		assertTrue(oldState.equals(savedOldStatePoint));
 	}
+	
+	@Test
+	public void testToString() {
+		String expected =  "Modified " + oldState.toString() + " to " + newState.toString();
+		assertEquals(expected, commandModifyPoint.toString());
+	}
 
 }

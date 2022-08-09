@@ -106,8 +106,8 @@ public class Circle extends SurfaceShape {
 	
 	public String toString() {
 		return "Circle:(" + this.getCenter().getX() + "," + this.getCenter().getY() + ") "
-				+ "R:"+this.getRadius() + ", BC" + this.getColor().getRGB()+", "
-				+ "FC" + this.getInnerColor().getRGB();
+				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB()+", "
+				+ "FC:" + this.getInnerColor().getRGB();
 	}
 
 	@Override

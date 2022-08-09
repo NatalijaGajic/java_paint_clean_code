@@ -134,9 +134,9 @@ public class Rectangle extends SurfaceShape {
 
 	
 	public String toString() {
-		return "Rectangle:(" + this.getUpperLeftPoint().getX()+","+this.getUpperLeftPoint().getY()+") "
-				+ "W:"+this.getWidth()+", H:"+this.getHeight()+", BC"+this.getColor().getRGB()+", "
-						+ "FC"+this.getInnerColor().getRGB();
+		return "Rectangle:(" + this.getUpperLeftPoint().getX() + "," + this.getUpperLeftPoint().getY() + ") "
+				+ "W:" + this.getWidth() + ", H:" + this.getHeight() + ", BC:" + this.getColor().getRGB() + ", "
+						+ "FC:" + this.getInnerColor().getRGB();
 	}
 
 	@Override

@@ -110,7 +110,7 @@ public class Line extends Shape{
 	
 	public String toString() {
 		return "Line:SP(" + this.getStartPoint().getX() + "," + this.getStartPoint().getY() + ") EP("+
-				this.getEndPoint().getX() + "," + this.getEndPoint().getY() + ") "+ "BC" + getColor().getRGB();
+				this.getEndPoint().getX() + "," + this.getEndPoint().getY() + ") " + "BC:" + getColor().getRGB();
 	}
 
 	@Override

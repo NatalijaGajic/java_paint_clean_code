@@ -17,7 +17,7 @@ public class CmdDelete implements Command{
 	public CmdDelete(DrawingModel model, ArrayList<Shape> shapesToDelete) {
 		this.model = model;
 		this.shapesToDelete = shapesToDelete;
-		populateIndexShapeHashMap(shapesToDelete);
+		populateIndexShapeHashMap();
 		
 	}
 
@@ -37,7 +37,7 @@ public class CmdDelete implements Command{
 	 * HashMap saves the index of the shape to be deleted, so the positions of shapes remain perserved
 	 * @param shapesToDelete
 	 */
-	private void populateIndexShapeHashMap(ArrayList<Shape> shapesToDelete) {
+	private void populateIndexShapeHashMap() {
 		Iterator<Shape> it = shapesToDelete.iterator();
 		while(it.hasNext()) {
 			Shape shapeToDelete = it.next();
@@ -55,5 +55,17 @@ public class CmdDelete implements Command{
 		 for (Integer index : sortedKeys) {
 			model.addShapeAtIndex(index, shapeIndexesBeforeDeletion.get(index));
 		}
+	}
+	
+	public String toString() {
+		StringBuilder compositionOfStrings = new StringBuilder("");
+		Iterator<Shape> it = shapesToDelete.iterator();
+		compositionOfStrings.append("Deleted ");
+		compositionOfStrings.append(it.next().toString());
+		while(it.hasNext()) {
+			compositionOfStrings.append(";");
+			compositionOfStrings.append(it.next().toString());
+		}
+		return compositionOfStrings.toString();
 	}
 }

@@ -24,4 +24,7 @@ public class CmdModify implements Command{
 		oldState.setShapeFileds(originalState);
 	}
 
+	public String toString() {
+		return "Modified " + originalState.toString() + " to " + newState.toString();
+	}
 }

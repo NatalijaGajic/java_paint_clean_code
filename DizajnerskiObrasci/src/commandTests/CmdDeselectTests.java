@@ -2,6 +2,8 @@ package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +21,7 @@ public class CmdDeselectTests {
 	@Before
 	public void setUp() {
 		model = new DrawingModel();
-		point = new Point(10, 10, false);
+		point = new Point(10, 10, false, Color.black);
 		model.addShape(point);
 		cmdDeselect = new CmdDeselect(model, point);
 	}
@@ -46,5 +48,11 @@ public class CmdDeselectTests {
 	public void testUnexecuteShapeAddedToSelectedShapes() {
 		cmdDeselect.unexecute();
 		assertTrue(model.doesContainSelectedShape(point));
+	}
+	
+	@Test
+	public void testToString() {
+		String expected =  "Deselected " + point.toString();
+		assertEquals(expected, cmdDeselect.toString());
 	}
 }

@@ -93,8 +93,8 @@ class CircleTests {
 	@Test
 	public void testToString() {
 		String expected = "Circle:(" + circle.getCenter().getX() + "," + circle.getCenter().getY()+") "
-				+ "R:" + circle.getRadius() + ", BC" + circle.getColor().getRGB() + ", "
-				+ "FC" + circle.getInnerColor().getRGB();
+				+ "R:" + circle.getRadius() + ", BC:" + circle.getColor().getRGB() + ", "
+				+ "FC:" + circle.getInnerColor().getRGB();
 		assertEquals(expected, circle.toString());
 	}
 	

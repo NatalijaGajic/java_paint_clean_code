@@ -26,5 +26,10 @@ public class CmdSelect implements Command {
 		model.removeSelectedShape(shape);
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "Selected " + shape.toString();
+	}
 
 }

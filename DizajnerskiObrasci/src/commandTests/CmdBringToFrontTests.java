@@ -2,9 +2,12 @@ package commandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.Color;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import commands.CmdBringToBack;
 import commands.CmdBringToFront;
 import geometry.Circle;
 import geometry.Line;
@@ -26,7 +29,7 @@ public class CmdBringToFrontTests {
 
 		model = new DrawingModel();
 		point = new Point(100, 100, true);
-		circle = new Circle(new Point(11, 11), 10, true);
+		circle = new Circle(new Point(11, 11), 10, true, Color.black, Color.white);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
 		addShapes();
@@ -42,10 +45,9 @@ public class CmdBringToFrontTests {
 	@Test
 	public void testExecuteShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, circle);
-		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdBringToFront.execute();
 		int indexAfterMoving = model.getIndexOfShape(circle);
-		int expectedIndex = model.getNumberOfSelectedShapes();
+		int expectedIndex = model.getNumberOfShapes() - 1;
 		assertEquals(expectedIndex, indexAfterMoving);
 		
 	}
@@ -53,10 +55,9 @@ public class CmdBringToFrontTests {
 	@Test
 	public void testExecuteFirstAddedShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, point);
-		int indexBeforeMoving = model.getIndexOfShape(point);
 		cmdBringToFront.execute();
 		int indexAfterMoving = model.getIndexOfShape(point);
-		int expectedIndex = model.getNumberOfShapes();
+		int expectedIndex = model.getNumberOfShapes() - 1;
 		assertEquals(expectedIndex, indexAfterMoving);
 	}
 	
@@ -78,5 +79,12 @@ public class CmdBringToFrontTests {
 		cmdBringToFront.unexecute();
 		int indexAfterMoving = model.getIndexOfShape(point);
 		assertEquals(indexBeforeMoving, indexAfterMoving);
+	}
+	
+	@Test
+	public void testToString() {
+		cmdBringToFront = new CmdBringToFront(model, circle);
+		String expected =  "Brougth To Front " + circle.toString();
+		assertEquals(expected, cmdBringToFront.toString());
 	}
 }

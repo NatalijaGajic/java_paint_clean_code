@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,6 +21,7 @@ import dialogs.DlgPoint;
 import dialogs.DlgRectangle;
 import geometry.Point;
 import geometry.Shape;
+import logger.LogWriter;
 import model.DrawingModel;
 import view.DrawingPanel;
 
@@ -106,6 +108,7 @@ public class DrawingFrame extends JFrame {
 		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.Y_AXIS));
 		pnlWest.add(optionsToolBar);
 		
+		pnlSouth.setLayout(new BorderLayout(0, 0));
 		pnlSouth.add(scrollPane);
 		
 	}
@@ -175,6 +178,10 @@ public class DrawingFrame extends JFrame {
 	public void setControllerForToolBars(DrawingController controller) {
 		colorToolBar.setController(controller);
 		optionsToolBar.setController(controller);
+	}
+	
+	public void setDefaultListModelForScrollPane(DefaultListModel<String> defaultListModel) {
+		scrollPane.setDefaultListModel(defaultListModel);
 	}
 	
 	

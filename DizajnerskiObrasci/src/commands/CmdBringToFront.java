@@ -28,5 +28,9 @@ public class CmdBringToFront implements Command {
 		model.removeShape(shapeToMove);
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 	}
+	
+	public String toString() {
+		return "Brougth To Front " + shapeToMove.toString();
+	}
 
 }

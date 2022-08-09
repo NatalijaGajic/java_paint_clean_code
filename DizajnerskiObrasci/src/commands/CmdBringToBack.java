@@ -29,6 +29,10 @@ public class CmdBringToBack implements Command{
 		model.removeShape(shapeToMove);
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 	}
+	
+	public String toString() {
+		return "Brougth To Back " + shapeToMove.toString();
+	}
 
 
 }
