@@ -33,151 +33,11 @@ public class DrawingController {
 		activeInnerColor = Color.WHITE;
 	}
 	
-	public void addShapeIfAccepted(Dialog dlg) {
-		if(dlg.isAccepted()) {
-			Shape shape = dlg.getShapeFromDialog();
-			executeCmdAddShape(shape);
-		}
-	}
-	
-	public void modifyShapeIfAccepted(Dialog dlg, Shape selectedShape) {
-		if(dlg.isAccepted()) {
-			Shape shapeWithNewValues = dlg.getShapeFromDialog();
-			shapeWithNewValues.setSelected(true);
-			executeCmdModifyShape(selectedShape, shapeWithNewValues);
-		}
-	}
-	
-	private void executeCmdModifyShape(Shape selectedShape, Shape shapeWithNeValues) {
-		CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNeValues);
-		cmdModify.execute();
-		commandsHandler.addExecutedCommand(cmdModify);
-		logWriter.log(cmdModify.toString());
-		
-	}
-
-	private void executeCmdAddShape(Shape shape) {
-		CmdAdd cmdAdd = new CmdAdd(model, shape);
-		cmdAdd.execute();
-		commandsHandler.addExecutedCommand(cmdAdd);
-		logWriter.log(cmdAdd.toString());
-	}
-	
-	public void modifyShape() {
-		Shape selectedShape = model.getSelectedShape();
-
-		if (selectedShape instanceof Point) {
-			modifyPointIfAccepted(selectedShape);
-		} else if (selectedShape instanceof Line) {
-			modifyLineIfAccepted(selectedShape);
-		} else if (selectedShape instanceof Rectangle) {
-			modifyRectangleIfAccepted(selectedShape);
-		} else if (selectedShape instanceof Donut) {
-			modifyDonutIfAccepted(selectedShape);
-		} else if (selectedShape instanceof Circle) {
-			modifyCircleIfAccepted(selectedShape);
-		} else if (selectedShape instanceof HexagonAdapter) {
-			modifyHexagonIfAccepted(selectedShape);
-		}
-		
+	private void executeCommand(Command cmd) {
+		cmd.execute();
+		commandsHandler.addExecutedCommand(cmd);
+		logWriter.log(cmd.toString());
 		frame.getView().repaint();
-	}
-	
-	public void deleteShapes() {
-		String[] options = { "Yes", "No" };
-		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
-				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-		if (option == 0) {
-			ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
-			executeCmdDeleteShapes(shapesToDelete);
-			frame.getView().repaint();
-		}
-	}
-	
-	/**
-	 * Start at the end of the list, (de)select the last added shape that contains the point of the click
-	 * @param click
-	 */
-	public void selectOrDeselectShape(Point click) {
-		for(int indexOfShape = model.getNumberOfShapes() - 1; indexOfShape >= 0; indexOfShape--) {
-			Shape shape = model.getShapeAtIndex(indexOfShape);
-			
-			if(shape.contains(click) && !shape.isSelected()) {
-				executeCmdSelectShape(shape);
-				break;
-			}else if(shape.contains(click) && shape.isSelected()) {
-				executeCmdDeselectShape(shape);
-				break;
-			}
-		}
-		
-	}
-	
-	private void executeCmdSelectShape(Shape shape) {
-		CmdSelect cmdSelect = new CmdSelect(model, shape);
-		cmdSelect.execute();
-		commandsHandler.addExecutedCommand(cmdSelect);
-		logWriter.log(cmdSelect.toString());
-	}
-	
-	private void executeCmdDeselectShape(Shape shape) {
-		CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
-		cmdDeselect.execute();
-		commandsHandler.addExecutedCommand(cmdDeselect);
-		logWriter.log(cmdDeselect.toString());
-	}
-	
-	private void executeCmdDeleteShapes(ArrayList<Shape> shapesToDelete) {
-		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
-		cmdDelete.execute();
-		commandsHandler.addExecutedCommand(cmdDelete);
-		logWriter.log(cmdDelete.toString());
-	}
-	
-	private void executeCmdShapeToBack(Shape shapeToMove) {
-		CmdToBack cmdToBack = new CmdToBack(model, shapeToMove);
-		cmdToBack.execute();
-		commandsHandler.addExecutedCommand(cmdToBack);
-		logWriter.log(cmdToBack.toString());
-	}
-	
-	private void executeCmdShapeToFront(Shape shapeToMove) {
-		CmdToFront cmdToFront = new CmdToFront(model, shapeToMove);
-		cmdToFront.execute();
-		commandsHandler.addExecutedCommand(cmdToFront);
-		logWriter.log(cmdToFront.toString());
-	}
-	
-	private void executeCmdBringShapeToBack(Shape shapeToMove) {
-		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, shapeToMove);
-		cmdBringToBack.execute();
-		commandsHandler.addExecutedCommand(cmdBringToBack);
-		logWriter.log(cmdBringToBack.toString());
-	}
-	
-	private void executeCmdBringShapeToFront(Shape shapeToMove) {
-		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, shapeToMove);
-		cmdBringToFront.execute();
-		commandsHandler.addExecutedCommand(cmdBringToFront);
-		logWriter.log(cmdBringToFront.toString());
-	}
-	
-	public void setActiveEdgeColor() {
-		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
-		if (chosenColor != null) {
-			activeEdgeColor = chosenColor;
-			JPanel activeEdgeColorPanel = frame.getColorToolBar().getPnlActiveEdgeColor();
-			activeEdgeColorPanel.setBackground(activeEdgeColor);
-		}
-	}
-	
-	public void setActiveInnerColor() {
-		Color chosenColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
-		if (chosenColor != null) {
-			activeInnerColor = chosenColor;
-			JPanel pnlActiveInnerColor = frame.getColorToolBar().getPnlActiveInnerColor();
-			pnlActiveInnerColor.setBackground(activeInnerColor);
-		}
 	}
 	
 	public void drawPointIfAccepted(Point click) {
@@ -225,6 +85,32 @@ public class DrawingController {
 		dlgHexagon.setCreateDialogFields(click, activeEdgeColor, activeInnerColor);
 		dlgHexagon.setVisible(true);
 		addShapeIfAccepted(dlgHexagon);
+	}
+	
+	public void addShapeIfAccepted(Dialog dlg) {
+		if(dlg.isAccepted()) {
+			Shape shape = dlg.getShapeFromDialog();
+			CmdAdd cmdAdd = new CmdAdd(model, shape);
+			executeCommand(cmdAdd);
+		}
+	}
+	
+	public void modifyShape() {
+		Shape selectedShape = model.getSelectedShape();
+
+		if (selectedShape instanceof Point) {
+			modifyPointIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Line) {
+			modifyLineIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Rectangle) {
+			modifyRectangleIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Donut) {
+			modifyDonutIfAccepted(selectedShape);
+		} else if (selectedShape instanceof Circle) {
+			modifyCircleIfAccepted(selectedShape);
+		} else if (selectedShape instanceof HexagonAdapter) {
+			modifyHexagonIfAccepted(selectedShape);
+		}
 	}
 	
 	public void modifyPointIfAccepted(Shape selectedShape) {
@@ -275,37 +161,97 @@ public class DrawingController {
 		modifyShapeIfAccepted(dlg, hexagonAdapter);
 	}
 	
+	public void modifyShapeIfAccepted(Dialog dlg, Shape selectedShape) {
+		if(dlg.isAccepted()) {
+			Shape shapeWithNewValues = dlg.getShapeFromDialog();
+			shapeWithNewValues.setSelected(true);
+			CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNewValues);
+			executeCommand(cmdModify);
+		}
+	}
+	
+	public void deleteShapes() {
+		String[] options = { "Yes", "No" };
+		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
+				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+		if (option == 0) {
+			@SuppressWarnings("unchecked")
+			ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
+			CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
+			executeCommand(cmdDelete);
+		}
+	}
+	
+	/**
+	 * Start at the end of the list, (de)select the last added shape that contains the point of the click
+	 * @param click
+	 */
+	public void selectOrDeselectShape(Point click) {
+		for(int indexOfShape = model.getNumberOfShapes() - 1; indexOfShape >= 0; indexOfShape--) {
+			Shape shape = model.getShapeAtIndex(indexOfShape);
+			
+			if(shape.contains(click) && !shape.isSelected()) {
+				CmdSelect cmdSelect = new CmdSelect(model, shape);
+				executeCommand(cmdSelect);
+				break;
+			}else if(shape.contains(click) && shape.isSelected()) {
+				CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
+				executeCommand(cmdDeselect);
+				break;
+			}
+		}
+		
+	}	
+	
+	public void setActiveEdgeColor() {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
+		if (chosenColor != null) {
+			activeEdgeColor = chosenColor;
+			JPanel activeEdgeColorPanel = frame.getColorToolBar().getPnlActiveEdgeColor();
+			activeEdgeColorPanel.setBackground(activeEdgeColor);
+		}
+	}
+	
+	public void setActiveInnerColor() {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
+		if (chosenColor != null) {
+			activeInnerColor = chosenColor;
+			JPanel pnlActiveInnerColor = frame.getColorToolBar().getPnlActiveInnerColor();
+			pnlActiveInnerColor.setBackground(activeInnerColor);
+		}
+	}
+	
 	public void moveShapeToBack() {
 		Shape selectedShape = model.getSelectedShape();
 		if(model.getIndexOfShape(selectedShape) == 0)
 			return;
-		executeCmdShapeToBack(selectedShape);
-		frame.getView().repaint();
+		CmdToBack cmdToBack = new CmdToBack(model, selectedShape);
+		executeCommand(cmdToBack);
 	}
 	
 	public void moveShapeToFront() {
 		Shape selectedShape = model.getSelectedShape();
 		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
 			return;
-		executeCmdShapeToFront(selectedShape);
-		frame.getView().repaint();
+		CmdToFront cmdToFront = new CmdToFront(model, selectedShape);
+		executeCommand(cmdToFront);
 	}
 	
 	public void bringShapeToFront() {
 		Shape selectedShape = model.getSelectedShape();
 		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
 			return;
-		executeCmdBringShapeToFront(selectedShape);
-		frame.getView().repaint();
+		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, selectedShape);
+		executeCommand(cmdBringToFront);
 	}
 	
 	public void bringShapeToBack() {
 		Shape selectedShape = model.getSelectedShape();
 		if(model.getIndexOfShape(selectedShape) == 0)
 			return;
-		executeCmdBringShapeToBack(selectedShape);
-		frame.getView().repaint();
-	}
+		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, selectedShape);
+		executeCommand(cmdBringToBack);
+	}	
 	
 	public void undoCommand() {
 		commandsHandler.undo();
@@ -442,9 +388,5 @@ public class DrawingController {
 	public void setLogWriter(LogWriter logWriter) {
 		this.logWriter = logWriter;
 	}
-	
-	
-	
-	
 	
 }

@@ -7,11 +7,13 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import commandHandler.CommandsHandler;
 import controllers.DrawingController;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
 import hexagon.Hexagon;
+import logger.LogWriter;
 import model.DrawingModel;
 
 
@@ -21,6 +23,8 @@ class DrawingControllerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController controller;
+	private CommandsHandler commandsHandler;
+	private LogWriter logWriter;
 	private Point click;
 	private Point testPoint;
 	private Line testLine;
@@ -35,9 +39,19 @@ class DrawingControllerTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		controller = new DrawingController(model, frame);
-		click = new Point(10, 10);
+		commandsHandler = new CommandsHandler();
+		logWriter = new LogWriter();
+		
+		controller.setCommandsHandler(commandsHandler);
+		controller.setLogWriter(logWriter);
 		frame.getView().setModel(model);
 		frame.setController(controller);
+
+		initializeShapes();
+	}
+	
+	private void initializeShapes() {
+		click = new Point(10, 10);
 		testPoint = new Point(1, 1, false, Color.BLACK);
 		testLine = new Line(new Point(1,1), new Point(2,2), false, Color.BLACK);
 		testRectangle = new Rectangle(new Point(1,1), 40, 50, false, Color.WHITE, Color.BLACK);
