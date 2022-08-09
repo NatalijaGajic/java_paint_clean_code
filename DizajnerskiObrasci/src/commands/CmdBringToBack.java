@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdBringToBack implements Command{
@@ -31,7 +32,7 @@ public class CmdBringToBack implements Command{
 	}
 	
 	public String toString() {
-		return "Brougth To Back " + shapeToMove.toString();
+		return LoggerConstants.BRING_TO_BACK_COMMAND + " " + shapeToMove.toString();
 	}
 
 

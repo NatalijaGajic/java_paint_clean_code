@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 
 public class CmdModify implements Command{
 
@@ -25,6 +26,6 @@ public class CmdModify implements Command{
 	}
 
 	public String toString() {
-		return "Modified " + originalState.toString() + " to " + newState.toString();
+		return LoggerConstants.MODIFY_COMMAND + " " + originalState.toString() + " to " + newState.toString();
 	}
 }

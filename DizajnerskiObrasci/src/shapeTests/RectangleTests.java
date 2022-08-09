@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import geometry.*;
+import logger.LoggerConstants;
 
 class RectangleTests {
 
@@ -97,7 +98,7 @@ class RectangleTests {
 
 	@Test
 	public void testToString() {
-		String expected = "Rectangle:(" + rectangle.getUpperLeftPoint().getX() + "," + rectangle.getUpperLeftPoint().getY() + ") "
+		String expected = LoggerConstants.RECTANGLE + ":(" + rectangle.getUpperLeftPoint().getX() + "," + rectangle.getUpperLeftPoint().getY() + ") "
 				+ "W:" + rectangle.getWidth() + ", H:" + rectangle.getHeight() + ", BC:" + rectangle.getColor().getRGB() + ", "
 				+ "FC:" + rectangle.getInnerColor().getRGB();
 		assertEquals(expected, rectangle.toString());

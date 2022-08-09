@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import geometry.HexagonAdapter;
 import geometry.Point;
 import hexagon.Hexagon;
+import logger.LoggerConstants;
 
 class HexagonAdapterTests {
 	
@@ -90,7 +91,7 @@ class HexagonAdapterTests {
 	
 	@Test
 	public void testToString() {
-		String expected = "Hexagon:(" + hexagonAdapter.getX() + "," + hexagonAdapter.getY() + ") "
+		String expected = LoggerConstants.HEXAGON + ":(" + hexagonAdapter.getX() + "," + hexagonAdapter.getY() + ") "
 				+ "R:" + hexagonAdapter.getRadius() + ", BC:" + hexagonAdapter.getColor().getRGB() + ", "
 				+ "FC:" + hexagonAdapter.getInnerColor().getRGB();
 		assertEquals(expected, hexagonAdapter.toString());

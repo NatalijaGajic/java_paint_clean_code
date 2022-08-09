@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import geometry.*;
+import logger.LoggerConstants;
 
 class DonutTests {
 
@@ -93,7 +94,7 @@ class DonutTests {
 
 	@Test
 	public void testToString() {
-		String expected = "Donut:(" + donut.getCenter().getX() + "," + donut.getCenter().getY() + ")"
+		String expected = LoggerConstants.DONUT + ":(" + donut.getCenter().getX() + "," + donut.getCenter().getY() + ")"
 				+ " OR:" + donut.getRadius() + ", IR:" + donut.getInnerRadius() + ", "
 				+ "BC:" + donut.getColor().getRGB() + ", FC:" + donut.getInnerColor().getRGB();
 		assertEquals(expected, donut.toString());

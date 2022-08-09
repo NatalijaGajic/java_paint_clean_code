@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import commands.CmdModify;
 import geometry.Point;
+import logger.LoggerConstants;
 
 class CmdModifyTests {
 
@@ -40,7 +41,7 @@ class CmdModifyTests {
 	
 	@Test
 	public void testToString() {
-		String expected =  "Modified " + oldState.toString() + " to " + newState.toString();
+		String expected =  LoggerConstants.MODIFY_COMMAND + " " +  oldState.toString() + " to " + newState.toString();
 		assertEquals(expected, commandModifyPoint.toString());
 	}
 

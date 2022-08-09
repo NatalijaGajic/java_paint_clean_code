@@ -13,6 +13,7 @@ import geometry.Circle;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdBringToFrontTests {
@@ -84,7 +85,7 @@ public class CmdBringToFrontTests {
 	@Test
 	public void testToString() {
 		cmdBringToFront = new CmdBringToFront(model, circle);
-		String expected =  "Brougth To Front " + circle.toString();
+		String expected =  LoggerConstants.BRING_TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdBringToFront.toString());
 	}
 }

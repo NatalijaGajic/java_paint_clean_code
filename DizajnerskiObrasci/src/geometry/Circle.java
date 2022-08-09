@@ -3,6 +3,8 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import logger.LoggerConstants;
+
 public class Circle extends SurfaceShape {
 	
 	private Point center;
@@ -105,7 +107,7 @@ public class Circle extends SurfaceShape {
 	}
 	
 	public String toString() {
-		return "Circle:(" + this.getCenter().getX() + "," + this.getCenter().getY() + ") "
+		return LoggerConstants.CIRCLE + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ") "
 				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB()+", "
 				+ "FC:" + this.getInnerColor().getRGB();
 	}

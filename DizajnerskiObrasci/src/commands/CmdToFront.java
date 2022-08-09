@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdToFront implements Command{
@@ -32,6 +33,6 @@ public class CmdToFront implements Command{
 	}
 	
 	public String toString() {
-		return "Moved To Front " + shapeToMove.toString();
+		return LoggerConstants.TO_FRONT_COMMAND + " " + shapeToMove.toString();
 	}
 }

@@ -13,6 +13,7 @@ import geometry.Circle;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 class CmdBringToBackTests {
@@ -82,7 +83,7 @@ class CmdBringToBackTests {
 	@Test
 	public void testToString() {
 		cmdToBack = new CmdBringToBack(model, circle);
-		String expected =  "Brougth To Back " + circle.toString();
+		String expected =  LoggerConstants.BRING_TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
 	}
 

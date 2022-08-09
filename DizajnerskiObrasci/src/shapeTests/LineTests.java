@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import geometry.Line;
 import geometry.Point;
+import logger.LoggerConstants;
 
 class LineTests {
 
@@ -106,7 +107,7 @@ class LineTests {
 
 	@Test
 	public void testToString() {
-		String expected = "Line:SP(" + line.getStartPoint().getX() + "," + line.getStartPoint().getY() + ") EP(" +
+		String expected = LoggerConstants.LINE + ":SP(" + line.getStartPoint().getX() + "," + line.getStartPoint().getY() + ") EP(" +
 				line.getEndPoint().getX() + "," + line.getEndPoint().getY() + ") " + "BC:" + line.getColor().getRGB();
 		assertEquals(expected, line.toString());
 	}

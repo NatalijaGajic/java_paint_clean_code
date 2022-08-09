@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import commands.CmdSelect;
 import geometry.Point;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdSelectTests {
@@ -52,7 +53,7 @@ public class CmdSelectTests {
 	
 	@Test
 	public void testToString() {
-		String expected =  "Selected " + point.toString();
+		String expected =  LoggerConstants.SELECT_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdSelect.toString());
 	}
 }

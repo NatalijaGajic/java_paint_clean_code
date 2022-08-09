@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import geometry.Line;
 import geometry.Point;
+import logger.LoggerConstants;
 
 class PointTests {
 
@@ -82,7 +83,7 @@ class PointTests {
 	
 	@Test
 	public void testToString() {
-		String expected = "Point:(" + point.getX() + "," + point.getY() + ") " + "BC:" + point.getColor().getRGB();
+		String expected = LoggerConstants.POINT + ":(" + point.getX() + "," + point.getY() + ") " + "BC:" + point.getColor().getRGB();
 		assertEquals(expected, point.toString());
 	}
 	

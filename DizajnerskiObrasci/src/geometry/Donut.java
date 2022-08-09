@@ -3,6 +3,8 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import logger.LoggerConstants;
+
 public class Donut extends Circle {
 	
 private int innerRadius;
@@ -89,7 +91,7 @@ private int innerRadius;
 	}
 	
 	public String toString() {
-		return "Donut:(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
+		return LoggerConstants.DONUT + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
 				+ " OR:" + this.getRadius() + ", IR:" + this.getInnerRadius() + ", "
 						+ "BC:" + this.getColor().getRGB() + ", FC:" + this.getInnerColor().getRGB();
 	}

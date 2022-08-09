@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdSelect implements Command {
@@ -29,7 +30,7 @@ public class CmdSelect implements Command {
 	
 	@Override
 	public String toString() {
-		return "Selected " + shape.toString();
+		return LoggerConstants.SELECT_COMMAND + " " + shape.toString();
 	}
 
 }

@@ -12,6 +12,7 @@ import geometry.Circle;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdToFrontTests {
@@ -85,7 +86,7 @@ public class CmdToFrontTests {
 	@Test
 	public void testToString() {
 		cmdToFront = new CmdToFront(model, circle);
-		String expected =  "Moved To Front " + circle.toString();
+		String expected =  LoggerConstants.TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToFront.toString());
 	}
 

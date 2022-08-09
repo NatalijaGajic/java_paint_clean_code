@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdAdd implements Command{
@@ -27,7 +28,7 @@ public class CmdAdd implements Command{
 	}
 	
 	public String toString() {
-		return "Added " + shape.toString();
+		return LoggerConstants.ADD_COMMAND + " " + shape.toString();
 	}
 
 }

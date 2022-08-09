@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import commands.*;
 import geometry.*;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 class CmdToBackTests {
@@ -82,7 +83,7 @@ class CmdToBackTests {
 	@Test
 	public void testToString() {
 		cmdToBack = new CmdToBack(model, circle);
-		String expected =  "Moved To Back " + circle.toString();
+		String expected =  LoggerConstants.TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
 	}
 

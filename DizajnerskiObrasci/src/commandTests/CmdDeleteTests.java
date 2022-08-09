@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import commands.CmdBringToBack;
 import commands.CmdDelete;
 import geometry.*;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 class CmdDeleteTests {
@@ -86,7 +87,7 @@ class CmdDeleteTests {
 	
 	@Test
 	public void testToString() {
-		String expected =  "Deleted " + line.toString() + ";" + rect.toString() + ";" + point.toString();
+		String expected =  LoggerConstants.DELETE_COMMAND + " " + line.toString() + ";" + rect.toString() + ";" + point.toString();
 		assertEquals(expected, cmdDelete.toString());
 	}
 

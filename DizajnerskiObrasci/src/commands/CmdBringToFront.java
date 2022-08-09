@@ -1,6 +1,7 @@
 package commands;
 
 import geometry.Shape;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class CmdBringToFront implements Command {
@@ -30,7 +31,7 @@ public class CmdBringToFront implements Command {
 	}
 	
 	public String toString() {
-		return "Brougth To Front " + shapeToMove.toString();
+		return LoggerConstants.BRING_TO_FRONT_COMMAND + " " + shapeToMove.toString();
 	}
 
 }

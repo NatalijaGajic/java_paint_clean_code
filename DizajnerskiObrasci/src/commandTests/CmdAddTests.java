@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import commands.CmdAdd;
 import geometry.Point;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 class CmdAddTests {
@@ -42,7 +43,7 @@ class CmdAddTests {
 	}
 	
 	public void testToString() {
-		String expected =  "Added " + point.toString();
+		String expected =  LoggerConstants.ADD_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdAdd.toString());
 	}
 

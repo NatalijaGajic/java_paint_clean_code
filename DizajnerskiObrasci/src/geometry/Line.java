@@ -3,6 +3,8 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import logger.LoggerConstants;
+
 public class Line extends Shape{
 	
 	private Point startPoint;
@@ -109,7 +111,7 @@ public class Line extends Shape{
 	}
 	
 	public String toString() {
-		return "Line:SP(" + this.getStartPoint().getX() + "," + this.getStartPoint().getY() + ") EP("+
+		return LoggerConstants.LINE + ":SP(" + this.getStartPoint().getX() + "," + this.getStartPoint().getY() + ") EP("+
 				this.getEndPoint().getX() + "," + this.getEndPoint().getY() + ") " + "BC:" + getColor().getRGB();
 	}
 

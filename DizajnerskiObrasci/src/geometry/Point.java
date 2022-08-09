@@ -3,6 +3,8 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import logger.LoggerConstants;
+
 public class Point extends Shape{
 	
 	private int x;
@@ -98,7 +100,7 @@ public class Point extends Shape{
 
 	@Override
 	public String toString() {
-		return "Point:(" + this.getX() + "," + this.getY() + ") " + "BC:" + getColor().getRGB();
+		return LoggerConstants.POINT + ":(" + this.getX() + "," + this.getY() + ") " + "BC:" + getColor().getRGB();
 	}
 	
 
