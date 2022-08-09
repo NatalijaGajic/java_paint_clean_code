@@ -309,11 +309,13 @@ public class DrawingController {
 	
 	public void undoCommand() {
 		commandsHandler.undo();
+		logWriter.log("Undo");
 		frame.getView().repaint();
 	}
 	
 	public void redoCommand() {
 		commandsHandler.redo();
+		logWriter.log("Redo");
 		frame.getView().repaint();
 	}
 	
