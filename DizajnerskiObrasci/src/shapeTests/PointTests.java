@@ -82,7 +82,7 @@ class PointTests {
 	
 	@Test
 	public void testToString() {
-		String expected = "(" + point.getX() + ", " + point.getY() + ")";
+		String expected = "Point:(" + point.getX() + "," + point.getY()+") " + "BC" + point.getColor().getRGB();
 		assertEquals(expected, point.toString());
 	}
 	

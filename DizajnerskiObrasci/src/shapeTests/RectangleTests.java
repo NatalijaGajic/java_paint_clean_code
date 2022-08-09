@@ -97,7 +97,9 @@ class RectangleTests {
 
 	@Test
 	public void testToString() {
-		String expected = "Upper left point: " + rectangle.getUpperLeftPoint() + ", height: " + rectangle.getHeight() + ", width: " + rectangle.getWidth();
+		String expected = "Rectangle:(" + rectangle.getUpperLeftPoint().getX()+","+rectangle.getUpperLeftPoint().getY()+") "
+				+ "W:"+rectangle.getWidth()+", H:"+rectangle.getHeight()+", BC"+rectangle.getColor().getRGB()+", "
+				+ "FC"+rectangle.getInnerColor().getRGB();
 		assertEquals(expected, rectangle.toString());
 	}
 

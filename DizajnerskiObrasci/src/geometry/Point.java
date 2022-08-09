@@ -98,9 +98,9 @@ public class Point extends Shape{
 
 	@Override
 	public String toString() {
-		return "(" + getX() + ", " + getY() + ")";
+		return "Point:(" + this.getX() + "," + this.getY() + ") " + "BC" + getColor().getRGB();
 	}
-
+	
 
 	@Override
 	public void setShapeFileds(Shape shape) {

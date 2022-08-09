@@ -18,5 +18,4 @@ public class FrameScrollPane extends JScrollPane{
 		setViewportView(list);
 		setBounds(0, 0, 1000, 500);
 	}
-	
 }

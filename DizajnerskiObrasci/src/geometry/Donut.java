@@ -89,7 +89,9 @@ private int innerRadius;
 	}
 	
 	public String toString() {
-		return super.toString() + ", inner radius=" + innerRadius;
+		return "Donut:(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
+				+ " OR:" + this.getRadius() + ", IR:" + this.getInnerRadius() + ", "
+						+ "BC" + this.getColor().getRGB() + ", FC" + this.getInnerColor().getRGB();
 	}
 	
 	@Override

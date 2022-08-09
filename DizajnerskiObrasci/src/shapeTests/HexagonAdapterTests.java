@@ -90,8 +90,9 @@ class HexagonAdapterTests {
 	
 	@Test
 	public void testToString() {
-		String expected = "Center: " + new Point(hexagonAdapter.getX(), hexagonAdapter.getY())
-				+ ", radius: " + hexagonAdapter.getRadius();
+		String expected = "Hexagon:(" + hexagonAdapter.getX() + "," + hexagonAdapter.getY() + ") "
+				+ "R:" + hexagonAdapter.getRadius() + ", BC" + hexagonAdapter.getColor().getRGB() + ", "
+				+ "FC" + hexagonAdapter.getInnerColor().getRGB();
 		assertEquals(expected, hexagonAdapter.toString());
 	}
 

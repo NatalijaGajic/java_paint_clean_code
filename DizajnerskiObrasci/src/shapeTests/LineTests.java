@@ -106,9 +106,8 @@ class LineTests {
 
 	@Test
 	public void testToString() {
-		String startPoint = "(" + line.getStartPoint().getX() + ", " + line.getStartPoint().getY() + ")";
-		String endPoint = "(" + line.getEndPoint().getX() + ", " + line.getEndPoint().getY() + ")";
-		String expected = startPoint + "->" + endPoint;
+		String expected = "Line:SP(" + line.getStartPoint().getX() + "," + line.getStartPoint().getY() + ") EP(" +
+				line.getEndPoint().getX() + "," + line.getEndPoint().getY() + ") " + "BC" + line.getColor().getRGB();
 		assertEquals(expected, line.toString());
 	}
 	
