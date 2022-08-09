@@ -6,3 +6,8 @@
 /controllers/
 /frame/
 /controllerTests/
+/commandHandler/
+/applications/
+/comandsHandlerTests/
+/commandsHandlerTests/
+/frameTests/

@@ -1,15 +1,13 @@
 package controllers;
 
 import java.awt.Color;
-import java.awt.List;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import commandHandler.CommandsHandler;
 import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
@@ -20,14 +18,17 @@ public class DrawingController {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private Color activeEdgeColor = Color.BLACK;
-	private Color activeInnerColor = Color.WHITE;
+	private CommandsHandler commandsHandler;
+	private Color activeEdgeColor;
+	private Color activeInnerColor;
 	
 	private Point startPoint;
 	
 	public DrawingController(DrawingModel model, DrawingFrame frame){
 		this.model = model;
 		this.frame = frame;
+		activeEdgeColor = Color.BLACK;
+		activeInnerColor = Color.WHITE;
 	}
 	
 	public void addShapeIfAccepted(Dialog dlg) {
@@ -47,12 +48,14 @@ public class DrawingController {
 	private void executeCmdModifyShape(Shape selectedShape, Shape shapeWithNeValues) {
 		CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNeValues);
 		cmdModify.execute();
+		commandsHandler.addExecutedCommand(cmdModify);
 		
 	}
 
 	private void executeCmdAddShape(Shape shape) {
 		CmdAdd cmdAdd = new CmdAdd(model, shape);
 		cmdAdd.execute();
+		commandsHandler.addExecutedCommand(cmdAdd);
 	}
 	
 	public void modifyShape() {
@@ -108,36 +111,43 @@ public class DrawingController {
 	private void executeCmdSelectShape(Shape shape) {
 		CmdSelect cmdSelect = new CmdSelect(model, shape);
 		cmdSelect.execute();
+		commandsHandler.addExecutedCommand(cmdSelect);
 	}
 	
 	private void executeCmdDeselectShape(Shape shape) {
 		CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
 		cmdDeselect.execute();
+		commandsHandler.addExecutedCommand(cmdDeselect);
 	}
 	
 	private void executeCmdDeleteShapes(ArrayList<Shape> shapesToDelete) {
 		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
 		cmdDelete.execute();
+		commandsHandler.addExecutedCommand(cmdDelete);
 	}
 	
 	private void executeCmdShapeToBack(Shape shapeToMove) {
 		CmdToBack cmdToBack = new CmdToBack(model, shapeToMove);
 		cmdToBack.execute();
+		commandsHandler.addExecutedCommand(cmdToBack);
 	}
 	
 	private void executeCmdShapeToFront(Shape shapeToMove) {
 		CmdToFront cmdToFront = new CmdToFront(model, shapeToMove);
 		cmdToFront.execute();
+		commandsHandler.addExecutedCommand(cmdToFront);
 	}
 	
 	private void executeCmdBringShapeToBack(Shape shapeToMove) {
 		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, shapeToMove);
 		cmdBringToBack.execute();
+		commandsHandler.addExecutedCommand(cmdBringToBack);
 	}
 	
 	private void executeCmdBringShapeToFront(Shape shapeToMove) {
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, shapeToMove);
 		cmdBringToFront.execute();
+		commandsHandler.addExecutedCommand(cmdBringToFront);
 	}
 	
 	public void setActiveEdgeColor() {
@@ -285,6 +295,15 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
+	public void undoCommand() {
+		commandsHandler.undo();
+		frame.getView().repaint();
+	}
+	
+	public void redoCommand() {
+		commandsHandler.redo();
+		frame.getView().repaint();
+	}
 	
 	public void updateObservablePositionButtons() {
 		int numberOfSelectedShapes = model.getNumberOfSelectedShapes();
@@ -376,4 +395,36 @@ public class DrawingController {
 		frame.getOptionsToolBar().getBtnModify().setEnabled(false);
 		disablePositionButtons();
 	}
+	
+	public void updateObservableUndoRedoButtons(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
+		updateUndoButton(numberOfExecutedCommands);
+		updateRedoButton(numberOfUnexecutedCommands);
+	}
+	
+	private void updateUndoButton(int numberOfExecutedCommands) {
+		if(numberOfExecutedCommands > 0) {
+			frame.getOptionsToolBar().getBtnUndo().setEnabled(true);
+		}else if(numberOfExecutedCommands == 0) {
+			frame.getOptionsToolBar().getBtnUndo().setEnabled(false);
+		}
+	}
+	
+	private void updateRedoButton(int numberOfUnexecutedCommands) {
+		if(numberOfUnexecutedCommands > 0) {
+			frame.getOptionsToolBar().getBtnRedo().setEnabled(true);
+		}else if(numberOfUnexecutedCommands == 0) {
+			frame.getOptionsToolBar().getBtnRedo().setEnabled(false);
+		}
+	}
+
+	public CommandsHandler getCommandsHandler() {
+		return commandsHandler;
+	}
+
+	public void setCommandsHandler(CommandsHandler commandsHandler) {
+		this.commandsHandler = commandsHandler;
+	}
+	
+	
+	
 }

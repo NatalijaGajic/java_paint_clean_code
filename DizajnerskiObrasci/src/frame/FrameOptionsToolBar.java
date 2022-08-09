@@ -11,10 +11,11 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import controllers.DrawingController;
+import observer.CommandsHandlerObserver;
 import observer.SelectedShapesObserver;
 import observer.ShapesObserver;
 
-public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver {
+public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver {
 
 	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
@@ -37,6 +38,8 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		addBtnModifyListener();
 		addBtnDeleteListener();
 		addMovePositionButtonsListeners();
+		addRedoButtonListener();
+		addUndoButtonListener();
 		addButtonsToToolBar();
 		addButtonsToButtonGroup();
 		disableButtons();
@@ -137,6 +140,24 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		});
 	}
 	
+	private void addRedoButtonListener() {
+		btnRedo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.redoCommand();
+			}
+		});
+	}
+	
+	private void addUndoButtonListener() {
+		btnUndo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.undoCommand();
+			}
+		});
+	}
+	
 	public boolean isTglBtnSelectSelected() {
 		return tglbtnSelect.isSelected();
 	}
@@ -166,6 +187,14 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	public boolean isBtnToBackEnabled() {
 		return btnToBack.isEnabled();
 	}
+	
+	public boolean isBtnRedoEnabled() {
+		return btnRedo.isEnabled();
+	}
+	
+	public boolean isBtnUndoEnabled() {
+		return btnUndo.isEnabled();
+	}
 
 	public JButton getBtnModify() {
 		return btnModify;
@@ -191,6 +220,14 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		return btnBringToBack;
 	}
 
+	public JButton getBtnUndo() {
+		return btnUndo;
+	}
+
+	public JButton getBtnRedo() {
+		return btnRedo;
+	}
+
 	public void setController(DrawingController controller) {
 		this.controller = controller;
 	}
@@ -204,6 +241,11 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	public void update() {
 		controller.updateObservablePositionButtons();
 		
+	}
+
+	@Override
+	public void update(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
+		controller.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
 	}
 	
 

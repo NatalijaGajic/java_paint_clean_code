@@ -65,5 +65,19 @@ class FrameOptionsToolBarTests {
 		optionsToolBar.getBtnBringToFront().doClick();
 		verify(controller).bringShapeToFront();
 	}
+	
+	@Test
+	public void testBtnUndoClick() {
+		optionsToolBar.getBtnUndo().setEnabled(true);
+		optionsToolBar.getBtnUndo().doClick();
+		verify(controller).undoCommand();
+	}
+	
+	@Test
+	public void testBtnRedoClick() {
+		optionsToolBar.getBtnRedo().setEnabled(true);
+		optionsToolBar.getBtnRedo().doClick();
+		verify(controller).redoCommand();
+	}
 
 }
