@@ -62,7 +62,7 @@ class FileLogTests {
 	}
 
 	@Test
-	public void testSaveLog_OK() throws IOException {
+	public void testSaveFile_OK() throws IOException {
 		path = "testSaveLog.txt";
 		logWriter.log(FIRST_LINE);
 		logWriter.log(SECOND_LINE);
@@ -85,7 +85,7 @@ class FileLogTests {
 	}
 	
 	@Test
-	public void testLoadLog_OK() throws IOException {
+	public void testOpenFile_OK() throws IOException {
 		path = "testSaveLog.txt";
 		listOfLogsSavedInFile.add(FIRST_LINE);
 		listOfLogsSavedInFile.add(SECOND_LINE);

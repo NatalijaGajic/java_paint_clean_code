@@ -26,7 +26,7 @@ public class CollectionOfSelectedShapes implements SelectedShapesSubject{
 		Iterator<SelectedShapesObserver> it = observers.iterator();
 		while(it.hasNext()) {
 			SelectedShapesObserver ob = it.next();
-			ob.update(numberOfSelectedShapes);
+			ob.updateSelectedShapesObserver(numberOfSelectedShapes);
 		}
 	}
 	

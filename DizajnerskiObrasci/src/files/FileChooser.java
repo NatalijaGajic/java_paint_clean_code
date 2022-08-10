@@ -32,6 +32,8 @@ public class FileChooser extends JFileChooser {
 	public String showOpenTxtFileDialog() {
 		setDialogTitle("Select file to open");
 		setFileSelectionMode(JFileChooser.FILES_ONLY);
+		setAcceptAllFileFilterUsed(false);
+		addChoosableFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
 		
 		userSelection = showOpenDialog(null);
 		

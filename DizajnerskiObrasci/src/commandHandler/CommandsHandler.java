@@ -60,7 +60,7 @@ public class CommandsHandler implements CommandsHandlerSubject{
 		Iterator<CommandsHandlerObserver> it = observers.iterator();
 		while(it.hasNext()) {
 			CommandsHandlerObserver ob = it.next();
-			ob.update(numberOfExecutedCommands, numberOfUnexecutedCommands);
+			ob.updateCommandsHandlerObserver(numberOfExecutedCommands, numberOfUnexecutedCommands);
 		}
 	}
 

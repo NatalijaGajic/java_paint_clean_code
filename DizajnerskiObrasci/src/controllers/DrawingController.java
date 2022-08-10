@@ -182,7 +182,7 @@ public class DrawingController {
 	
 	public void deleteShapes() {
 		String[] options = { "Yes", "No" };
-		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "WARNING!", JOptionPane.OK_OPTION,
+		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "Deleting selected shapes", JOptionPane.OK_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 		if (option == 0) {
 			@SuppressWarnings("unchecked")
@@ -280,7 +280,7 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
-	public void updateObservablePositionButtons() {
+	public void updateShapesObserverButtons() {
 		int numberOfSelectedShapes = model.getNumberOfSelectedShapes();
 		if(numberOfSelectedShapes == 1) { 
 			if(model.getNumberOfShapes() == 1) {
@@ -291,7 +291,7 @@ public class DrawingController {
 		}
 	}
 	
-	public void updateObservableButtons(int numberOfSelectedShapes) {
+	public void updateSelectedShapesObserverButtons(int numberOfSelectedShapes) {
 		
 		if(numberOfSelectedShapes == 0) {
 			disableNoneSelectedButtons();
@@ -389,6 +389,14 @@ public class DrawingController {
 			frame.getOptionsToolBar().getBtnRedo().setEnabled(true);
 		}else if(numberOfUnexecutedCommands == 0) {
 			frame.getOptionsToolBar().getBtnRedo().setEnabled(false);
+		}
+	}
+	
+	public void updateLogReaderObserverButtons(int numberOfCommandsToBeExecuted) {
+		if(numberOfCommandsToBeExecuted > 0) {
+			frame.getOptionsToolBar().getBtnExecuteLog().setEnabled(true);
+		}else if(numberOfCommandsToBeExecuted == 0) {
+			frame.getOptionsToolBar().getBtnExecuteLog().setEnabled(false);
 		}
 	}
 

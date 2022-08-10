@@ -25,6 +25,8 @@ public class DrawingApplication {
 			
 			commandsHandler.registerObserver(frame.getOptionsToolBar());
 			
+			logReader.registerObserver(frame.getOptionsToolBar());
+			
 			controller.setLogWriter(logWriter);
 			controller.setLogReader(logReader);
 			

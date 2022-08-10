@@ -1,6 +1,8 @@
 package logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,8 +10,12 @@ import geometry.*;
 import commands.*;
 import controllers.DrawingController;
 import model.DrawingModel;
+import observer.CommandsHandlerObserver;
+import observer.CommandsHandlerSubject;
+import observer.LogReaderObserver;
+import observer.LogReaderSubject;
 
-public class LogReader {
+public class LogReader implements LogReaderSubject{
 
 	private LogParser logParser;
 	private DrawingController controller;
@@ -20,15 +26,19 @@ public class LogReader {
 	private Shape modifiedShape;
 	private Command cmd;
 	
+	private ArrayList<LogReaderObserver> observers;
+	
 	public LogReader(DrawingController controller) {
 		this.controller = controller;
 		model = controller.getModel();
 		logParser = new LogParser();
 		commandsToBeExecutedLog = new LinkedList<String>();
+		observers = new ArrayList<LogReaderObserver>();
 	}
 	
 	public void addCommandToCommandsToBeExecutedLog(String command) {
 		commandsToBeExecutedLog.add(command);
+		notifyObservers();
 	}
 	
 	public void readCommandFromLog(){
@@ -56,6 +66,8 @@ public class LogReader {
 			controller.bringShapeToFront();
 		else if (logLine[0].equals(LoggerConstants.BRING_TO_BACK_COMMAND))
 			controller.bringShapeToBack();
+		
+		notifyObservers();
 	}
 	
 	public void executeAddCommand() {
@@ -130,6 +142,7 @@ public class LogReader {
 	
 	public void clearLog() {
 		commandsToBeExecutedLog.clear();
+		notifyObservers();
 	}
 
 	public Queue<String> getCommandsToBeExecutedLog() {
@@ -138,6 +151,29 @@ public class LogReader {
 
 	public Command getCmd() {
 		return cmd;
+	}
+
+	@Override
+	public void registerObserver(LogReaderObserver o) {
+		observers.add(o);
+		
+	}
+
+	@Override
+	public void unregisterObserver(LogReaderObserver o) {
+		observers.remove(o);
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		int numberOfCommandsToBeExecuted = commandsToBeExecutedLog.size();
+		Iterator<LogReaderObserver> it = observers.iterator();
+		while(it.hasNext()) {
+			LogReaderObserver ob = it.next();
+			ob.updateLogReaderObserver(numberOfCommandsToBeExecuted);
+		}
+		
 	}
 	
 	

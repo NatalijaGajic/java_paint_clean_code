@@ -26,7 +26,7 @@ public class CollectionOfShapes implements ShapesSubject {
 		Iterator<ShapesObserver> it = observers.iterator();
 		while(it.hasNext()) {
 			ShapesObserver ob = it.next();
-			ob.update();
+			ob.updateShapesObserver();
 		}
 		
 	}

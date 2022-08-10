@@ -1,5 +1,5 @@
 package observer;
 
 public interface CommandsHandlerObserver {
-	public void update(int numberOfExecutedCommands, int numberOfUnexecutedCommands);
+	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands);
 }

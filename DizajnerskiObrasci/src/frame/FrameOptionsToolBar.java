@@ -12,10 +12,11 @@ import javax.swing.SwingConstants;
 
 import controllers.DrawingController;
 import observer.CommandsHandlerObserver;
+import observer.LogReaderObserver;
 import observer.SelectedShapesObserver;
 import observer.ShapesObserver;
 
-public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver {
+public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver, LogReaderObserver {
 
 	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
@@ -74,7 +75,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		add(btnExecuteLog);
 	}
 	
-	private void disableButtons() {
+	public void disableButtons() {
 		btnModify.setEnabled(false);
 		btnDelete.setEnabled(false);
 		btnToBack.setEnabled(false);
@@ -85,7 +86,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnRedo.setEnabled(false);
 		btnExecuteLog.setEnabled(false);
 	}
-	
 	
 	private void addButtonsToButtonGroup() {
 		btnMode.add(tglbtnSelect);
@@ -247,20 +247,25 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	}
 
 	@Override
-	public void update(int numberOfSelectedShapes) {
-		controller.updateObservableButtons(numberOfSelectedShapes);
+	public void updateSelectedShapesObserver(int numberOfSelectedShapes) {
+		controller.updateSelectedShapesObserverButtons(numberOfSelectedShapes);
 	}
 
 	@Override
-	public void update() {
-		controller.updateObservablePositionButtons();
-		
+	public void updateShapesObserver() {
+		controller.updateShapesObserverButtons();
 	}
 
 	@Override
-	public void update(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
+	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
 		controller.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
 	}
-	
 
+	@Override
+	public void updateLogReaderObserver(int numberOfCommandsToBeExecuted) {
+		controller.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
+		
+	}
+	
+	
 }
