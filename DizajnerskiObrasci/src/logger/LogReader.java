@@ -65,12 +65,14 @@ public class LogReader {
 	}
 	
 	public void executeSelectCommand() {
+		parseShapeFromLog();
 		shape = model.getShapeEqualTo(shape);
 		cmd = new CmdSelect(model, shape);
 		controller.executeCommand(cmd);
 	}
 	
 	public void executeDeselectCommand() {
+		parseShapeFromLog();
 		shape = model.getSelectedShapeEqualTo(shape);
 		cmd = new CmdDeselect(model, shape);
 		controller.executeCommand(cmd);
@@ -84,7 +86,7 @@ public class LogReader {
 	}
 	
 	public void parseShapeFromLog() {
-		logLine = Arrays.copyOfRange(logLine, 1, logLine.length - 1);
+		logLine = Arrays.copyOfRange(logLine, 1, logLine.length);
 		
 		if (logLine[0].equals(LoggerConstants.POINT))
 			shape = logParser.parsePointFromLog(logLine);
@@ -104,22 +106,22 @@ public class LogReader {
 	public void parseModifiedShapeFromLog() {
 		
 		if(shape instanceof Point) {
-			logLine = Arrays.copyOfRange(logLine, 9, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 9, logLine.length);
 			modifiedShape = logParser.parsePointFromLog(logLine);
 		}else if(shape instanceof Line) {
-			logLine = Arrays.copyOfRange(logLine, 13, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 13, logLine.length);
 			modifiedShape = logParser.parseLineFromLog(logLine);
 		}else if(shape instanceof Circle) {
-			logLine = Arrays.copyOfRange(logLine, 15, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 15, logLine.length);
 			modifiedShape = logParser.parseCircleFromLog(logLine);
 		}else if(shape instanceof Donut) {
-			logLine = Arrays.copyOfRange(logLine, 18, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 18, logLine.length);
 			modifiedShape = logParser.parseDonutFromLog(logLine);
 		}else if(shape instanceof Rectangle) {
-			logLine = Arrays.copyOfRange(logLine, 18, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 18, logLine.length);
 			modifiedShape = logParser.parseRectangleFromLog(logLine);
 		}else if(shape instanceof HexagonAdapter) {
-			logLine = Arrays.copyOfRange(logLine, 15, logLine.length - 1);
+			logLine = Arrays.copyOfRange(logLine, 15, logLine.length);
 			modifiedShape = logParser.parseHexagonFromLog(logLine);
 		}
 		

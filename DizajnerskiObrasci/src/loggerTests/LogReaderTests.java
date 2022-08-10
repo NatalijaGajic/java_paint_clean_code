@@ -2,6 +2,9 @@ package loggerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
+import java.util.Stack;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +12,10 @@ import commandHandler.CommandsHandler;
 import commands.*;
 import controllers.DrawingController;
 import frame.DrawingFrame;
+import geometry.Line;
+import geometry.Point;
 import logger.LogReader;
+import logger.LogWriter;
 import logger.LoggerConstants;
 import model.DrawingModel;
 
@@ -17,18 +23,13 @@ class LogReaderTests {
 
 	private String pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
 	private String modifiedPointLog = LoggerConstants.POINT + ":(2,2) BC:-16777216";
-	private String lineLog = LoggerConstants.LINE + ":SP(1,1) EP(2,2) BC:-16777216";
-	private String circleLog = LoggerConstants.CIRCLE + ":(1,1) R:10, BC:-1, FC:-16777216";
-	private String donutLog = LoggerConstants.DONUT + ":(1,1) OR:10, IR:5, BC:-1, FC:-16777216";
-	private String rectangleLog = LoggerConstants.RECTANGLE + ":(1,1) W:50, H:40, BC:-1, FC:-16777216";
-	private String hexagonLog = LoggerConstants.HEXAGON + ":(1,2) R:3, BC:-1, FC:-16777216";
 	
 	private String cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
 	private String cmdModifyLog = LoggerConstants.MODIFY_COMMAND + " " + pointLog + " to " + modifiedPointLog;
 	private String cmdBringToBackLog = LoggerConstants.BRING_TO_BACK_COMMAND + " " + pointLog;
 	private String cmdBringToFrontLog = LoggerConstants.BRING_TO_FRONT_COMMAND + " " + pointLog;
-	private String cmdToFrontLog = LoggerConstants.TO_FRONT_COMMAND + " " + pointLog;
 	private String cmdToBackLog = LoggerConstants.TO_BACK_COMMAND + " " + pointLog;
+	private String cmdToFrontLog = LoggerConstants.TO_FRONT_COMMAND + " " + pointLog;
 	private String cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
 	private String cmdDeselectLog = LoggerConstants.DESELECT_COMMAND + " " + pointLog;
 	private String cmdDeleteLog = LoggerConstants.DELETE_COMMAND + " " + pointLog;
@@ -38,7 +39,12 @@ class LogReaderTests {
 	private CommandsHandler commandsHandler;
 	private DrawingController controller;
 	private LogReader logReader;
+	private LogWriter logWriter;
 	private Command commandFromLog;
+	private Point testPoint;
+	private Point modifiedPoint;
+	private Line testLine;
+	private Stack<Command> executedCommands;
 	
 	@BeforeEach
 	public void setUp() {
@@ -46,15 +52,229 @@ class LogReaderTests {
 		frame = new DrawingFrame();
 		commandsHandler = new CommandsHandler();
 		controller = new DrawingController(model, frame, commandsHandler);
+		logWriter = new LogWriter();
 		logReader = new LogReader(controller);
+		controller.setLogWriter(logWriter);
+		controller.setLogReader(logReader);
+		executedCommands = commandsHandler.getExecutedCommands();
+		testPoint = new Point(1, 1, false, Color.BLACK);
+		modifiedPoint = new Point(2, 2, true, Color.BLACK);
+		testLine = new Line(new Point(1,1), new Point(2,2), false, Color.BLACK);
 	}
 	
 	@Test
-	void testReadCommandFromLog_AddCommandRead() {
+	void testReadCommandFromLog_CmdAddRead() {
 		logReader.addCommandToCommandsToBeExecutedLog(cmdAddLog);
 		logReader.readCommandFromLog();
 		commandFromLog = logReader.getCmd();
 		assertTrue(commandFromLog instanceof CmdAdd);
 	}
+	
+	@Test
+	void testReadCommandFromLog_CmdAdd_ShapeAddedToModel() {
+		logReader.addCommandToCommandsToBeExecutedLog(cmdAddLog);
+		logReader.readCommandFromLog();
+		assertEquals(testPoint, model.getShapeAtIndex(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdAddAddedToExecutedCommands() {
+		logReader.addCommandToCommandsToBeExecutedLog(cmdAddLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertEquals(commandFromLog, executedCommands.get(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdModifyCommandRead() {
+		testPoint.setSelected(true);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertTrue(commandFromLog instanceof CmdModify);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdModify_ShapeModified() {
+		testPoint.setSelected(true);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertEquals(modifiedPoint, model.getShapeAtIndex(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdModifyAddedToExecutedCommands() {
+		testPoint.setSelected(true);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertEquals(commandFromLog, executedCommands.get(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdBringToBack_ShapeBroughtBack() {
+		model.addShape(testLine);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToBackLog);
+		logReader.readCommandFromLog();
+		assertEquals(testPoint, model.getShapeAtIndex(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdBringToBackAddedToExecutedCommands() {
+		model.addShape(testLine);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToBackLog);
+		logReader.readCommandFromLog();
+		assertTrue(executedCommands.get(0) instanceof CmdBringToBack);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdBringToFront_ShapeBroughtBack() {
+		model.addShape(testPoint);
+		model.addShape(testLine);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToFrontLog);
+		logReader.readCommandFromLog();
+		assertEquals(testPoint, model.getShapeAtIndex(1));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdBringToFrontAddedToExecutedCommands() {
+		model.addShape(testPoint);
+		model.addShape(testLine);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToFrontLog);
+		logReader.readCommandFromLog();
+		assertTrue(executedCommands.get(0) instanceof CmdBringToFront);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdToBack_ShapeBroughtBack() {
+		model.addShape(testLine);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToBackLog);
+		logReader.readCommandFromLog();
+		assertEquals(testPoint, model.getShapeAtIndex(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdToBackAddedToExecutedCommands() {
+		model.addShape(testLine);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToBackLog);
+		logReader.readCommandFromLog();
+		assertTrue(executedCommands.get(0) instanceof CmdToBack);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdToFront_ShapeBroughtBack() {
+		model.addShape(testPoint);
+		model.addShape(testLine);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToFrontLog);
+		logReader.readCommandFromLog();
+		assertEquals(testPoint, model.getShapeAtIndex(1));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdToFrontAddedToExecutedCommands() {
+		model.addShape(testPoint);
+		model.addShape(testLine);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToFrontLog);
+		logReader.readCommandFromLog();
+		assertTrue(executedCommands.get(0) instanceof CmdToFront);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdSelectRead() {
+		model.addShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertTrue(commandFromLog instanceof CmdSelect);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdSelect_ShapeSelected() {
+		model.addShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
+		logReader.readCommandFromLog();
+		assertTrue(testPoint.isSelected());
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdSelectAddedToExecutedCommands() {
+		model.addShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertEquals(commandFromLog, executedCommands.get(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdDeselectRead() {
+		model.addShape(testPoint);
+		testPoint.setSelected(true);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertTrue(commandFromLog instanceof CmdDeselect);
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdDeselect_ShapeDeselected() {
+		model.addShape(testPoint);
+		testPoint.setSelected(true);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
+		logReader.readCommandFromLog();
+		assertFalse(testPoint.isSelected());
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdDeselectAddedToExecutedCommands() {
+		model.addShape(testPoint);
+		testPoint.setSelected(true);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
+		logReader.readCommandFromLog();
+		commandFromLog = logReader.getCmd();
+		assertEquals(commandFromLog, executedCommands.get(0));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdDelete_ShapeDeleted() {
+		model.addShape(testPoint);
+		testPoint.setSelected(true);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
+		logReader.readCommandFromLog();
+		assertFalse(model.doesContainShape(testPoint));
+	}
+	
+	@Test
+	void testReadCommandFromLog_CmdDeleteAddedToExecutedCommands() {
+		model.addShape(testPoint);
+		testPoint.setSelected(true);
+		model.addSelectedShape(testPoint);
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
+		logReader.readCommandFromLog();
+		assertTrue(executedCommands.get(0) instanceof CmdDelete);
+	}
+
 
 }
