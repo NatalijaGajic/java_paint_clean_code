@@ -9,3 +9,9 @@
 /controllerTests/
 /frameTests/
 /frame/
+/applications/
+/commandsHandlerTests/
+/observerTests/
+/filesTests/
+/loggerTests/
+/test/

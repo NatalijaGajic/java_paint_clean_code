@@ -14,11 +14,10 @@ public class FrameScrollPane extends JScrollPane{
 		list = new JList<String>();
 		list.setBackground(Color.WHITE);
 		setViewportView(list);
-		//setBounds(0, 0, 1000, 500);
 	}
 
 	public void setDefaultListModel(DefaultListModel<String> defaultListModel) {
 		list.setModel(defaultListModel);
 	}
-	
+
 }

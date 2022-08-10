@@ -35,7 +35,7 @@ class CollectionOfShapesTests {
 		
 		model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 		frame.setController(controller);
-		frame.setControllerForToolBars(controller);
+		frame.setDrawingControllerForToolBars(controller);
 		
 		point = new Point(100, 100);
 		circle = new Circle(new Point(11, 11), 10);

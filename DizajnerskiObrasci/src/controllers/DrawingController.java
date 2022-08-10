@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Queue;
 
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
+import logger.LogReader;
 import logger.LogWriter;
 import logger.LoggerConstants;
 import model.DrawingModel;
@@ -22,6 +24,7 @@ public class DrawingController {
 	private DrawingFrame frame;
 	private CommandsHandler commandsHandler;
 	private LogWriter logWriter;
+	private LogReader logReader;
 	private Color activeEdgeColor;
 	private Color activeInnerColor;
 	
@@ -32,6 +35,12 @@ public class DrawingController {
 		this.frame = frame;
 		activeEdgeColor = Color.BLACK;
 		activeInnerColor = Color.WHITE;
+	}
+	
+	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler){
+		this(model, frame);
+		this.commandsHandler = commandsHandler;
+
 	}
 	
 	public void executeCommand(Command cmd) {
@@ -266,6 +275,11 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
+	public void executeLog() {
+		logReader.readCommandFromLog();
+		frame.getView().repaint();
+	}
+	
 	public void updateObservablePositionButtons() {
 		int numberOfSelectedShapes = model.getNumberOfSelectedShapes();
 		if(numberOfSelectedShapes == 1) { 
@@ -393,5 +407,11 @@ public class DrawingController {
 	public void setLogWriter(LogWriter logWriter) {
 		this.logWriter = logWriter;
 	}
+
+	public void setLogReader(LogReader logReader) {
+		this.logReader = logReader;
+	}
+	
+	
 	
 }

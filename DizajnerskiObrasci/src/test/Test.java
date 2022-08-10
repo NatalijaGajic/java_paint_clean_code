@@ -57,6 +57,7 @@ public class Test {
 	
 	private static void printSplits(String line) {
 		System.out.println("****************************************");
+		System.out.println(line);
 		String[] splits = line.split("[, =():]");
 		for (int i=0; i < splits.length; i++) {
 			System.out.println("[" + i + "]:" + splits[i]);

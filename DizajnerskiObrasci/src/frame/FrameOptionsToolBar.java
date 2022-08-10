@@ -40,6 +40,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		addMovePositionButtonsListeners();
 		addRedoButtonListener();
 		addUndoButtonListener();
+		addExecuteLogButtonListener();
 		addButtonsToToolBar();
 		addButtonsToButtonGroup();
 		disableButtons();
@@ -158,6 +159,15 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		});
 	}
 	
+	public void addExecuteLogButtonListener() {
+		btnExecuteLog.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.executeLog();
+			}
+		});
+	}
+	
 	public boolean isTglBtnSelectSelected() {
 		return tglbtnSelect.isSelected();
 	}
@@ -226,6 +236,10 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 
 	public JButton getBtnRedo() {
 		return btnRedo;
+	}
+
+	public JButton getBtnExecuteLog() {
+		return btnExecuteLog;
 	}
 
 	public void setController(DrawingController controller) {

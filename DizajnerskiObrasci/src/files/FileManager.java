@@ -4,6 +4,10 @@ public class FileManager {
 
 	private FileStrategy fileStrategy;
 	
+	public FileManager() {
+		
+	}
+	
 	public FileManager(FileStrategy fileStrategy) {
 		this.fileStrategy = fileStrategy;
 	}
@@ -20,6 +24,12 @@ public class FileManager {
 	public void setFileStrategy(FileStrategy fileStrategy) {
 		this.fileStrategy = fileStrategy;
 	}
+
+	public FileStrategy getFileStrategy() {
+		return fileStrategy;
+	}
+	
+	
 	
 	
 

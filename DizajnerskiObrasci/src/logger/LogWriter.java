@@ -4,23 +4,22 @@ import javax.swing.DefaultListModel;
 
 public class LogWriter {
 
-	private DefaultListModel<String> defaultListModel;
+	private DefaultListModel<String> executedCommandsLog;
 
 	public LogWriter() {
-		defaultListModel = new DefaultListModel<>();
+		executedCommandsLog = new DefaultListModel<>();
 	}
 	
 	public void log(String logLine) {
-		defaultListModel.addElement(logLine);
-	}
-	
-	public DefaultListModel<String> getDefaultListModel() {
-		return defaultListModel;
+		executedCommandsLog.addElement(logLine);
 	}
 
-	public void setDefaultListModel(DefaultListModel<String> defaultListModel) {
-		this.defaultListModel = defaultListModel;
+	public void setExecutedCommandsLog(DefaultListModel<String> executedCommandsLog) {
+		this.executedCommandsLog = executedCommandsLog;
 	}
-	
+
+	public DefaultListModel<String> getExecutedCommandsLog() {
+		return executedCommandsLog;
+	}
 	
 }

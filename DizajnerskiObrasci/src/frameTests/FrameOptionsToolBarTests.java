@@ -19,7 +19,7 @@ class FrameOptionsToolBarTests {
 		frame = new DrawingFrame();
 		controller = mock(DrawingController.class);
 		frame.setController(controller);
-		frame.setControllerForToolBars(controller);
+		frame.setDrawingControllerForToolBars(controller);
 		optionsToolBar = frame.getOptionsToolBar();
 	}
 	
@@ -77,6 +77,13 @@ class FrameOptionsToolBarTests {
 		optionsToolBar.getBtnRedo().setEnabled(true);
 		optionsToolBar.getBtnRedo().doClick();
 		verify(controller).redoCommand();
+	}
+	
+	@Test
+	public void testBtnExecuteLogClick() {
+		optionsToolBar.getBtnExecuteLog().setEnabled(true);
+		optionsToolBar.getBtnExecuteLog().doClick();
+		verify(controller).executeLog();
 	}
 
 }

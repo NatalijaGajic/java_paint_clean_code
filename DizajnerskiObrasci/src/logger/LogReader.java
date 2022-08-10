@@ -1,6 +1,9 @@
 package logger;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import geometry.*;
 import commands.*;
 import controllers.DrawingController;
@@ -10,6 +13,7 @@ public class LogReader {
 
 	private LogParser logParser;
 	private DrawingController controller;
+	private Queue<String> commandsToBeExecutedLog;
 	private DrawingModel model;
 	private String[] logLine;
 	private Shape shape;
@@ -20,10 +24,15 @@ public class LogReader {
 		this.controller = controller;
 		model = controller.getModel();
 		logParser = new LogParser();
+		commandsToBeExecutedLog = new LinkedList<String>();
 	}
 	
-	public void readLogCommand(String[] logLine){
-		this.logLine = logLine;
+	public void addCommandToCommandsToBeExecutedLog(String command) {
+		commandsToBeExecutedLog.add(command);
+	}
+	
+	public void readCommandFromLog(){
+		this.logLine = commandsToBeExecutedLog.poll().split("[, =():]");
 		
 		if(logLine[0].equals(LoggerConstants.ADD_COMMAND))
 			executeAddCommand();
@@ -56,14 +65,12 @@ public class LogReader {
 	}
 	
 	public void executeSelectCommand() {
-		parseShapeFromLog();
 		shape = model.getShapeEqualTo(shape);
 		cmd = new CmdSelect(model, shape);
 		controller.executeCommand(cmd);
 	}
 	
 	public void executeDeselectCommand() {
-		parseShapeFromLog();
 		shape = model.getSelectedShapeEqualTo(shape);
 		cmd = new CmdDeselect(model, shape);
 		controller.executeCommand(cmd);
@@ -116,5 +123,19 @@ public class LogReader {
 			modifiedShape = logParser.parseHexagonFromLog(logLine);
 		}
 	}
+	
+	public void clearLog() {
+		commandsToBeExecutedLog.clear();
+	}
+
+	public Queue<String> getCommandsToBeExecutedLog() {
+		return commandsToBeExecutedLog;
+	}
+
+	public Command getCmd() {
+		return cmd;
+	}
+	
+	
 	
 }

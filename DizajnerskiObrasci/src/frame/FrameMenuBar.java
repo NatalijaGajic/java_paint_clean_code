@@ -52,7 +52,7 @@ public class FrameMenuBar extends JMenuBar{
 
 	}
 	
-	public void addOpenMenuListeners() {
+	public void addSaveMenuListeners() {
 		optionSaveAsLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.saveLog();
@@ -65,7 +65,7 @@ public class FrameMenuBar extends JMenuBar{
 		});
 	}
 	
-	public void addSaveMenuListeners() {
+	public void addOpenMenuListeners() {
 		optionOpenLogFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.loadLog();

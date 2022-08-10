@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.DrawingController;
+import controllers.FileController;
 import dialogs.DlgCircle;
 import dialogs.DlgDonut;
 import dialogs.DlgLine;
@@ -176,7 +177,7 @@ public class DrawingFrame extends JFrame {
 		return optionsToolBar;
 	}
 	
-	public void setControllerForToolBars(DrawingController controller) {
+	public void setDrawingControllerForToolBars(DrawingController controller) {
 		colorToolBar.setController(controller);
 		optionsToolBar.setController(controller);
 	}
@@ -189,6 +190,13 @@ public class DrawingFrame extends JFrame {
 		return menuBar;
 	}
 	
+	public void setFileControllerForMenuBar(FileController controller) {
+		menuBar.setController(controller);
+	}
+
+	public DrawingController getController() {
+		return controller;
+	}
 	
 	
 }
