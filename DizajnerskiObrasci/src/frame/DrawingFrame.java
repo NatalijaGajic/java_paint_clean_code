@@ -3,6 +3,7 @@ package frame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.MenuBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -183,6 +184,11 @@ public class DrawingFrame extends JFrame {
 	public void setDefaultListModelForScrollPane(DefaultListModel<String> defaultListModel) {
 		scrollPane.setDefaultListModel(defaultListModel);
 	}
+
+	public FrameMenuBar getFrameMenuBar() {
+		return menuBar;
+	}
+	
 	
 	
 }

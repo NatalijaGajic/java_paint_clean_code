@@ -4,3 +4,8 @@
 /controllers/
 /model/
 /observer/
+/file/
+/files/
+/controllerTests/
+/frameTests/
+/frame/
