@@ -34,7 +34,7 @@ class FrameOptionsToolBarTests {
 	public void testBtnDeleteClick() {
 		optionsToolBar.getBtnDelete().setEnabled(true);
 		optionsToolBar.getBtnDelete().doClick();
-		verify(controller).deleteShapes();
+		verify(controller).deleteShapesIfAccepted();
 	}
 	
 	@Test

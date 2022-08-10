@@ -180,16 +180,20 @@ public class DrawingController {
 		}
 	}
 	
-	public void deleteShapes() {
+	public void deleteShapesIfAccepted() {
 		String[] options = { "Yes", "No" };
 		int option = JOptionPane.showOptionDialog(null, "Are you sure?", "Deleting selected shapes", JOptionPane.OK_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 		if (option == 0) {
-			@SuppressWarnings("unchecked")
-			ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
-			CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
-			executeCommand(cmdDelete);
+			deleteShapes();
 		}
+	}
+	
+	public void deleteShapes() {
+		@SuppressWarnings("unchecked")
+		ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
+		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
+		executeCommand(cmdDelete);
 	}
 	
 	/**
