@@ -66,6 +66,17 @@ public class CollectionOfSelectedShapes implements SelectedShapesSubject{
 		selectedShapes.remove(shape);
 		notifyObservers();
 	}
+	
+	
+	public Shape getShapeEqualTo(Shape shape) {
+		Iterator<Shape> it = selectedShapes.iterator();
+		while(it.hasNext()) {
+			Shape shapeFromList = it.next();
+			if(shapeFromList.equals(shape))
+				return shapeFromList;
+		}
+		return null;
+	}
 
 	public ArrayList<Shape> getSelectedShapes() {
 		return selectedShapes;

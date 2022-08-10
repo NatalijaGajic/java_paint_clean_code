@@ -81,7 +81,16 @@ public class CollectionOfShapes implements ShapesSubject {
 		shapes.removeAll(shapesToRemove);
 		notifyObservers();
 	}
-
+	
+	public Shape getShapeEqualTo(Shape shape) {
+		Iterator<Shape> it = shapes.iterator();
+		while(it.hasNext()) {
+			Shape shapeFromList = it.next();
+			if(shapeFromList.equals(shape))
+				return shapeFromList;
+		}
+		return null;
+	}
 
 	public ArrayList<Shape> getShapes() {
 		return shapes;

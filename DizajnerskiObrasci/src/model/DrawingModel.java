@@ -101,7 +101,15 @@ public class DrawingModel {
 	public void addShapes(ArrayList<Shape> shapesToAdd) {
 		collectionOfShapes.addAll(shapesToAdd);
 	}
-
+	
+	public Shape getShapeEqualTo(Shape shape) {
+		return collectionOfShapes.getShapeEqualTo(shape);
+	}
+	
+	public Shape getSelectedShapeEqualTo(Shape shape) {
+		return collectionOfSelectedShapes.getShapeEqualTo(shape);
+	}
+	
 	public CollectionOfSelectedShapes getCollectionOfSelectedShapes() {
 		return collectionOfSelectedShapes;
 	}

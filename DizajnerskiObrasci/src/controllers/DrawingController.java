@@ -13,6 +13,7 @@ import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
 import logger.LogWriter;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 public class DrawingController {
@@ -33,7 +34,7 @@ public class DrawingController {
 		activeInnerColor = Color.WHITE;
 	}
 	
-	private void executeCommand(Command cmd) {
+	public void executeCommand(Command cmd) {
 		cmd.execute();
 		commandsHandler.addExecutedCommand(cmd);
 		logWriter.log(cmd.toString());
@@ -255,13 +256,13 @@ public class DrawingController {
 	
 	public void undoCommand() {
 		commandsHandler.undo();
-		logWriter.log("Undo");
+		logWriter.log(LoggerConstants.UNDO_COMMAND);
 		frame.getView().repaint();
 	}
 	
 	public void redoCommand() {
 		commandsHandler.redo();
-		logWriter.log("Redo");
+		logWriter.log(LoggerConstants.REDO_COMMAND);
 		frame.getView().repaint();
 	}
 	
@@ -379,6 +380,10 @@ public class DrawingController {
 
 	public CommandsHandler getCommandsHandler() {
 		return commandsHandler;
+	}
+
+	public DrawingModel getModel() {
+		return model;
 	}
 
 	public void setCommandsHandler(CommandsHandler commandsHandler) {
