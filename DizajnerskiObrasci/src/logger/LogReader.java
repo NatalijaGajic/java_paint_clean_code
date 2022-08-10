@@ -122,6 +122,8 @@ public class LogReader {
 			logLine = Arrays.copyOfRange(logLine, 15, logLine.length - 1);
 			modifiedShape = logParser.parseHexagonFromLog(logLine);
 		}
+		
+		modifiedShape.setSelected(true);
 	}
 	
 	public void clearLog() {
