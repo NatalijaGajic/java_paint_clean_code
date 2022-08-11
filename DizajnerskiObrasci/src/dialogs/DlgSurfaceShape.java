@@ -1,19 +1,11 @@
 package dialogs;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 public abstract class DlgSurfaceShape extends DlgShape{
 
+	private static final long serialVersionUID = 1L;
 	private JPanel pnlInnerColor;
 	private JLabel lblInnerColor;
 	private JButton btnInnerColor;
@@ -21,15 +13,12 @@ public abstract class DlgSurfaceShape extends DlgShape{
 	
 	
 	public DlgSurfaceShape() {
-		
 		pnlInnerColor = new JPanel();
 		lblInnerColor = new JLabel("Inner Color:");
 		btnInnerColor = new JButton("Choose color");
 		addBtnInnerColorListener();
 		addToShapeDialog();
 	}
-
-	
 
 	public void addToShapeDialog() {
 		{
@@ -95,8 +84,6 @@ public abstract class DlgSurfaceShape extends DlgShape{
 	public JPanel getPnlInnerColor() {
 		return pnlInnerColor;
 	}
-	
-	
 	
 	
 }

@@ -3,10 +3,8 @@ package dialogTests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import dialogs.DlgPoint;
 import geometry.Point;
 
@@ -20,20 +18,20 @@ class DlgPointTests {
 	}
 
 	@Test
-	public void testBtnEdgeColorClicked() {
+	public void testBtnEdgeColorClicked_PnlEdgeColorBackgroundChanged() {
 		dialogPoint.getBtnEdgeColor().doClick();
 		assertEquals(dialogPoint.getEdgeColor(), dialogPoint.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnOkClickedInvalidValues() {
+	public void testBtnOkClicked_EmptyValues_IsAcceptedFalse() {
 		dialogPoint.getTxtXCoord().setText("1");;
 		dialogPoint.getBtnOk().doClick();
 		assertFalse(dialogPoint.isAccepted());
 	}
 
 	@Test
-	public void testBtnOkClicked() {
+	public void testBtnOkClicked_Success() {
 		dialogPoint.getTxtXCoord().setText("1");
 		dialogPoint.getTxtYCoord().setText("2");
 		dialogPoint.getBtnOk().doClick();
@@ -42,7 +40,7 @@ class DlgPointTests {
 	}
 	
 	@Test
-	public void testGetShapeFromDialogOK() {
+	public void testGetShapeFromDialog_Success() {
 		dialogPoint.getTxtXCoord().setText("1");
 		dialogPoint.getTxtYCoord().setText("2");
 		Point actual = (Point) dialogPoint.getShapeFromDialog();

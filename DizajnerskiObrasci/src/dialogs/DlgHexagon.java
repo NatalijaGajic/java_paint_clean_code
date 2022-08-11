@@ -3,24 +3,18 @@ package dialogs;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import geometry.Circle;
-import geometry.HexagonAdapter;
-import geometry.Point;
-import geometry.Shape;
+import geometry.*;
 
 public class DlgHexagon extends DlgSurfaceShape{
 
 	
+	private static final long serialVersionUID = 1L;
 	private JLabel lblRadius;
 	private JTextField txtRadius;
 	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			DlgHexagon dialog = new DlgHexagon();
@@ -30,9 +24,6 @@ public class DlgHexagon extends DlgSurfaceShape{
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public DlgHexagon() {
 		lblRadius = new JLabel("Radius:");
 		txtRadius = new JTextField();
@@ -77,6 +68,13 @@ public class DlgHexagon extends DlgSurfaceShape{
 		return getTxtXCoord().getText().length() < 4 && getTxtYCoord().getText().length() < 4 
 				&& txtRadius.getText().length() < 4 && radius > 0;
 	}
+	
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
+	}
 
 	@Override
 	public void setModifyDialogFields(Shape shape) {
@@ -114,13 +112,6 @@ public class DlgHexagon extends DlgSurfaceShape{
 		Color innerColor = getInnerColor();
 		
 		return new HexagonAdapter(center, radius, edgeColor, innerColor);
-	}
-	
-	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
-		super.setCreateDialogFields(point, edgeColor);
-		
-		getPnlInnerColor().setBackground(innerColor);
-		setInnerColor(innerColor);
 	}
 	
 	public JTextField getTxtRadius() {

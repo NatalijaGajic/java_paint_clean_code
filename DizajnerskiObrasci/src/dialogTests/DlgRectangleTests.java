@@ -1,15 +1,11 @@
 package dialogTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import dialogs.DlgRectangle;
-import geometry.Point;
-import geometry.Rectangle;
+import geometry.*;
 
 class DlgRectangleTests {
 
@@ -21,19 +17,19 @@ class DlgRectangleTests {
 	}
 
 	@Test
-	public void testBtnEdgeColorClicked() {
+	public void testBtnEdgeColorClicked_PnlEdgeColorBackgroundChanged() {
 		dialogRectangle.getBtnEdgeColor().doClick();
 		assertEquals(dialogRectangle.getEdgeColor(), dialogRectangle.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnInnerColorClicked() {
+	public void testBtnInnerColorClicked_PnlInnerColorBackgroundChanged() {
 		dialogRectangle.getBtnInnerColor().doClick();
 		assertEquals(dialogRectangle.getInnerColor(), dialogRectangle.getPnlInnerColor().getBackground());
 	}
 
 	@Test
-	public void testBtnOkClickedInvalidValues() {
+	public void testBtnOkClicked_InvalidValues_IsAcceptedFalse() {
 		dialogRectangle.getTxtXCoord().setText("1");
 		dialogRectangle.getTxtYCoord().setText("2");
 		dialogRectangle.getBtnOk().doClick();
@@ -41,7 +37,7 @@ class DlgRectangleTests {
 	}
 
 	@Test
-	public void testBtnOkClickedWidthZero() {
+	public void testBtnOkClicked_WidthZero_IsAcceptedFalse() {
 		dialogRectangle.getTxtXCoord().setText("1");
 		dialogRectangle.getTxtYCoord().setText("2");
 		dialogRectangle.getTxtWidth().setText("0");
@@ -52,7 +48,7 @@ class DlgRectangleTests {
 	}
 
 	@Test
-	public void testBtnOkClickedHeightZero() {
+	public void testBtnOkClicked_HeightZero_IsAcceptedFalse() {
 		dialogRectangle.getTxtXCoord().setText("1");
 		dialogRectangle.getTxtYCoord().setText("2");
 		dialogRectangle.getTxtWidth().setText("3");
@@ -74,7 +70,7 @@ class DlgRectangleTests {
 	}
 	
 	@Test
-	public void testGetShapeFromDialogOK() {
+	public void testGetShapeFromDialog_Success() {
 		dialogRectangle.getTxtXCoord().setText("1");
 		dialogRectangle.getTxtYCoord().setText("2");
 		dialogRectangle.getTxtWidth().setText("3");

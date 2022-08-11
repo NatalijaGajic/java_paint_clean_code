@@ -1,11 +1,11 @@
 package dialogs;
 
-
 import java.awt.Color;
-import geometry.Point;
-import geometry.Shape;
+import geometry.*;
 
 public class DlgPoint extends DlgShape {
+
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		try {

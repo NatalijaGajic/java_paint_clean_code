@@ -1,40 +1,20 @@
 package dialogs;
 
-import java.awt.BorderLayout;
+import geometry.*;
+import javax.swing.*;
 import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import geometry.Point;
-import geometry.Rectangle;
-import geometry.Shape;
-import geometry.SurfaceShape;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DlgRectangle extends DlgSurfaceShape {
 
+	private static final long serialVersionUID = 1L;
 	private JLabel lblHeight;
 	private JTextField txtHeight;
 	private JLabel lblWidth;
 	private JTextField txtWidth;
 	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			DlgRectangle dialog = new DlgRectangle();
@@ -44,9 +24,6 @@ public class DlgRectangle extends DlgSurfaceShape {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public DlgRectangle() {
 		lblHeight = new JLabel("Height:");
 		txtHeight = new JTextField();
@@ -57,7 +34,6 @@ public class DlgRectangle extends DlgSurfaceShape {
 	
 	private void addToDlgSurfaceShapeDialog() {
 		{
-			JLabel lblHeight = new JLabel("Height:");
 			GridBagConstraints gbc_lblHeight = new GridBagConstraints();
 			gbc_lblHeight.anchor = GridBagConstraints.EAST;
 			gbc_lblHeight.insets = new Insets(0, 0, 5, 5);
@@ -78,7 +54,6 @@ public class DlgRectangle extends DlgSurfaceShape {
 			txtHeight.addKeyListener(getInputListener());
 		}
 		{
-			JLabel lblWidth = new JLabel("Width:");
 			GridBagConstraints gbc_lblWidth = new GridBagConstraints();
 			gbc_lblWidth.anchor = GridBagConstraints.EAST;
 			gbc_lblWidth.insets = new Insets(0, 0, 5, 5);
@@ -119,18 +94,25 @@ public class DlgRectangle extends DlgSurfaceShape {
 				&& getTxtYCoord().getText().length() < 4;
 	}
 	
-	public int getheightValue() {
+	private int getheightValue() {
 		if (txtHeight.getText().length() > 3)
 			return 0;
 
 		return Integer.parseInt(txtHeight.getText());
 	}
 
-	public int getwidthValue() {
+	private int getwidthValue() {
 		if (txtWidth.getText().length() > 3)
 			return 0;
 
 		return Integer.parseInt(txtWidth.getText());
+	}
+	
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
 	}
 
 	@Override
@@ -181,15 +163,5 @@ public class DlgRectangle extends DlgSurfaceShape {
 	public JTextField getTxtWidth() {
 		return txtWidth;
 	}
-
-	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
-		super.setCreateDialogFields(point, edgeColor);
-		
-		getPnlInnerColor().setBackground(innerColor);
-		setInnerColor(innerColor);
-		
-	}
-
-	
 	
 }

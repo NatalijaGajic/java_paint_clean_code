@@ -1,38 +1,19 @@
 package dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import geometry.Circle;
-import geometry.Point;
-import geometry.Shape;
-
+import geometry.*;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DlgCircle extends DlgSurfaceShape {
 
+	private static final long serialVersionUID = 1L;
 	private JLabel lblRadius;
 	private JTextField txtRadius;
 	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			DlgCircle dialog = new DlgCircle();
@@ -42,9 +23,7 @@ public class DlgCircle extends DlgSurfaceShape {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public DlgCircle() {
 		lblRadius = new JLabel("Radius:");
 		txtRadius = new JTextField();
@@ -89,6 +68,14 @@ public class DlgCircle extends DlgSurfaceShape {
 		int radius = Integer.parseInt(txtRadius.getText());
 		return getTxtXCoord().getText().length() < 4 && getTxtYCoord().getText().length() < 4 
 				&& txtRadius.getText().length() < 4 && radius > 0;
+	}
+	
+	
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
 	}
 
 	@Override
@@ -135,16 +122,5 @@ public class DlgCircle extends DlgSurfaceShape {
 	public JTextField getTxtRadius() {
 		return txtRadius;
 	}
-
-	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
-		super.setCreateDialogFields(point, edgeColor);
-		
-		getPnlInnerColor().setBackground(innerColor);
-		setInnerColor(innerColor);
-	}
-	
-	
-	
-	
 
 }

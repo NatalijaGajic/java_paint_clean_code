@@ -3,13 +3,10 @@ package dialogTests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import dialogs.DlgLine;
-import geometry.Line;
-import geometry.Point;
+import geometry.*;
 
 public class DlgLineTests {
 
@@ -21,13 +18,13 @@ public class DlgLineTests {
 	}
 
 	@Test
-	public void testBtnEdgeColorClicked() {
+	public void testBtnEdgeColorClicked_PnlEdgeColorBackgroundChanged() {
 		dialogLine.getBtnEdgeColor().doClick();
 		assertEquals(dialogLine.getEdgeColor(), dialogLine.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnOKClickedInvalidValues() {
+	public void testBtnOKClicked_EmptyValues_IsAcceptedFalse() {
 		dialogLine.getTxtXCoord().setText("1");
 		dialogLine.getTxtYCoord().setText("2");
 		dialogLine.getTxtEndPointXCoord().setText("3");
@@ -36,7 +33,7 @@ public class DlgLineTests {
 	}
 
 	@Test
-	public void testBtnOkClicked() {
+	public void testBtnOkClicked_Success() {
 		dialogLine.getTxtXCoord().setText("1");
 		dialogLine.getTxtYCoord().setText("2");
 		dialogLine.getTxtEndPointXCoord().setText("3");
@@ -47,7 +44,7 @@ public class DlgLineTests {
 	}
 	
 	@Test
-	public void testGetShapeFromDialogOK() {
+	public void testGetShapeFromDialog_Success() {
 		dialogLine.getTxtXCoord().setText("1");
 		dialogLine.getTxtYCoord().setText("2");
 		dialogLine.getTxtEndPointXCoord().setText("3");

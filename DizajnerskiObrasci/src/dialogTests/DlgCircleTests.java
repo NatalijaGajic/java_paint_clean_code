@@ -1,15 +1,11 @@
 package dialogTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.awt.Color;
 import dialogs.DlgCircle;
-import geometry.Circle;
-import geometry.Point;
+import geometry.*;
 
 class DlgCircleTests {
 
@@ -21,19 +17,19 @@ class DlgCircleTests {
 	}
 
 	@Test
-	public void testBtnEdgeColorClicked() {
+	public void testBtnEdgeColorClicked_PnlEdgeColorBackgroundChanged() {
 		dialogCircle.getBtnEdgeColor().doClick();
 		assertEquals(dialogCircle.getEdgeColor(), dialogCircle.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnInnerColorClicked() {
+	public void testBtnInnerColorClicked_PnlInnerColorBackgroundChanged() {
 		dialogCircle.getBtnInnerColor().doClick();
 		assertEquals(dialogCircle.getInnerColor(), dialogCircle.getPnlInnerColor().getBackground());
 	}
 
 	@Test
-	public void testBtnOkClickedInvalidValues() {
+	public void testBtnOkClicked_EmptyValues_IsAcceptedFalse() {
 		dialogCircle.getTxtXCoord().setText("1");
 		dialogCircle.getTxtYCoord().setText("2");
 		dialogCircle.getBtnOk().doClick();
@@ -41,7 +37,7 @@ class DlgCircleTests {
 	}
 
 	@Test
-	public void testBtnOkClickedRadiusZero() {
+	public void testBtnOkClicked_InvalidValues_IsAcceptedFalse() {
 		dialogCircle.getTxtXCoord().setText("1");
 		dialogCircle.getTxtYCoord().setText("2");
 		dialogCircle.getTxtRadius().setText("0");
@@ -50,7 +46,7 @@ class DlgCircleTests {
 	}
 
 	@Test
-	public void testBtnOkClicked() {
+	public void testBtnOkClicked_IsAcceptedTrue() {
 		dialogCircle.getTxtXCoord().setText("1");
 		dialogCircle.getTxtYCoord().setText("2");
 		dialogCircle.getTxtRadius().setText("3");
@@ -60,15 +56,13 @@ class DlgCircleTests {
 	}
 	
 	@Test
-	public void testGetShapeFromDialogOK() {
+	public void testGetShapeFromDialog_Success() {
 		dialogCircle.getTxtXCoord().setText("1");
 		dialogCircle.getTxtYCoord().setText("2");
 		dialogCircle.getTxtRadius().setText("3");
 		dialogCircle.setEdgeColor(Color.GREEN);
 		dialogCircle.setInnerColor(Color.BLUE);
-		
 		Circle actual = (Circle) dialogCircle.getShapeFromDialog();
-		
 		Circle expected = new Circle(new Point(1,2), 3, Color.GREEN, Color.BLUE);
 		assertEquals(expected, actual);
 	}

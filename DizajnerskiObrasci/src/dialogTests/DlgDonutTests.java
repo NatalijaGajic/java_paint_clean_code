@@ -1,15 +1,11 @@
 package dialogTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import dialogs.DlgDonut;
-import geometry.Donut;
-import geometry.Point;
+import geometry.*;
 
 class DlgDonutTests {
 
@@ -21,19 +17,19 @@ class DlgDonutTests {
 	}
 
 	@Test
-	public void testBtnEdgeColorClicked() {
+	public void testBtnEdgeColorClicked_PnlEdgeColorBackgroundChanged() {
 		dialogDonut.getBtnEdgeColor().doClick();
 		assertEquals(dialogDonut.getEdgeColor(), dialogDonut.getPnlEdgeColor().getBackground());
 	}
 
 	@Test
-	public void testBtnInnerColorClicked() {
+	public void testBtnInnerColorClicked_PnlInnerColorBackgroundChanged() {
 		dialogDonut.getBtnInnerColor().doClick();
 		assertEquals(dialogDonut.getInnerColor(), dialogDonut.getPnlInnerColor().getBackground());
 	}
 
 	@Test
-	public void testBtnOkClickedInvalidValues() {
+	public void testBtnOkClicked_EmptyValues_IsAcceptedFalse() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getBtnOk().doClick();
@@ -41,7 +37,7 @@ class DlgDonutTests {
 	}
 
 	@Test
-	public void testBtnOkClickedRadiusZero() {
+	public void testBtnOkClicked_RadiusZero_IsAcceptedFalse() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getTxtRad().setText("0");
@@ -51,7 +47,7 @@ class DlgDonutTests {
 	}
 	
 	@Test
-	public void testBtnOkClickedInnerRadiusZero() {
+	public void testBtnOkClicked_InnerRadiusZero_IsAcceptedFalse() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getTxtRad().setText("3");
@@ -61,7 +57,7 @@ class DlgDonutTests {
 	}
 
 	@Test
-	public void testBtnOkClickedInnerRadiusLargerThenRadius() {
+	public void testBtnOkClicked_InnerRadiusLargerThenRadius_IsAcceptedFalse() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getTxtRad().setText("3");
@@ -71,7 +67,7 @@ class DlgDonutTests {
 	}
 	
 	@Test
-	public void testBtnOkClicked() {
+	public void testBtnOkClicked_Success() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getTxtRad().setText("4");
@@ -82,16 +78,14 @@ class DlgDonutTests {
 	}
 	
 	@Test
-	public void testGetShapeFromDialogOK() {
+	public void testGetShapeFromDialog_Success() {
 		dialogDonut.getTxtXCoord().setText("1");
 		dialogDonut.getTxtYCoord().setText("2");
 		dialogDonut.getTxtRad().setText("4");
 		dialogDonut.getTxtIRad().setText("3");
 		dialogDonut.setEdgeColor(Color.GREEN);
 		dialogDonut.setInnerColor(Color.BLUE);
-		
 		Donut actual = (Donut) dialogDonut.getShapeFromDialog();
-		
 		Donut expected = new Donut(new Point(1,2), 4, 3, Color.GREEN, Color.BLUE);
 		assertEquals(expected, actual);
 	}

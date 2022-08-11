@@ -1,41 +1,22 @@
 package dialogs;
 
-import java.awt.BorderLayout;
+import geometry.*;
 import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import geometry.Donut;
-import geometry.Line;
-import geometry.Point;
-import geometry.Shape;
-import geometry.SurfaceShape;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DlgDonut extends DlgSurfaceShape {
 
+	private static final long serialVersionUID = 1L;
 	private JLabel lblRadius;
 	private JLabel lblInnerRadius;
 	private JTextField txtRad;
 	private JTextField txtIRad;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			DlgDonut dialog = new DlgDonut();
@@ -46,9 +27,7 @@ public class DlgDonut extends DlgSurfaceShape {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public DlgDonut() {
 		
 		lblRadius = new JLabel("Radius:");
@@ -121,18 +100,25 @@ public class DlgDonut extends DlgSurfaceShape {
 				&& getTxtXCoord().getText().length() < 4 && getTxtYCoord().getText().length() < 4;
 	}
 	
-	public int getRadiusValue() {
+	private int getRadiusValue() {
 		if (txtRad.getText().length() > 3)
 			return 0;
 
 		return Integer.parseInt(txtRad.getText());
 	}
 
-	public int getInnerRadiusValue() {
+	private int getInnerRadiusValue() {
 		if (txtIRad.getText().length() > 3)
 			return 0;
 
 		return Integer.parseInt(txtIRad.getText());
+	}
+	
+	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
+		super.setCreateDialogFields(point, edgeColor);
+		
+		getPnlInnerColor().setBackground(innerColor);
+		setInnerColor(innerColor);
 	}
 
 	@Override
@@ -183,13 +169,5 @@ public class DlgDonut extends DlgSurfaceShape {
 	public JTextField getTxtIRad() {
 		return txtIRad;
 	}
-
-	public void setCreateDialogFields(Point point, Color edgeColor, Color innerColor) {
-		super.setCreateDialogFields(point, edgeColor);
-		
-		getPnlInnerColor().setBackground(innerColor);
-		setInnerColor(innerColor);
-	}
-	
 	
 }

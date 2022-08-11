@@ -1,50 +1,29 @@
 package dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
-
 import geometry.Point;
-
 import javax.swing.JTextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public abstract class DlgShape extends JDialog implements Dialog {
 	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
 	private JPanel pnlEdgeColor;
 	private JPanel pnlButton; 
 	private JPanel panel;
-	private Color edgeColor;
 	private JButton btnOk;
 	private JButton btnCancel;
-	private KeyAdapter inputListener;
-	private boolean accepted;
 	private JLabel lblXCoord;
 	private JLabel lblYCoord;
 	private JTextField txtXCoord;
 	private JTextField txtYCoord;
 	private JButton btnEdgeColor;
-
-
-	/**
-	 * Create the dialog.
-	 */
+	private Color edgeColor;
+	private boolean accepted;
+	private KeyAdapter inputListener;
 
 
 	public DlgShape() {
@@ -309,11 +288,6 @@ public abstract class DlgShape extends JDialog implements Dialog {
 	public JButton getBtnEdgeColor() {
 		return btnEdgeColor;
 	}
-	
-	
-	
-	
-	
-	
+
 	
 }

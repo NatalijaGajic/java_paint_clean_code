@@ -1,38 +1,21 @@
 package dialogs;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import geometry.Line;
-import geometry.Point;
-import geometry.Shape;
-
+import geometry.*;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DlgLine extends DlgShape{
 
+	private static final long serialVersionUID = 1L;
 	private JLabel lblEndPointXCoord;
 	private JTextField txtEndPointXCoord;
 	private JLabel lblEndPointYCoord;
 	private JTextField txtEndPointYCoord;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			DlgLine dialog = new DlgLine();
@@ -148,7 +131,6 @@ public class DlgLine extends DlgShape{
 		
 	}
 	
-
 	@Override
 	public Shape getShapeFromDialog() {
 		
