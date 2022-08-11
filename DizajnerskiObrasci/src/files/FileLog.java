@@ -1,21 +1,14 @@
 package files;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
+import java.io.*;
+import logger.*;
 import javax.swing.DefaultListModel;
 
-import logger.LogReader;
-import logger.LogWriter;
 
 public class FileLog implements FileStrategy{
 	
 	private LogWriter logWriter;
 	private LogReader logReader;
-	private DefaultListModel<String> executedCommandsLog;
 	
 	public FileLog(LogWriter logWriter, LogReader logReader) {
 		this.logWriter = logWriter;
@@ -24,9 +17,8 @@ public class FileLog implements FileStrategy{
 	
 	@Override
 	public void saveFile(String filePath) {
-		executedCommandsLog = logWriter.getExecutedCommandsLog();
-		
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+			DefaultListModel<String> executedCommandsLog = logWriter.getExecutedCommandsLog();
 			for (int i = 0; i < executedCommandsLog.getSize(); i++) {
 				writer.write(executedCommandsLog.get(i));
 				writer.newLine();

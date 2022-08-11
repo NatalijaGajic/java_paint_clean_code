@@ -14,7 +14,6 @@ public class FileManager {
 	
 	public void save(String filePath) {
 		fileStrategy.saveFile(filePath);
-		
 	}
 
 	public void open(String filePath) {
@@ -28,9 +27,6 @@ public class FileManager {
 	public FileStrategy getFileStrategy() {
 		return fileStrategy;
 	}
-	
-	
-	
-	
+
 
 }

@@ -1,36 +1,21 @@
 package filesTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
+import java.io.*;
+import java.util.*;
+import logger.*;
 import org.junit.AfterClass;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
-
 import commandHandler.CommandsHandler;
 import controllers.DrawingController;
 import files.FileLog;
-import files.FileManager;
 import frame.DrawingFrame;
-import logger.LogReader;
-import logger.LogWriter;
-import logger.LoggerConstants;
 import model.DrawingModel;
 
 class FileLogTests {
 
+	private static Scanner scanner;
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private CommandsHandler commandsHandler;
@@ -39,7 +24,6 @@ class FileLogTests {
 	private LogReader logReader;
 	private FileLog fileLog;
 	private String path;
-	private static Scanner scanner;
 	private ArrayList<String> listOfLogsSavedInFile;
 	private ArrayList<String> listOfCommandLogsToSave;
 	private Queue<String> queueOfCommandsReadFromFile;
@@ -58,7 +42,11 @@ class FileLogTests {
 		logWriter = new LogWriter();
 		logReader = new LogReader(controller);
 		fileLog = new FileLog(logWriter, logReader);
+		initializeLists();
 		
+	}
+	
+	private void initializeLists() {
 		listOfLogsSavedInFile = new ArrayList<String>();
 		listOfCommandLogsToSave = new ArrayList<String>();
 		listOfCommandsReadFromFile = new ArrayList<String>();

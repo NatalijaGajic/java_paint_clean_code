@@ -1,24 +1,20 @@
 package filesTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.awt.Color;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-
 import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import files.FileDrawing;
+import java.util.ArrayList;
+import java.awt.Color;
+import java.io.*;
 import geometry.*;
+import files.FileDrawing;
 import model.DrawingModel;
 
 public class FileDrawingTests {
 
-	private String path;
+	private static FileInputStream fileInputStream;
+	private static ObjectInputStream objectInputStream;
 	private FileDrawing fileDrawing;
 	private DrawingModel model;
 	private ArrayList<Object> listOfObjectsToSave;
@@ -27,27 +23,32 @@ public class FileDrawingTests {
 	private ArrayList<Object> listOfSavedSelectedShapes;
 	private ArrayList<Shape> listOfTestShapes;
 	private ArrayList<Shape> listOfTestSelectedShapes;
-	private static FileInputStream fileInputStream;
-	private static ObjectInputStream objectInputStream;
 	private Point testPoint;
 	private Rectangle testRectangle;
+	private String testPath;
 	
 
 	@BeforeEach
 	public void setUp() {
 		model = new DrawingModel();
 		fileDrawing = new FileDrawing(model);
+		initializeLists();
+		initializeTestObjects();
 		
+	}
+	
+	private void initializeLists() {
 		listOfObjectsToSave = new ArrayList<Object>();
 		listOfSelectedObjectsToSave = new ArrayList<Object>();
 		listOfSavedShapes = new ArrayList<Object>();
 		listOfSavedSelectedShapes = new ArrayList<Object>();
 		listOfTestShapes = new ArrayList<Shape>();
 		listOfTestSelectedShapes = new ArrayList<Shape>();
-		
+	}
+	
+	private void initializeTestObjects() {
 		testPoint = new Point(10, 10, true, Color.black);
 		testRectangle = new Rectangle(new Point(15, 15), 10, 10, Color.black, Color.white);
-		
 		listOfTestShapes.add(testPoint);
 		listOfTestShapes.add(testRectangle);
 		listOfTestSelectedShapes.add(testPoint);
@@ -57,9 +58,9 @@ public class FileDrawingTests {
 	public void testSaveFile_ShapesFromModelSaved() throws IOException, ClassNotFoundException {
 		model.addShapes(listOfTestShapes);
 		listOfObjectsToSave.addAll(listOfTestShapes);
-		path = "testSaveShapesDrawing.txt";
+		testPath = "testSaveShapesDrawing.txt";
 		
-		fileDrawing.saveFile(path);
+		fileDrawing.saveFile(testPath);
 	
 		readFromFile();
 		assertEquals(listOfObjectsToSave, listOfSavedShapes);
@@ -69,9 +70,9 @@ public class FileDrawingTests {
 	public void testSaveFile_SelectedShapesFromModelSaved() throws IOException, ClassNotFoundException {
 		model.addSelectedShapes(listOfTestSelectedShapes);
 		listOfSelectedObjectsToSave.addAll(listOfTestSelectedShapes);
-		path = "testSaveSelectedShapesDrawing.txt";
+		testPath = "testSaveSelectedShapesDrawing.txt";
 		
-		fileDrawing.saveFile(path);
+		fileDrawing.saveFile(testPath);
 	
 		readFromFile();
 		assertEquals(listOfSelectedObjectsToSave, listOfSavedSelectedShapes);
@@ -79,7 +80,7 @@ public class FileDrawingTests {
 	
 	@SuppressWarnings("unchecked")
 	private void readFromFile() throws IOException, ClassNotFoundException {
-		fileInputStream = new FileInputStream(path);
+		fileInputStream = new FileInputStream(testPath);
 		objectInputStream = new ObjectInputStream(fileInputStream);
 		ArrayList<ArrayList<Object>> savedObjects = (ArrayList<ArrayList<Object>>) objectInputStream.readObject();
 		listOfSavedShapes = savedObjects.get(0);
@@ -88,20 +89,20 @@ public class FileDrawingTests {
 	
 	@Test
 	public void testOpenFile_ShapesAddedToModel() throws IOException {
-		path = "testSaveShapesDrawing.txt";
+		testPath = "testSaveShapesDrawing.txt";
 		listOfSavedShapes.addAll(listOfTestShapes);
 		
-		fileDrawing.openFile(path);
+		fileDrawing.openFile(testPath);
 		
 		assertEquals(listOfSavedShapes, model.getShapes());
 	}
 	
 	@Test
 	public void testOpenFile_SelectedShapesAddedToModel() throws IOException {
-		path = "testSaveSelectedShapesDrawing.txt";
+		testPath = "testSaveSelectedShapesDrawing.txt";
 		listOfSavedSelectedShapes.addAll(listOfTestSelectedShapes);
 		
-		fileDrawing.openFile(path);
+		fileDrawing.openFile(testPath);
 		
 		assertEquals(listOfSavedSelectedShapes, model.getSelectedShapes());
 	}

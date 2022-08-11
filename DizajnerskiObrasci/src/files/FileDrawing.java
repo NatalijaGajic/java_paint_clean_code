@@ -1,10 +1,6 @@
 package files;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import geometry.Shape;
 import model.DrawingModel;
@@ -21,10 +17,9 @@ public class FileDrawing implements FileStrategy {
 
 	@Override
 	public void saveFile(String filePath) {
-		serializedShapes.add(model.getShapes());
-		serializedShapes.add(model.getSelectedShapes());
-		
 		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
+			serializedShapes.add(model.getShapes());
+			serializedShapes.add(model.getSelectedShapes());
 			outputStream.writeObject(serializedShapes);
 		} catch (IOException exception) {
 			System.out.println(exception.getMessage());

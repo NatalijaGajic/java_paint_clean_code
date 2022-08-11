@@ -1,10 +1,8 @@
 package controllers;
 
-import files.FileChooser;
 import files.*;
+import logger.*;
 import frame.DrawingFrame;
-import logger.LogReader;
-import logger.LogWriter;
 import model.DrawingModel;
 
 public class FileController {
@@ -16,8 +14,6 @@ public class FileController {
 	private FileChooser fileChooser;
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private String fileToSaveTo;
-	private String fileToOpen;
 	
 	public FileController(DrawingModel model, DrawingFrame frame, LogWriter logWriter,LogReader logReader) {
 		this.model = model;
@@ -29,32 +25,40 @@ public class FileController {
 	}
 	
 	public void loadDrawing() {
-		fileToOpen = fileChooser.showOpenTxtFileDialog();
-		fileStrategy = new FileDrawing(model);
-		fileManager.setFileStrategy(fileStrategy);
-		fileManager.open(fileToOpen);
-		frame.getView().repaint();
+		String fileToOpen = fileChooser.showOpenTxtFileDialog();
+		if(!fileToOpen.isEmpty()) {
+			fileStrategy = new FileDrawing(model);
+			fileManager.setFileStrategy(fileStrategy);
+			fileManager.open(fileToOpen);
+			frame.getView().repaint();
+		}
 	}
 	
 	public void loadLog() {
-		fileToOpen = fileChooser.showOpenTxtFileDialog();
-		fileStrategy = new FileLog(logWriter,logReader);
-		fileManager.setFileStrategy(fileStrategy);
-		fileManager.open(fileToOpen);
+		String fileToOpen = fileChooser.showOpenTxtFileDialog();
+		if(!fileToOpen.isEmpty()) {
+			fileStrategy = new FileLog(logWriter,logReader);
+			fileManager.setFileStrategy(fileStrategy);
+			fileManager.open(fileToOpen);
+		}
 	}
 	
 	public void saveDrawing() {
-		fileToSaveTo = fileChooser.showSaveToTxtFileDialog();
-		fileStrategy = new FileDrawing(model);
-		fileManager.setFileStrategy(fileStrategy);
-		fileManager.save(fileToSaveTo);
+		String fileToSaveTo = fileChooser.showSaveToTxtFileDialog();
+		if(!fileToSaveTo.isEmpty()) {
+			fileStrategy = new FileDrawing(model);
+			fileManager.setFileStrategy(fileStrategy);
+			fileManager.save(fileToSaveTo);
+		}
 	}
 	
 	public void saveLog() {
-		fileToSaveTo = fileChooser.showSaveToTxtFileDialog();
-		fileStrategy = new FileLog(logWriter,logReader);
-		fileManager.setFileStrategy(fileStrategy);
-		fileManager.save(fileToSaveTo);
+		String fileToSaveTo = fileChooser.showSaveToTxtFileDialog();
+		if(!fileToSaveTo.isEmpty()) {
+			fileStrategy = new FileLog(logWriter,logReader);
+			fileManager.setFileStrategy(fileStrategy);
+			fileManager.save(fileToSaveTo);
+		}
 	}
 	
 	public FileStrategy getFileManagerFileStrategy() {
