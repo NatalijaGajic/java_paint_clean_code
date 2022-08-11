@@ -1,20 +1,13 @@
 package commandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import commands.CmdBringToBack;
 import commands.CmdBringToFront;
-import geometry.Circle;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
 import logger.LoggerConstants;
 import model.DrawingModel;
+import java.awt.Color;
+import geometry.*;
 
 public class CmdBringToFrontTests {
 
@@ -29,11 +22,15 @@ public class CmdBringToFrontTests {
 	public void setUp() {
 
 		model = new DrawingModel();
+		initializeShapes();
+		addShapes();
+	}
+	
+	private void initializeShapes() {
 		point = new Point(100, 100, true);
 		circle = new Circle(new Point(11, 11), 10, true, Color.black, Color.white);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
-		addShapes();
 	}
 	
 	private void addShapes() {
@@ -44,7 +41,7 @@ public class CmdBringToFrontTests {
 	}
 	
 	@Test
-	public void testExecuteShapeMoved() {
+	public void testExecute_ShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, circle);
 		cmdBringToFront.execute();
 		int indexAfterMoving = model.getIndexOfShape(circle);
@@ -54,7 +51,7 @@ public class CmdBringToFrontTests {
 	}
 	
 	@Test
-	public void testExecuteFirstAddedShapeMoved() {
+	public void testExecute_FirstAddedShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, point);
 		cmdBringToFront.execute();
 		int indexAfterMoving = model.getIndexOfShape(point);
@@ -63,7 +60,7 @@ public class CmdBringToFrontTests {
 	}
 	
 	@Test
-	public void testUnexecuteShapeMoved() {
+	public void testUnexecute_ShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, circle);
 		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdBringToFront.execute();
@@ -73,7 +70,7 @@ public class CmdBringToFrontTests {
 	}
 	
 	@Test
-	public void testUnexecuteFirstAddedShapeMoved() {
+	public void testUnexecute_FirstAddedShapeMoved() {
 		cmdBringToFront = new CmdBringToFront(model, point);
 		int indexBeforeMoving = model.getIndexOfShape(point);
 		cmdBringToFront.execute();
@@ -83,7 +80,7 @@ public class CmdBringToFrontTests {
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		cmdBringToFront = new CmdBringToFront(model, circle);
 		String expected =  LoggerConstants.BRING_TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdBringToFront.toString());

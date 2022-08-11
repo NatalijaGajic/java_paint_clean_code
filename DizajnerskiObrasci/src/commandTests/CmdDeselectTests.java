@@ -1,17 +1,13 @@
 package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import commands.CmdDeselect;
 import geometry.Point;
 import logger.LoggerConstants;
 import model.DrawingModel;
+import java.awt.Color;
 
 public class CmdDeselectTests {
 
@@ -28,31 +24,31 @@ public class CmdDeselectTests {
 	}
 
 	@Test
-	public void testExecuteShapeNotSselected() {
+	public void testExecute_ShapeNotSselected() {
 		cmdDeselect.execute();
 		assertFalse(point.isSelected());
 	}
 
 	@Test
-	public void testExecuteShapeRemovedFromSelectedShapes() {
+	public void testExecute_ShapeRemovedFromSelectedShapes() {
 		cmdDeselect.execute();
 		assertFalse(model.doesContainSelectedShape(point));
 	}
 
 	@Test
-	public void testUnexecuteShapeIsSelected() {
+	public void testUnexecute_ShapeIsSelected() {
 		cmdDeselect.unexecute();
 		assertTrue(point.isSelected());
 	}
 
 	@Test
-	public void testUnexecuteShapeAddedToSelectedShapes() {
+	public void testUnexecute_ShapeAddedToSelectedShapes() {
 		cmdDeselect.unexecute();
 		assertTrue(model.doesContainSelectedShape(point));
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		String expected =  LoggerConstants.DESELECT_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdDeselect.toString());
 	}

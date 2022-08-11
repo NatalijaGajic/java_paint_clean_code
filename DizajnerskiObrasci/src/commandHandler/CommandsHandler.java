@@ -1,22 +1,19 @@
 package commandHandler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
-
+import java.util.*;
+import observer.*;
 import commands.Command;
-import observer.CommandsHandlerObserver;
-import observer.CommandsHandlerSubject;
 
 public class CommandsHandler implements CommandsHandlerSubject{
 
 	private Stack<Command> executedCommands;
 	private Stack<Command> unexecutedCommands;
-	ArrayList<CommandsHandlerObserver> observers = new ArrayList<CommandsHandlerObserver>();
+	private ArrayList<CommandsHandlerObserver> observers;
 	
 	public CommandsHandler() {
 		executedCommands = new Stack<Command>();
 		unexecutedCommands = new Stack<Command>();
+		observers = new ArrayList<CommandsHandlerObserver>();
 	}
 	
 	public void undo() {

@@ -1,19 +1,13 @@
 package commandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import commands.*;
-import geometry.Circle;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
+import geometry.*;
 import logger.LoggerConstants;
 import model.DrawingModel;
+import java.awt.Color;
 
 public class CmdToFrontTests {
 
@@ -28,11 +22,15 @@ public class CmdToFrontTests {
 	public void setUp() {
 
 		model = new DrawingModel();
+		initializeShapes();
+		addShapes();
+	}
+	
+	private void initializeShapes() {
 		point = new Point(100, 100, true);
 		circle = new Circle(new Point(11, 11), 10, true, Color.black, Color.white);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
-		addShapes();
 	}
 	
 	private void addShapes() {
@@ -43,7 +41,7 @@ public class CmdToFrontTests {
 	}
 	
 	@Test
-	public void testExecuteShapeMoved() {
+	public void testExecute_ShapeMoved() {
 		cmdToFront = new CmdToFront(model, circle);
 		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdToFront.execute();
@@ -54,7 +52,7 @@ public class CmdToFrontTests {
 	}
 	
 	@Test
-	public void testExecuteFirstAddedShapeMoved() {
+	public void testExecute_FirstAddedShapeMoved() {
 		cmdToFront = new CmdToFront(model, point);
 		int indexBeforeMoving = model.getIndexOfShape(point);
 		cmdToFront.execute();
@@ -64,7 +62,7 @@ public class CmdToFrontTests {
 	}
 	
 	@Test
-	public void testUnexecuteShapeMoved() {
+	public void testUnexecute_ShapeMoved() {
 		cmdToFront = new CmdToFront(model, circle);
 		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdToFront.execute();
@@ -74,7 +72,7 @@ public class CmdToFrontTests {
 	}
 	
 	@Test
-	public void testUnexecuteFirstAddedShapeMoved() {
+	public void testUnexecute_FirstAddedShapeMoved() {
 		cmdToFront = new CmdToFront(model, point);
 		int indexBeforeMoving = model.getIndexOfShape(point);
 		cmdToFront.execute();
@@ -84,7 +82,7 @@ public class CmdToFrontTests {
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		cmdToFront = new CmdToFront(model, circle);
 		String expected =  LoggerConstants.TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToFront.toString());

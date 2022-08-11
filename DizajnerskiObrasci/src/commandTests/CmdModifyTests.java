@@ -1,12 +1,9 @@
 package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.awt.Color;
 import commands.CmdModify;
 import geometry.Point;
 import logger.LoggerConstants;
@@ -27,20 +24,20 @@ class CmdModifyTests {
 	}
 
 	@Test
-	public void testExecuteModifyPointCommandExpectTrue() {
+	public void testExecute_ShapeEqualsToNewState() {
 		commandModifyPoint.execute();
 		assertTrue(oldState.equals(newState));
 	}
 
 	@Test
-	public void testUnexecuteModifyPointCommandExpectTrue() {
+	public void testUnexecute_ShapeEqualsToOldState() {
 		commandModifyPoint.execute();
 		commandModifyPoint.unexecute();
 		assertTrue(oldState.equals(savedOldStatePoint));
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		String expected =  LoggerConstants.MODIFY_COMMAND + " " +  oldState.toString() + " to " + newState.toString();
 		assertEquals(expected, commandModifyPoint.toString());
 	}

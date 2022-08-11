@@ -17,3 +17,6 @@
 /applications/
 /controllerTests/
 /dialogTests/
+/commandsHandlerTests/
+/commands/
+/commandTests/

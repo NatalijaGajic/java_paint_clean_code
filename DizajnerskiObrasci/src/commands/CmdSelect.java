@@ -17,15 +17,13 @@ public class CmdSelect implements Command {
 	@Override
 	public void execute() {
 		shape.setSelected(true);
-		model.addSelectedShape(shape);
-		
+		model.addSelectedShape(shape);	
 	}
 
 	@Override
 	public void unexecute() {
 		shape.setSelected(false);
 		model.removeSelectedShape(shape);
-		
 	}
 	
 	@Override

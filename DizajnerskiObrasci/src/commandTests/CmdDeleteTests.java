@@ -1,19 +1,14 @@
 package commandTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import commands.CmdBringToBack;
 import commands.CmdDelete;
-import geometry.*;
 import logger.LoggerConstants;
 import model.DrawingModel;
+import java.awt.Color;
+import geometry.*;
 
 class CmdDeleteTests {
 
@@ -31,15 +26,19 @@ class CmdDeleteTests {
 		shapesToDelete = new ArrayList<Shape>();
 		addedShapes = new ArrayList<Shape>();
 		model = new DrawingModel();
-		point = new Point(100, 100, true, Color.black);
-		circle = new Circle(new Point(11, 11), 10, true);
-		rect = new Rectangle(new Point(11, 11), 40, 40, true, Color.black, Color.white);
-		line = new Line(new Point(1, 1), new Point(1, 10), true, Color.black);
+		initializeShapes();
 		addShapes();
 		addShapesToDelete();
 		addShapesToModel();
 		
 		cmdDelete = new CmdDelete(model, shapesToDelete);
+	}
+	
+	private void initializeShapes() {
+		point = new Point(100, 100, true, Color.black);
+		circle = new Circle(new Point(11, 11), 10, true);
+		rect = new Rectangle(new Point(11, 11), 40, 40, true, Color.black, Color.white);
+		line = new Line(new Point(1, 1), new Point(1, 10), true, Color.black);
 	}
 	
 	private void addShapes() {
@@ -62,7 +61,7 @@ class CmdDeleteTests {
 	
 
 	@Test
-	public void testExecuteShapesAreRemoved() {
+	public void testExecute_ShapesAreRemoved() {
 		cmdDelete.execute();
 		assertFalse(model.getShapes().containsAll(shapesToDelete));
 		assertFalse(model.getSelectedShapes().containsAll(shapesToDelete));
@@ -70,7 +69,7 @@ class CmdDeleteTests {
 
 
 	@Test
-	public void testUnexecuteDeletedShapesAreAdded() {
+	public void testUnexecute_DeletedShapesAreAdded() {
 		cmdDelete.execute();
 		cmdDelete.unexecute();
 		assertTrue(model.getShapes().containsAll(shapesToDelete));
@@ -78,7 +77,7 @@ class CmdDeleteTests {
 	}
 	
 	@Test
-	public void testUnexecutePositionsOfShapesRemainPerserved() {
+	public void testUnexecute_PositionsOfShapesRemainPerserved() {
 		cmdDelete.execute();
 		cmdDelete.unexecute();
 		ArrayList<Shape> shapes = model.getShapes();
@@ -86,7 +85,7 @@ class CmdDeleteTests {
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		String expected =  LoggerConstants.DELETE_COMMAND + " " + line.toString() + ";" + rect.toString() + ";" + point.toString();
 		assertEquals(expected, cmdDelete.toString());
 	}

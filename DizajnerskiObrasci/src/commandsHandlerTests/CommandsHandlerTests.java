@@ -2,26 +2,20 @@ package commandsHandlerTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.Stack;
-
+import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import commandHandler.CommandsHandler;
-import commands.*;
-import controllers.DrawingController;
-
-import static org.mockito.Mockito.*;
-
+import java.util.Stack;
+import model.DrawingModel;
 import frame.DrawingFrame;
+import controllers.DrawingController;
+import commandHandler.CommandsHandler;
 import frame.FrameOptionsToolBar;
 import geometry.*;
-import model.DrawingModel;
+import commands.*;
+
 
 class CommandsHandlerTests {
-
 
 	private DrawingModel model;
 	private DrawingFrame frame;
@@ -29,12 +23,12 @@ class CommandsHandlerTests {
 	private FrameOptionsToolBar optionsToolBar;
 	private CommandsHandler commandsHandler;
 	private Point point;
-	Circle circle;
+	private Circle circle;
 	private CmdAdd cmdAddPoint;
 	private CmdAdd cmdAddCircle;
 	private CmdAdd cmdAddMock;
-	Stack<Command> executedCommands;
-	Stack<Command> unexecutedCommands;
+	private Stack<Command> executedCommands;
+	private Stack<Command> unexecutedCommands;
 	
 	@BeforeEach
 	public void setUp() {
@@ -46,14 +40,16 @@ class CommandsHandlerTests {
 		
 		frame.setController(controller);
 		frame.setDrawingControllerForToolBars(controller);
-		
 		commandsHandler.registerObserver(optionsToolBar);
 		executedCommands = commandsHandler.getExecutedCommands();
 		unexecutedCommands = commandsHandler.getUnexecutedCommands();
+		initializeCommands();
 		
+	}
+	
+	private void initializeCommands() {
 		point = new Point(100, 100, false);
 		circle = new Circle(new Point(11, 11), 10, false);
-		
 		cmdAddPoint = new CmdAdd(model, point);
 		cmdAddCircle = new CmdAdd(model, circle);
 		cmdAddMock =  mock(CmdAdd.class);

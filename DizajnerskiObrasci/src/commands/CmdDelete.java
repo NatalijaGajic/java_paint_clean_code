@@ -1,10 +1,6 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-
+import java.util.*;
 import geometry.Shape;
 import logger.LoggerConstants;
 import model.DrawingModel;
@@ -12,14 +8,13 @@ import model.DrawingModel;
 public class CmdDelete implements Command{
 
 	private DrawingModel model;
-	private HashMap<Integer, Shape> shapeIndexesBeforeDeletion = new HashMap<Integer, Shape>(); 
+	private HashMap<Integer, Shape> shapeIndexesBeforeDeletion; 
 	private ArrayList<Shape> shapesToDelete;
 	
 	public CmdDelete(DrawingModel model, ArrayList<Shape> shapesToDelete) {
 		this.model = model;
 		this.shapesToDelete = shapesToDelete;
 		populateIndexShapeHashMap();
-		
 	}
 
 	@Override
@@ -39,6 +34,7 @@ public class CmdDelete implements Command{
 	 * @param shapesToDelete
 	 */
 	private void populateIndexShapeHashMap() {
+		shapeIndexesBeforeDeletion = new HashMap<Integer, Shape>(); 
 		Iterator<Shape> it = shapesToDelete.iterator();
 		while(it.hasNext()) {
 			Shape shapeToDelete = it.next();

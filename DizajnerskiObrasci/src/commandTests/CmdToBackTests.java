@@ -3,10 +3,8 @@ package commandTests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import commands.*;
 import geometry.*;
 import logger.LoggerConstants;
@@ -23,13 +21,16 @@ class CmdToBackTests {
 	
 	@BeforeEach
 	public void setUp() {
-
 		model = new DrawingModel();
+		initializeShapes();
+		addShapes();
+	}
+	
+	private void initializeShapes() {
 		point = new Point(100, 100, true);
 		circle = new Circle(new Point(11, 11), 10, true, Color.black, Color.white);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
-		addShapes();
 	}
 	
 	private void addShapes() {
@@ -40,7 +41,7 @@ class CmdToBackTests {
 	}
 	
 	@Test
-	public void testExecuteShapeMoved() {
+	public void testExecute_ShapeMoved() {
 		cmdToBack = new CmdToBack(model, circle);
 		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdToBack.execute();
@@ -51,7 +52,7 @@ class CmdToBackTests {
 	}
 	
 	@Test
-	public void testExecuteLastAddedShapeMoved() {
+	public void testExecute_LastAddedShapeMoved() {
 		cmdToBack = new CmdToBack(model, line);
 		int indexBeforeMoving = model.getIndexOfShape(line);
 		cmdToBack.execute();
@@ -61,7 +62,7 @@ class CmdToBackTests {
 	}
 	
 	@Test
-	public void testUnexecuteShapeMoved() {
+	public void testUnexecute_ShapeMoved() {
 		cmdToBack = new CmdToBack(model, circle);
 		int indexBeforeMoving = model.getIndexOfShape(circle);
 		cmdToBack.execute();
@@ -71,7 +72,7 @@ class CmdToBackTests {
 	}
 	
 	@Test
-	public void testUnexecuteLastAddedShapeMoved() {
+	public void testUnexecute_LastAddedShapeMoved() {
 		cmdToBack = new CmdToBack(model, line);
 		int indexBeforeMoving = model.getIndexOfShape(line);
 		cmdToBack.execute();
@@ -81,7 +82,7 @@ class CmdToBackTests {
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		cmdToBack = new CmdToBack(model, circle);
 		String expected =  LoggerConstants.TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
