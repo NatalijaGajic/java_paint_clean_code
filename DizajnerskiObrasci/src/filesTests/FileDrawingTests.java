@@ -59,9 +59,7 @@ public class FileDrawingTests {
 		model.addShapes(listOfTestShapes);
 		listOfObjectsToSave.addAll(listOfTestShapes);
 		testPath = "testSaveShapesDrawing.txt";
-		
 		fileDrawing.saveFile(testPath);
-	
 		readFromFile();
 		assertEquals(listOfObjectsToSave, listOfSavedShapes);
 	}
@@ -71,9 +69,7 @@ public class FileDrawingTests {
 		model.addSelectedShapes(listOfTestSelectedShapes);
 		listOfSelectedObjectsToSave.addAll(listOfTestSelectedShapes);
 		testPath = "testSaveSelectedShapesDrawing.txt";
-		
 		fileDrawing.saveFile(testPath);
-	
 		readFromFile();
 		assertEquals(listOfSelectedObjectsToSave, listOfSavedSelectedShapes);
 	}
@@ -91,9 +87,7 @@ public class FileDrawingTests {
 	public void testOpenFile_ShapesAddedToModel() throws IOException {
 		testPath = "testSaveShapesDrawing.txt";
 		listOfSavedShapes.addAll(listOfTestShapes);
-		
 		fileDrawing.openFile(testPath);
-		
 		assertEquals(listOfSavedShapes, model.getShapes());
 	}
 	
@@ -101,9 +95,7 @@ public class FileDrawingTests {
 	public void testOpenFile_SelectedShapesAddedToModel() throws IOException {
 		testPath = "testSaveSelectedShapesDrawing.txt";
 		listOfSavedSelectedShapes.addAll(listOfTestSelectedShapes);
-		
 		fileDrawing.openFile(testPath);
-		
 		assertEquals(listOfSavedSelectedShapes, model.getSelectedShapes());
 	}
 	

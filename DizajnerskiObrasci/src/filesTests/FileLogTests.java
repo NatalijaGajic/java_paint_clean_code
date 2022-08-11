@@ -59,9 +59,7 @@ class FileLogTests {
 		logWriter.log(cmdSelectLog);
 		listOfCommandLogsToSave.add(cmdAddLog);
 		listOfCommandLogsToSave.add(cmdSelectLog);
-		
 		fileLog.saveFile(path);
-	
 		readFromFile();
 		assertEquals(listOfCommandLogsToSave, listOfLogsSavedInFile);
 	}
@@ -80,9 +78,7 @@ class FileLogTests {
 		path = "testSaveLog.txt";
 		listOfLogsSavedInFile.add(cmdAddLog);
 		listOfLogsSavedInFile.add(cmdSelectLog);
-		
 		fileLog.openFile(path);
-		
 		queueOfCommandsReadFromFile = logReader.getCommandsToBeExecutedLog();
 		populateListOfCommandsReadFromFile();
 		assertEquals(listOfLogsSavedInFile, listOfCommandsReadFromFile);

@@ -16,13 +16,11 @@ public class DrawingFrame extends JFrame {
 	private JPanel pnlWest;
 	private JPanel pnlNorth;
 	private JPanel pnlSouth;
-
 	private FrameScrollPane scrollPane;
 	private FrameShapeToolBar shapeToolBar;
 	private FrameColorToolBar colorToolBar;
 	private FrameOptionsToolBar optionsToolBar;
 	private FrameMenuBar menuBar;
-
 	private DrawingPanel view;
 	private DrawingController controller;
 	

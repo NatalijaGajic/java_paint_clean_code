@@ -14,6 +14,7 @@ import model.DrawingModel;
  */
 public class DrawingPanel extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	private DrawingModel model;
 
 	public DrawingPanel() {
