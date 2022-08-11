@@ -120,7 +120,6 @@ public class DrawingFrame extends JFrame {
 				drawingController.drawHexagonIfAccepted(clickedPoint);
 			}
 		}
-		view.repaint(); //TODO: controller should update view
 	}
 
 	public DrawingPanel getView() {
