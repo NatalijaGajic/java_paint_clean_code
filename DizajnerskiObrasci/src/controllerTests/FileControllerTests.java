@@ -50,5 +50,19 @@ class FileControllerTests {
 		fileStrategy = fileController.getFileManagerFileStrategy();
 		assertTrue(fileStrategy.getClass().equals(FileLog.class));
 	}
+	
+	@Test
+	void testSaveDrawing_StrategyFileDrawingIsSetUp() {
+		fileController.saveDrawing();
+		fileStrategy = fileController.getFileManagerFileStrategy();
+		assertTrue(fileStrategy.getClass().equals(FileDrawing.class));
+	}
+	
+	@Test
+	void testLoadDrawing_StrategyFileDrawingIsSetUp() {
+		fileController.loadDrawing();
+		fileStrategy = fileController.getFileManagerFileStrategy();
+		assertTrue(fileStrategy.getClass().equals(FileDrawing.class));
+	}
 
 }

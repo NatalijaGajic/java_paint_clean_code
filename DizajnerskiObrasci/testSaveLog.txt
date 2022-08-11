@@ -1,2 +1,2 @@
-Test line 1
-Test line 2
+Added Point:(1,1) BC:-16777216
+Selected Point:(1,1) BC:-16777216

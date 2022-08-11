@@ -1,11 +1,5 @@
 package controllers;
 
-import java.io.File;
-import java.util.Queue;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-
 import files.FileChooser;
 import files.*;
 import frame.DrawingFrame;
@@ -35,6 +29,11 @@ public class FileController {
 	}
 	
 	public void loadDrawing() {
+		fileToOpen = fileChooser.showOpenTxtFileDialog();
+		fileStrategy = new FileDrawing(model);
+		fileManager.setFileStrategy(fileStrategy);
+		fileManager.open(fileToOpen);
+		frame.getView().repaint();
 	}
 	
 	public void loadLog() {
@@ -45,7 +44,10 @@ public class FileController {
 	}
 	
 	public void saveDrawing() {
-
+		fileToSaveTo = fileChooser.showSaveToTxtFileDialog();
+		fileStrategy = new FileDrawing(model);
+		fileManager.setFileStrategy(fileStrategy);
+		fileManager.save(fileToSaveTo);
 	}
 	
 	public void saveLog() {

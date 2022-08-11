@@ -7,6 +7,7 @@ import logger.LoggerConstants;
 
 public class Point extends Shape{
 	
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
 	

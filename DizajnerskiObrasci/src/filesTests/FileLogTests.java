@@ -13,6 +13,7 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import files.FileManager;
 import frame.DrawingFrame;
 import logger.LogReader;
 import logger.LogWriter;
+import logger.LoggerConstants;
 import model.DrawingModel;
 
 class FileLogTests {
@@ -37,14 +39,15 @@ class FileLogTests {
 	private LogReader logReader;
 	private FileLog fileLog;
 	private String path;
-	private Scanner scanner;
+	private static Scanner scanner;
 	private ArrayList<String> listOfLogsSavedInFile;
 	private ArrayList<String> listOfCommandLogsToSave;
 	private Queue<String> queueOfCommandsReadFromFile;
 	private ArrayList<String> listOfCommandsReadFromFile;
 	
-	private final String FIRST_LINE = "Test line 1";
-	private final String SECOND_LINE = "Test line 2";
+	private String pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
+	private String cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
+	private String cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
 	
 	@BeforeEach
 	public void setUp() {
@@ -62,12 +65,12 @@ class FileLogTests {
 	}
 
 	@Test
-	public void testSaveFile_OK() throws IOException {
+	public void testSaveFile_CommandLogsSaved() throws IOException {
 		path = "testSaveLog.txt";
-		logWriter.log(FIRST_LINE);
-		logWriter.log(SECOND_LINE);
-		listOfCommandLogsToSave.add(FIRST_LINE);
-		listOfCommandLogsToSave.add(SECOND_LINE);
+		logWriter.log(cmdAddLog);
+		logWriter.log(cmdSelectLog);
+		listOfCommandLogsToSave.add(cmdAddLog);
+		listOfCommandLogsToSave.add(cmdSelectLog);
 		
 		fileLog.saveFile(path);
 	
@@ -85,10 +88,10 @@ class FileLogTests {
 	}
 	
 	@Test
-	public void testOpenFile_OK() throws IOException {
+	public void testOpenFile_CommandsAddedToCommandsToBeExecuted() throws IOException {
 		path = "testSaveLog.txt";
-		listOfLogsSavedInFile.add(FIRST_LINE);
-		listOfLogsSavedInFile.add(SECOND_LINE);
+		listOfLogsSavedInFile.add(cmdAddLog);
+		listOfLogsSavedInFile.add(cmdSelectLog);
 		
 		fileLog.openFile(path);
 		
@@ -101,6 +104,11 @@ class FileLogTests {
 		while(!queueOfCommandsReadFromFile.isEmpty()) {
 			listOfCommandsReadFromFile.add(queueOfCommandsReadFromFile.poll());
 		}
+	}
+	
+	@AfterClass
+	public static void tearDown() throws IOException {
+		scanner.close();
 	}
 	
 }
