@@ -1,34 +1,17 @@
 package frame;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.MenuBar;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Iterator;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import controllers.DrawingController;
-import controllers.FileController;
-import dialogs.DlgCircle;
-import dialogs.DlgDonut;
-import dialogs.DlgLine;
-import dialogs.DlgPoint;
-import dialogs.DlgRectangle;
-import geometry.Point;
-import geometry.Shape;
-import logger.LogWriter;
-import model.DrawingModel;
+import controllers.*;
+import geometry.*;
 import view.DrawingPanel;
 
 public class DrawingFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel pnlWest;
 	private JPanel pnlNorth;
@@ -43,10 +26,6 @@ public class DrawingFrame extends JFrame {
 	private DrawingPanel view;
 	private DrawingController controller;
 	
-	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -61,9 +40,6 @@ public class DrawingFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public DrawingFrame() {
 		view = new DrawingPanel();
 		createPanels();

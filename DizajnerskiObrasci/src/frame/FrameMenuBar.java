@@ -1,16 +1,12 @@
 package frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
+import java.awt.event.*;
+import javax.swing.*;
 import controllers.FileController;
 
 public class FrameMenuBar extends JMenuBar{
 
+	private static final long serialVersionUID = 1L;
 	private FileController controller;
 	private JMenu fileMenu;
 	private JMenu menuOpen;

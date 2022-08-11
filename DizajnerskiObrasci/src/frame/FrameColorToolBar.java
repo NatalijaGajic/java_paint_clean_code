@@ -1,22 +1,18 @@
 package frame;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
+import java.awt.event.*;
+import javax.swing.*;
 
 import controllers.DrawingController;
 
 public class FrameColorToolBar extends JToolBar{
 	
+	private static final long serialVersionUID = 1L;
 	private JPanel pnlActiveEdgeColor;
 	private JPanel pnlActiveInnerColor;
 	private JButton btnActiveEdgeColor;
 	private JButton btnActiveInnerColor;
-	
 	private DrawingController controller;
 
 	

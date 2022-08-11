@@ -2,13 +2,10 @@ package frameTests;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controllers.FileController;
-import frame.DrawingFrame;
-import frame.FrameMenuBar;
+import frame.*;
 
 public class FrameMenuBarTests {
 

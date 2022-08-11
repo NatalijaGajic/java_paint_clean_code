@@ -1,11 +1,9 @@
 package applications;
 
 import commandHandler.CommandsHandler;
-import controllers.DrawingController;
-import controllers.FileController;
+import controllers.*;
 import frame.DrawingFrame;
-import logger.LogReader;
-import logger.LogWriter;
+import logger.*;
 import model.DrawingModel;
 import view.DrawingPanel;
 
@@ -24,14 +22,12 @@ public class DrawingApplication {
 			DrawingPanel view = frame.getView();
 			
 			commandsHandler.registerObserver(frame.getOptionsToolBar());
-			
 			logReader.registerObserver(frame.getOptionsToolBar());
+			model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
+			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 			
 			controller.setLogWriter(logWriter);
 			controller.setLogReader(logReader);
-			
-			model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
-			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 			
 			frame.setController(controller);
 			frame.setDrawingControllerForToolBars(controller);
@@ -40,8 +36,8 @@ public class DrawingApplication {
 			frame.setView(view);
 			
 			view.setModel(model);
-			
 			frame.setVisible(true);
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

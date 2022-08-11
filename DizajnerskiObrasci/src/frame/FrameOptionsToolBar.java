@@ -1,23 +1,14 @@
 package frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Observable;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-
+import java.awt.event.*;
+import javax.swing.*;
 import controllers.DrawingController;
-import observer.CommandsHandlerObserver;
-import observer.LogReaderObserver;
-import observer.SelectedShapesObserver;
-import observer.ShapesObserver;
+import observer.*;
 
 public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver, LogReaderObserver {
 
+	private static final long serialVersionUID = 1L;
+	private final ButtonGroup btnMode = new ButtonGroup();
 	private JToggleButton tglbtnDraw;
 	private JToggleButton tglbtnSelect;
 	private JButton btnModify;
@@ -29,8 +20,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	private JButton btnUndo;
 	private JButton btnRedo;
 	private JButton btnExecuteLog;
-	private final ButtonGroup btnMode = new ButtonGroup();
-	
 	private DrawingController controller;
 	
 	public FrameOptionsToolBar() {
@@ -168,6 +157,27 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		});
 	}
 	
+	@Override
+	public void updateSelectedShapesObserver(int numberOfSelectedShapes) {
+		controller.updateSelectedShapesObserverButtons(numberOfSelectedShapes);
+	}
+
+	@Override
+	public void updateShapesObserver() {
+		controller.updateShapesObserverButtons();
+	}
+
+	@Override
+	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
+		controller.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
+	}
+
+	@Override
+	public void updateLogReaderObserver(int numberOfCommandsToBeExecuted) {
+		controller.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
+		
+	}
+	
 	public boolean isTglBtnSelectSelected() {
 		return tglbtnSelect.isSelected();
 	}
@@ -246,26 +256,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		this.controller = controller;
 	}
 
-	@Override
-	public void updateSelectedShapesObserver(int numberOfSelectedShapes) {
-		controller.updateSelectedShapesObserverButtons(numberOfSelectedShapes);
-	}
 
-	@Override
-	public void updateShapesObserver() {
-		controller.updateShapesObserverButtons();
-	}
-
-	@Override
-	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
-		controller.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
-	}
-
-	@Override
-	public void updateLogReaderObserver(int numberOfCommandsToBeExecuted) {
-		controller.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
-		
-	}
 	
 	
 }

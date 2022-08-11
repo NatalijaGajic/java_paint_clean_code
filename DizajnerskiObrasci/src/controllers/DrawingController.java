@@ -2,20 +2,13 @@ package controllers;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Queue;
-
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
+import javax.swing.*;
 import commandHandler.CommandsHandler;
 import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
-import logger.LogReader;
-import logger.LogWriter;
-import logger.LoggerConstants;
+import logger.*;
 import model.DrawingModel;
 
 public class DrawingController {
@@ -27,7 +20,6 @@ public class DrawingController {
 	private LogReader logReader;
 	private Color activeEdgeColor;
 	private Color activeInnerColor;
-	
 	private Point startPoint;
 	
 	public DrawingController(DrawingModel model, DrawingFrame frame){
@@ -76,18 +68,18 @@ public class DrawingController {
 		addShapeIfAccepted(dlgCircle);
 	}
 	
-	public void drawRectangleIfAccepted(Point click) {
-		DlgRectangle dlgRect = new DlgRectangle();
-		dlgRect.setCreateDialogFields(click, activeEdgeColor, activeInnerColor);
-		dlgRect.setVisible(true);
-		addShapeIfAccepted(dlgRect);
-	}
-	
 	public void drawDonutIfAccepted(Point click) {
 		DlgDonut dlgDonut = new DlgDonut();
 		dlgDonut.setCreateDialogFields(click, activeEdgeColor, activeInnerColor);
 		dlgDonut.setVisible(true);
 		addShapeIfAccepted(dlgDonut);
+	}
+	
+	public void drawRectangleIfAccepted(Point click) {
+		DlgRectangle dlgRect = new DlgRectangle();
+		dlgRect.setCreateDialogFields(click, activeEdgeColor, activeInnerColor);
+		dlgRect.setVisible(true);
+		addShapeIfAccepted(dlgRect);
 	}
 	
 	public void drawHexagonIfAccepted(Point click) {
@@ -139,14 +131,14 @@ public class DrawingController {
 		modifyShapeIfAccepted(dlg, point);
 	}
 	
-	public void modifyRectangleIfAccepted(Shape selectedShape) {
-		Rectangle rectangle = (Rectangle) selectedShape;
-		DlgRectangle dlg = new DlgRectangle();
-		dlg.setModifyDialogFields(rectangle);
+	public void modifyCircleIfAccepted(Shape selectedShape) {
+		Circle circle = (Circle) selectedShape;
+		DlgCircle dlg = new DlgCircle();
+		dlg.setModifyDialogFields(circle);
 		dlg.setVisible(true);
-		modifyShapeIfAccepted(dlg, rectangle);
+		modifyShapeIfAccepted(dlg, circle);
 	}
-	
+
 	public void modifyDonutIfAccepted(Shape selectedShape) {
 		Donut donut = (Donut) selectedShape;
 		DlgDonut dlg = new DlgDonut();
@@ -155,12 +147,12 @@ public class DrawingController {
 		modifyShapeIfAccepted(dlg, donut);
 	}
 	
-	public void modifyCircleIfAccepted(Shape selectedShape) {
-		Circle circle = (Circle) selectedShape;
-		DlgCircle dlg = new DlgCircle();
-		dlg.setModifyDialogFields(circle);
+	public void modifyRectangleIfAccepted(Shape selectedShape) {
+		Rectangle rectangle = (Rectangle) selectedShape;
+		DlgRectangle dlg = new DlgRectangle();
+		dlg.setModifyDialogFields(rectangle);
 		dlg.setVisible(true);
-		modifyShapeIfAccepted(dlg, circle);
+		modifyShapeIfAccepted(dlg, rectangle);
 	}
 	
 	public void modifyHexagonIfAccepted(Shape selectedShape) {

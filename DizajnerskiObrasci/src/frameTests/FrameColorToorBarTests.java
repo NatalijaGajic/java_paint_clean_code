@@ -1,14 +1,10 @@
 package frameTests;
 
 import static org.mockito.Mockito.*;
-
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controllers.DrawingController;
-import frame.DrawingFrame;
-import frame.FrameColorToolBar;
+import frame.*;
 
 class FrameColorToorBarTests {
 
@@ -26,13 +22,13 @@ class FrameColorToorBarTests {
 	}
 	
 	@Test
-	public void testBtnActiveEdgeColorClick() {
+	public void testBtnActiveEdgeColorClick_ControllerMethodCalled() {
 		colorToolBar.getBtnActiveEdgeColor().doClick();
 		verify(controller).setActiveEdgeColor();
 	}
 
 	@Test
-	public void testBtnActiveInnerColorClick() {
+	public void testBtnActiveInnerColorClick_ControllerMethodCalled() {
 		colorToolBar.getBtnActiveInnerColor().doClick();
 		verify(controller).setActiveInnerColor();
 	}

@@ -6,15 +6,14 @@ import javax.swing.JToolBar;
 
 public class FrameShapeToolBar extends JToolBar{
 
-	
+	private static final long serialVersionUID = 1L;
+	private final ButtonGroup btnShapes = new ButtonGroup();
 	private JToggleButton tglbtnPoint;
 	private JToggleButton tglbtnLine;
 	private JToggleButton tglbtnRectangle;
 	private JToggleButton tglbtnCircle;
 	private JToggleButton tglbtnDonut;
 	private JToggleButton tglbtnHexagon;
-	
-	private final ButtonGroup btnShapes = new ButtonGroup();
 	
 	public FrameShapeToolBar() {
 		createToggleButtons();
