@@ -145,14 +145,6 @@ public class LogReader implements LogReaderSubject{
 		notifyObservers();
 	}
 
-	public Queue<String> getCommandsToBeExecutedLog() {
-		return commandsToBeExecutedLog;
-	}
-
-	public Command getCmd() {
-		return cmd;
-	}
-
 	@Override
 	public void registerObserver(LogReaderObserver o) {
 		observers.add(o);
@@ -176,6 +168,12 @@ public class LogReader implements LogReaderSubject{
 		
 	}
 	
-	
+	public Queue<String> getCommandsToBeExecutedLog() {
+		return commandsToBeExecutedLog;
+	}
+
+	public Command getCmd() {
+		return cmd;
+	}
 	
 }

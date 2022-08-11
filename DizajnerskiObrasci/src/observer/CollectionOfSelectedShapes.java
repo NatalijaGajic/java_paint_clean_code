@@ -7,8 +7,13 @@ import geometry.Shape;
 
 public class CollectionOfSelectedShapes implements SelectedShapesSubject{
 
-	ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
-	ArrayList<SelectedShapesObserver> observers = new ArrayList<SelectedShapesObserver>();
+	ArrayList<Shape> selectedShapes;
+	ArrayList<SelectedShapesObserver> observers;
+	
+	public CollectionOfSelectedShapes() {
+		selectedShapes = new ArrayList<Shape>();
+		observers = new ArrayList<SelectedShapesObserver>();
+	}
 	
 	@Override
 	public void registerObserver(SelectedShapesObserver o) {

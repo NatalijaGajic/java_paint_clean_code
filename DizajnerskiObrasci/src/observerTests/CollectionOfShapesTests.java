@@ -1,17 +1,11 @@
 package observerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controllers.DrawingController;
-import frame.DrawingFrame;
-import frame.FrameOptionsToolBar;
-import geometry.Circle;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
+import frame.*;
+import geometry.*;
 import model.DrawingModel;
 
 class CollectionOfShapesTests {
@@ -37,12 +31,16 @@ class CollectionOfShapesTests {
 		frame.setController(controller);
 		frame.setDrawingControllerForToolBars(controller);
 		
+		initializeShapes();
+		addShapes();
+	}
+	
+	private void initializeShapes() {
 		point = new Point(100, 100);
 		circle = new Circle(new Point(11, 11), 10);
 		rect = new Rectangle(new Point(11, 11), 40, 40);
 		line = new Line(new Point(1, 1), new Point(1, 10));
 		newShape = new Rectangle(new Point(11, 11), 40, 40);
-		addShapes();
 	}
 	
 	private void addShapes() {
@@ -53,7 +51,7 @@ class CollectionOfShapesTests {
 	}
 	
 	@Test
-	public void testAddOneLastAddedSelectedToFrontButtonsEnabled() {
+	public void testAddShape_LastAddedSelected_ToFrontButtonsEnabled() {
 		model.addSelectedShape(line);
 		assertFalse(buttonsToFrontAreEnabled());
 		model.addShape(newShape);
@@ -65,7 +63,7 @@ class CollectionOfShapesTests {
 	}
 	
 	@Test
-	public void testFirstAddedSelectedMovedToFrontToBackButtonsEnabled() {
+	public void testAddSelectedShape_FirstAddedSelected_MovedToFrontToBackButtonsEnabled() {
 		model.addSelectedShape(point);
 		assertFalse(buttonsToBackAreEnabled());
 		model.removeShape(point);
@@ -78,7 +76,7 @@ class CollectionOfShapesTests {
 	}
 
 	@Test
-	public void testLastAddedSelectedMovedToBackToFrontButtonsEnabled() {
+	public void testAddSelectedShape_LastAddedSelected_MovedToBackToFrontButtonsEnabled() {
 		model.addSelectedShape(line);
 		assertFalse(buttonsToFrontAreEnabled());
 		model.removeShape(line);

@@ -1,38 +1,32 @@
 package loggerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.Color;
 import java.util.Stack;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import commandHandler.CommandsHandler;
 import commands.*;
 import controllers.DrawingController;
 import frame.DrawingFrame;
-import geometry.Line;
-import geometry.Point;
-import logger.LogReader;
-import logger.LogWriter;
-import logger.LoggerConstants;
+import geometry.*;
+import logger.*;
 import model.DrawingModel;
 
 class LogReaderTests {
 
-	private String pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
-	private String modifiedPointLog = LoggerConstants.POINT + ":(2,2) BC:-16777216";
+	private String pointLog;
+	private String modifiedPointLog;
 	
-	private String cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
-	private String cmdModifyLog = LoggerConstants.MODIFY_COMMAND + " " + pointLog + " to " + modifiedPointLog;
-	private String cmdBringToBackLog = LoggerConstants.BRING_TO_BACK_COMMAND + " " + pointLog;
-	private String cmdBringToFrontLog = LoggerConstants.BRING_TO_FRONT_COMMAND + " " + pointLog;
-	private String cmdToBackLog = LoggerConstants.TO_BACK_COMMAND + " " + pointLog;
-	private String cmdToFrontLog = LoggerConstants.TO_FRONT_COMMAND + " " + pointLog;
-	private String cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
-	private String cmdDeselectLog = LoggerConstants.DESELECT_COMMAND + " " + pointLog;
-	private String cmdDeleteLog = LoggerConstants.DELETE_COMMAND + " " + pointLog;
+	private String cmdAddLog;
+	private String cmdModifyLog;
+	private String cmdBringToBackLog;
+	private String cmdBringToFrontLog;
+	private String cmdToBackLog;
+	private String cmdToFrontLog;
+	private String cmdSelectLog;
+	private String cmdDeselectLog;
+	private String cmdDeleteLog;
 	
 	private DrawingModel model;
 	private DrawingFrame frame;
@@ -57,6 +51,26 @@ class LogReaderTests {
 		controller.setLogWriter(logWriter);
 		controller.setLogReader(logReader);
 		executedCommands = commandsHandler.getExecutedCommands();
+		initializeStrings();
+		initializeShapes();
+	}
+	
+	private void initializeStrings() {
+		pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
+		modifiedPointLog = LoggerConstants.POINT + ":(2,2) BC:-16777216";
+		
+		cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
+		cmdModifyLog = LoggerConstants.MODIFY_COMMAND + " " + pointLog + " to " + modifiedPointLog;
+		cmdBringToBackLog = LoggerConstants.BRING_TO_BACK_COMMAND + " " + pointLog;
+		cmdBringToFrontLog = LoggerConstants.BRING_TO_FRONT_COMMAND + " " + pointLog;
+		cmdToBackLog = LoggerConstants.TO_BACK_COMMAND + " " + pointLog;
+		cmdToFrontLog = LoggerConstants.TO_FRONT_COMMAND + " " + pointLog;
+		cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
+		cmdDeselectLog = LoggerConstants.DESELECT_COMMAND + " " + pointLog;
+		cmdDeleteLog = LoggerConstants.DELETE_COMMAND + " " + pointLog;
+	}
+	
+	private void initializeShapes() {
 		testPoint = new Point(1, 1, false, Color.BLACK);
 		modifiedPoint = new Point(2, 2, true, Color.BLACK);
 		testLine = new Line(new Point(1,1), new Point(2,2), false, Color.BLACK);

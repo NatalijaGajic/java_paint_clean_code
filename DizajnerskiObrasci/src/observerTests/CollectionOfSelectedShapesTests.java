@@ -4,14 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import controllers.DrawingController;
-import frame.DrawingFrame;
-import frame.FrameOptionsToolBar;
-import geometry.Circle;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
+import frame.*;
+import geometry.*;
 import model.DrawingModel;
 
 class CollectionOfSelectedShapesTests {
@@ -36,11 +31,15 @@ class CollectionOfSelectedShapesTests {
 		frame.setController(controller);
 		frame.setDrawingControllerForToolBars(controller);
 		
+		initializeShapes();
+		addShapes();
+	}
+	
+	private void initializeShapes() {
 		point = new Point(100, 100, true);
 		circle = new Circle(new Point(11, 11), 10, true);
 		rect = new Rectangle(new Point(11, 11), 40, 40, true);
 		line = new Line(new Point(1, 1), new Point(1, 10), true);
-		addShapes();
 	}
 	
 	private void addShapes() {
@@ -51,7 +50,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddOneSelectedButtonsEnabled() {
+	void testAddSelectedShape_OneSelected_ButtonsEnabled() {
 		rect.setSelected(true);
 		model.addSelectedShape(rect);
 		assertTrue(oneSelectedButtonsAreEnabled());
@@ -71,7 +70,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddRemoveNoneSelectedButtonsDisabled() {
+	void testRemoveSelectedShape_NoneSelected_ButtonsDisabled() {
 		model.addSelectedShape(rect);
 		model.removeSelectedShape(rect);
 		assertTrue(noneSelectedButtonsAreDisabled());
@@ -91,7 +90,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddMultipleSelectedButtonsDisabled() {
+	void testAddSelectedShape_MultipleSelected_ButtonsDisabled() {
 		model.addSelectedShape(rect);
 		model.addSelectedShape(point);
 		assertTrue(multipleSelectedButtonsAreDisabled());
@@ -102,7 +101,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddMultipleSelectedButtonsEnabled() {
+	void testAddSelectedShape_MultipleSelected_ButtonsEnabled() {
 		model.addSelectedShape(rect);
 		model.addSelectedShape(point);
 		assertTrue(optionsToolBar.isBtnDeleteEnabled());
@@ -110,7 +109,7 @@ class CollectionOfSelectedShapesTests {
 	
 
 	@Test
-	void testAddLastAddedShapeSelectedButtonsToFrontDisabled() {
+	void testAddSelectedShape_LastAddedShapeSelected_ButtonsToFrontDisabled() {
 		model.addSelectedShape(line);
 		assertTrue(buttonsToFrontAreDisabled());
 	}
@@ -120,7 +119,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddFirstAddedShapeSelectedButtonsToBackDisabled() {
+	void testAddSelectedShape_FirstAddedShapeSelected_ButtonsToBackDisabled() {
 		model.addSelectedShape(point);
 		assertTrue(buttonsToBackAreDisabled());
 	}

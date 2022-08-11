@@ -8,10 +8,12 @@ import observer.CollectionOfShapes;
 
 public class DrawingModel {
 
-	CollectionOfShapes collectionOfShapes = new CollectionOfShapes();
-	CollectionOfSelectedShapes collectionOfSelectedShapes = new CollectionOfSelectedShapes();
+	CollectionOfShapes collectionOfShapes;
+	CollectionOfSelectedShapes collectionOfSelectedShapes;
 	
 	public DrawingModel() {
+		collectionOfShapes = new CollectionOfShapes();
+		collectionOfSelectedShapes = new CollectionOfSelectedShapes();
 	}
 	
 	public void addShape(Shape s) {
