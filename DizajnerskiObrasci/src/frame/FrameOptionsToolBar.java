@@ -2,6 +2,8 @@ package frame;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import controllers.ButtonsController;
 import controllers.DrawingController;
 import observer.*;
 
@@ -20,7 +22,8 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	private JButton btnUndo;
 	private JButton btnRedo;
 	private JButton btnExecuteLog;
-	private DrawingController controller;
+	private DrawingController drawingController;
+	private ButtonsController buttonsController;
 	
 	public FrameOptionsToolBar() {
 		setOrientation(SwingConstants.VERTICAL);
@@ -86,7 +89,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnModify.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.modifyShape();
+				drawingController.modifyShape();
 			}
 		});
 	}
@@ -95,7 +98,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.deleteShapesIfAccepted();
+				drawingController.deleteShapesIfAccepted();
 			}
 		});
 	}
@@ -104,28 +107,28 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnToBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.moveShapeToBack();
+				drawingController.moveShapeToBack();
 			}
 		});
 		
 		btnToFront.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.moveShapeToFront();
+				drawingController.moveShapeToFront();
 			}
 		});
 		
 		btnBringToBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.bringShapeToBack();
+				drawingController.bringShapeToBack();
 			}
 		});
 		
 		btnBringToFront.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.bringShapeToFront();
+				drawingController.bringShapeToFront();
 			}
 		});
 	}
@@ -134,7 +137,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnRedo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.redoCommand();
+				drawingController.redoCommand();
 			}
 		});
 	}
@@ -143,7 +146,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnUndo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.undoCommand();
+				drawingController.undoCommand();
 			}
 		});
 	}
@@ -152,29 +155,29 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnExecuteLog.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.executeLog();
+				drawingController.executeLog();
 			}
 		});
 	}
 	
 	@Override
 	public void updateSelectedShapesObserver(int numberOfSelectedShapes) {
-		controller.updateSelectedShapesObserverButtons(numberOfSelectedShapes);
+		buttonsController.updateSelectedShapesObserverButtons(numberOfSelectedShapes);
 	}
 
 	@Override
 	public void updateShapesObserver() {
-		controller.updateShapesObserverButtons();
+		buttonsController.updateShapesObserverButtons();
 	}
 
 	@Override
 	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
-		controller.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
+		buttonsController.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
 	}
 
 	@Override
 	public void updateLogReaderObserver(int numberOfCommandsToBeExecuted) {
-		controller.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
+		buttonsController.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
 		
 	}
 	
@@ -252,9 +255,14 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		return btnExecuteLog;
 	}
 
-	public void setController(DrawingController controller) {
-		this.controller = controller;
+	public void setDrawingController(DrawingController drawingController) {
+		this.drawingController = drawingController;
 	}
+
+	public void setButtonsController(ButtonsController buttonsController) {
+		this.buttonsController = buttonsController;
+	}
+	
 
 
 	

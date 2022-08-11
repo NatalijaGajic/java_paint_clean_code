@@ -28,7 +28,7 @@ class CollectionOfSelectedShapesTests {
 		optionsToolBar = frame.getOptionsToolBar();
 		
 		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
-		frame.setController(controller);
+		frame.setDrawingController(controller);
 		frame.setDrawingControllerForToolBars(controller);
 		
 		initializeShapes();

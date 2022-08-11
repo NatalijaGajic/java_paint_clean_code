@@ -15,10 +15,11 @@ public class DrawingApplication {
 			DrawingModel model = new DrawingModel();
 			DrawingFrame frame = new DrawingFrame();
 			CommandsHandler commandsHandler = new CommandsHandler();
-			DrawingController controller = new DrawingController(model, frame, commandsHandler);
+			DrawingController drawingController = new DrawingController(model, frame, commandsHandler);
 			LogWriter logWriter = new LogWriter();
-			LogReader logReader = new LogReader(controller);
+			LogReader logReader = new LogReader(drawingController);
 			FileController fileController = new FileController(model, frame, logWriter, logReader);
+			ButtonsController buttonsController = new ButtonsController(model, frame);
 			DrawingPanel view = frame.getView();
 			
 			commandsHandler.registerObserver(frame.getOptionsToolBar());
@@ -26,12 +27,13 @@ public class DrawingApplication {
 			model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
 			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 			
-			controller.setLogWriter(logWriter);
-			controller.setLogReader(logReader);
+			drawingController.setLogWriter(logWriter);
+			drawingController.setLogReader(logReader);
 			
-			frame.setController(controller);
-			frame.setDrawingControllerForToolBars(controller);
+			frame.setDrawingController(drawingController);
+			frame.setDrawingControllerForToolBars(drawingController);
 			frame.setFileControllerForMenuBar(fileController);
+			frame.setButtonsControllerForOptionsToolBar(buttonsController);
 			frame.setDefaultListModelForScrollPane(logWriter.getExecutedCommandsLog());
 			frame.setView(view);
 			

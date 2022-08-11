@@ -13,7 +13,7 @@ public class FrameColorToolBar extends JToolBar{
 	private JPanel pnlActiveInnerColor;
 	private JButton btnActiveEdgeColor;
 	private JButton btnActiveInnerColor;
-	private DrawingController controller;
+	private DrawingController drawingController;
 
 	
 	public FrameColorToolBar() {
@@ -47,7 +47,7 @@ public class FrameColorToolBar extends JToolBar{
 		btnActiveEdgeColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.setActiveEdgeColor();
+				drawingController.setActiveEdgeColor();
 			}
 		});
 	}
@@ -56,7 +56,7 @@ public class FrameColorToolBar extends JToolBar{
 		btnActiveInnerColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.setActiveInnerColor();
+				drawingController.setActiveInnerColor();
 			}
 		});
 	}
@@ -76,10 +76,12 @@ public class FrameColorToolBar extends JToolBar{
 	public JButton getBtnActiveInnerColor() {
 		return btnActiveInnerColor;
 	}
-	
-	public void setController(DrawingController controller) {
-		this.controller = controller;
+
+	public void setDrawingController(DrawingController drawingController) {
+		this.drawingController = drawingController;
 	}
+	
+	
 	
 	
 	

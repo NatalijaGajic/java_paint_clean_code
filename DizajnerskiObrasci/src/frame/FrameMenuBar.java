@@ -7,7 +7,7 @@ import controllers.FileController;
 public class FrameMenuBar extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
-	private FileController controller;
+	private FileController fileController;
 	private JMenu fileMenu;
 	private JMenu menuOpen;
 	private JMenuItem optionOpenLogFile;
@@ -51,12 +51,12 @@ public class FrameMenuBar extends JMenuBar{
 	public void addSaveMenuListeners() {
 		optionSaveAsLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.saveLog();
+				fileController.saveLog();
 			}
 		});
 		optionSaveAsDrawing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.saveDrawing();
+				fileController.saveDrawing();
 			}
 		});
 	}
@@ -64,23 +64,23 @@ public class FrameMenuBar extends JMenuBar{
 	public void addOpenMenuListeners() {
 		optionOpenLogFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.loadLog();
+				fileController.loadLog();
 			}
 		});
 
 		optionOpenDrawingFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.loadDrawing();
+				fileController.loadDrawing();
 			}
 		});
 	}
 
-	public FileController getController() {
-		return controller;
+	public FileController getFileController() {
+		return fileController;
 	}
 
-	public void setController(FileController controller) {
-		this.controller = controller;
+	public void setFileController(FileController fileController) {
+		this.fileController = fileController;
 	}
 
 	public JMenuItem getOptionOpenLogFile() {

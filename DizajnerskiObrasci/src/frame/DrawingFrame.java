@@ -22,7 +22,7 @@ public class DrawingFrame extends JFrame {
 	private FrameOptionsToolBar optionsToolBar;
 	private FrameMenuBar menuBar;
 	private DrawingPanel view;
-	private DrawingController controller;
+	private DrawingController drawingController;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -104,20 +104,20 @@ public class DrawingFrame extends JFrame {
 		Point clickedPoint = new Point(x, y);
 		
 		if(optionsToolBar.isTglBtnSelectSelected()){
-			controller.selectOrDeselectShape(clickedPoint);
+			drawingController.selectOrDeselectShape(clickedPoint);
 		} else if (optionsToolBar.isTglBtnDrawSelected()) {
 			if (shapeToolBar.isTlgBtnPointSelected()) {
-				controller.drawPointIfAccepted(clickedPoint);
+				drawingController.drawPointIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnLineSelected()) {
-				controller.drawLineIfAccepted(clickedPoint);
+				drawingController.drawLineIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnRectangleSelected()) {
-				controller.drawRectangleIfAccepted(clickedPoint);
+				drawingController.drawRectangleIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnCircleSelected()) {
-				controller.drawCircleIfAccepted(clickedPoint);
+				drawingController.drawCircleIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnDonutSelected()) {
-				controller.drawDonutIfAccepted(clickedPoint);
+				drawingController.drawDonutIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnHexagonSelected()) {
-				controller.drawHexagonIfAccepted(clickedPoint);
+				drawingController.drawHexagonIfAccepted(clickedPoint);
 			}
 		}
 		view.repaint(); //TODO: controller should update view
@@ -131,8 +131,12 @@ public class DrawingFrame extends JFrame {
 		this.view = view;
 	}
 
-	public void setController(DrawingController controller) {
-		this.controller = controller;
+	public void setDrawingController(DrawingController drawingController) {
+		this.drawingController = drawingController;
+	}
+
+	public DrawingController getDrawingController() {
+		return drawingController;
 	}
 
 	public FrameScrollPane getScrollPane() {
@@ -151,9 +155,13 @@ public class DrawingFrame extends JFrame {
 		return optionsToolBar;
 	}
 	
-	public void setDrawingControllerForToolBars(DrawingController controller) {
-		colorToolBar.setController(controller);
-		optionsToolBar.setController(controller);
+	public void setDrawingControllerForToolBars(DrawingController drawingController) {
+		colorToolBar.setDrawingController(drawingController);
+		optionsToolBar.setDrawingController(drawingController);
+	}
+	
+	public void setButtonsControllerForOptionsToolBar(ButtonsController buttonsController) {
+		optionsToolBar.setButtonsController(buttonsController);
 	}
 	
 	public void setDefaultListModelForScrollPane(DefaultListModel<String> defaultListModel) {
@@ -164,13 +172,8 @@ public class DrawingFrame extends JFrame {
 		return menuBar;
 	}
 	
-	public void setFileControllerForMenuBar(FileController controller) {
-		menuBar.setController(controller);
+	public void setFileControllerForMenuBar(FileController fileController) {
+		menuBar.setFileController(fileController);
 	}
-
-	public DrawingController getController() {
-		return controller;
-	}
-	
 	
 }

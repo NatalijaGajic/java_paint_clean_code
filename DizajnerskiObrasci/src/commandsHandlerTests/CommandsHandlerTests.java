@@ -38,7 +38,7 @@ class CommandsHandlerTests {
 		optionsToolBar = frame.getOptionsToolBar();
 		commandsHandler = new CommandsHandler();
 		
-		frame.setController(controller);
+		frame.setDrawingController(controller);
 		frame.setDrawingControllerForToolBars(controller);
 		commandsHandler.registerObserver(optionsToolBar);
 		executedCommands = commandsHandler.getExecutedCommands();

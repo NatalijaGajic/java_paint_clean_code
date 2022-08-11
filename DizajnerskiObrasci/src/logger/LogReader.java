@@ -1,19 +1,11 @@
 package logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-
+import java.util.*;
 import geometry.*;
 import commands.*;
 import controllers.DrawingController;
 import model.DrawingModel;
-import observer.CommandsHandlerObserver;
-import observer.CommandsHandlerSubject;
-import observer.LogReaderObserver;
-import observer.LogReaderSubject;
+import observer.*;
 
 public class LogReader implements LogReaderSubject{
 

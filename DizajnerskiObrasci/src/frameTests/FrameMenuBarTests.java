@@ -18,7 +18,7 @@ public class FrameMenuBarTests {
 		frame = new DrawingFrame();
 		menuBar = frame.getFrameMenuBar();
 		controller = mock(FileController.class);
-		menuBar.setController(controller);
+		menuBar.setFileController(controller);
 	}
 	
 	@Test

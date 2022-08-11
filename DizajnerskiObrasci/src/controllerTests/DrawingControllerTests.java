@@ -40,7 +40,7 @@ class DrawingControllerTests {
 		controller.setCommandsHandler(commandsHandler);
 		controller.setLogWriter(logWriter);
 		frame.getView().setModel(model);
-		frame.setController(controller);
+		frame.setDrawingController(controller);
 
 		initializeShapes();
 	}
