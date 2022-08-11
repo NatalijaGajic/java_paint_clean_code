@@ -2,7 +2,6 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import logger.LoggerConstants;
 
 public class Line extends Shape{
@@ -46,53 +45,63 @@ public class Line extends Shape{
 	public void draw(Graphics g) {
 		g.setColor(getColor());
 		g.drawLine(this.startPoint.getX(), this.startPoint.getY(), this.endPoint.getX(), this.endPoint.getY());
-		
-		if(isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.startPoint.getX() - 3 , this.startPoint.getY() - 3, 6, 6);
-			g.drawRect(this.endPoint.getX() - 3, this.endPoint.getY() - 3, 6, 6);
-			g.drawRect(middleOfLine().getX() - 3, middleOfLine().getY() - 3, 6, 6);
-		}
+		if(isSelected())
+			drawSelection(g);
+	}
+	
+	@Override
+	protected void drawSelection(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawRect(this.startPoint.getX() - 3 , this.startPoint.getY() - 3, 6, 6);
+		g.drawRect(this.endPoint.getX() - 3, this.endPoint.getY() - 3, 6, 6);
+		g.drawRect(middleOfLine().getX() - 3, middleOfLine().getY() - 3, 6, 6);
 		
 	}
 	
+	@Override
 	public boolean contains(int x, int y) {
-		if ((startPoint.distance(x, y) + endPoint.distance(x, y)) - length() <= 0.05) {
-			return true;
-		} else {
-			return false;
-		}
+		double distanceFromPoint = startPoint.distance(x, y) + endPoint.distance(x, y) - length();
+		return distanceFromPoint <= 0.05;
 	}
 	
+	@Override
 	public boolean contains(Point p) {
-		if ((startPoint.distance(p.getX(), p.getY()) + endPoint.distance(p.getX(), p.getY())) - length() <= 0.05) {
-			return true;
-		} else {
-			return false;
-		}
+		return contains(p.getX(), p.getY());
 	}
 	
 	public double length() {
 		return startPoint.distance(endPoint.getX(), endPoint.getY());
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Line) {
-			Line prosledjena = (Line)obj;
-			if (this.startPoint.equals(prosledjena.getStartPoint()) 
-					&& this.endPoint.equals(prosledjena.getEndPoint())) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+			Line line = (Line)obj;
+			return (this.startPoint.equals(line.getStartPoint()) && this.endPoint.equals(line.getEndPoint()));
+		} 
+		return false;
 	}
 	
 	@Override
 	public Line clone() {
 		return new Line(startPoint.clone(), endPoint.clone(), isSelected(), getColor());
+	}
+	
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Line) {
+			Line l = (Line)shape;
+			this.startPoint = l.getStartPoint().clone();
+			this.endPoint = l.getEndPoint().clone();
+			this.setSelected(l.isSelected());
+			this.setColor(l.getColor());
+		}
+		
+	}
+	
+	public String toString() {
+		return LoggerConstants.LINE + ":SP(" + this.getStartPoint().getX() + "," + this.getStartPoint().getY() + ") EP("+
+				this.getEndPoint().getX() + "," + this.getEndPoint().getY() + ") " + "BC:" + getColor().getRGB();
 	}
 	
 	public Point getStartPoint() {
@@ -111,22 +120,5 @@ public class Line extends Shape{
 		this.endPoint = endPoint;
 	}
 	
-	public String toString() {
-		return LoggerConstants.LINE + ":SP(" + this.getStartPoint().getX() + "," + this.getStartPoint().getY() + ") EP("+
-				this.getEndPoint().getX() + "," + this.getEndPoint().getY() + ") " + "BC:" + getColor().getRGB();
-	}
-
-	@Override
-	public void setShapeFileds(Shape shape) {
-		if(shape instanceof Line) {
-			Line l = (Line)shape;
-			this.startPoint = l.getStartPoint().clone();
-			this.endPoint = l.getEndPoint().clone();
-			this.setSelected(l.isSelected());
-			this.setColor(l.getColor());
-		}
-		
-	}
-
 
 }

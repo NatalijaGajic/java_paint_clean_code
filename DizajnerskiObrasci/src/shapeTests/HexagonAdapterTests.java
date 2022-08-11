@@ -2,13 +2,10 @@ package shapeTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 import java.awt.Color;
 import java.awt.Graphics;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import geometry.HexagonAdapter;
 import geometry.Point;
 import hexagon.Hexagon;
@@ -26,7 +23,7 @@ class HexagonAdapterTests {
 	}
 
 	@Test
-	public void testDraw() {
+	public void testDraw_Success() {
 		Hexagon hexagon = mock(Hexagon.class);
 		HexagonAdapter hexagonAdapter = new HexagonAdapter(hexagon);
 		hexagonAdapter.draw(graphics);
@@ -34,54 +31,59 @@ class HexagonAdapterTests {
 	}
 
 	@Test
-	public void testFill() {
+	public void testFill_UnsupportedOperation() {
 		assertThrows(UnsupportedOperationException.class,() -> hexagonAdapter.fill(graphics));
 	}
 
 	@Test
-	public void testContainsTrueExcepted() {
+	public void testContains_TrueExcepted() {
 		assertTrue(hexagonAdapter.contains(1, 1));
 	}
 
 	@Test
-	public void testContainsFalseExcepted() {
+	public void testContains_FalseExcepted() {
 		assertFalse(hexagonAdapter.contains(21, 61));
 	}
 
 	@Test
-	public void testEqualsNotSameType() {
+	public void testEquals_NotSameType() {
 		assertFalse(hexagonAdapter.equals(new Point(1, 2)));
 	}
 
 	@Test
-	public void testEqualsFalseExpectedRadiusDiffer() {
+	public void testEquals_FalseExpectedRadiusDiffer() {
 		assertFalse(hexagonAdapter.equals(new HexagonAdapter(new Point(1, 1), 6, Color.BLACK, Color.WHITE, false)));
 	}
 
 	@Test
-	public void testEqualsFalseExpectedXCoordDiffers() {
+	public void testEquals_FalseExpectedXCoordDiffers() {
 		assertFalse(hexagonAdapter.equals(new HexagonAdapter(new Point(2, 1), 5, Color.BLACK, Color.WHITE, false)));
 	}
 
 	@Test
-	public void testEqualsFalseExpectedYCoordDiffers() {
+	public void testEqualsFalse_ExpectedYCoordDiffers() {
 		assertFalse(hexagonAdapter.equals(new HexagonAdapter(new Point(1, 2), 5, Color.BLACK, Color.WHITE, false)));
 	}
 
 	@Test
-	public void testEqualsTrueExpected() {
+	public void testEquals_TrueExpected() {
 		assertTrue(hexagonAdapter.equals(new HexagonAdapter(new Point(1, 1), 5, Color.BLACK, Color.WHITE, false)));
 	}
 	
 	@Test 
-	public void testClone() {
+	public void testClone_FieldsValuesAreSame() {
 		HexagonAdapter clonedHexagonAdapter = (HexagonAdapter) hexagonAdapter.clone();
 		assertEquals(hexagonAdapter, clonedHexagonAdapter);
+	}
+	
+	@Test 
+	public void testClone_ReferencesAreDifferent() {
+		HexagonAdapter clonedHexagonAdapter = (HexagonAdapter) hexagonAdapter.clone();
 		assertFalse(clonedHexagonAdapter == hexagonAdapter);
 	}
 	
 	@Test
-	public void testSetShapeFields() {
+	public void testSetShapeFields_FieldsValuesAreSame() {
 		HexagonAdapter oldRefrence = hexagonAdapter;
 		HexagonAdapter hexagonAdapterWithNewFileds = new HexagonAdapter(new Point(10, 10), 15, Color.BLUE, Color.GREEN, true);
 		hexagonAdapter.setShapeFileds(hexagonAdapterWithNewFileds);
@@ -90,7 +92,7 @@ class HexagonAdapterTests {
 	}
 	
 	@Test
-	public void testToString() {
+	public void testToString_Success() {
 		String expected = LoggerConstants.HEXAGON + ":(" + hexagonAdapter.getX() + "," + hexagonAdapter.getY() + ") "
 				+ "R:" + hexagonAdapter.getRadius() + ", BC:" + hexagonAdapter.getColor().getRGB() + ", "
 				+ "FC:" + hexagonAdapter.getInnerColor().getRGB();

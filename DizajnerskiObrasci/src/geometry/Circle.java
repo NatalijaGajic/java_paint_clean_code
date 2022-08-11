@@ -2,7 +2,6 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import logger.LoggerConstants;
 
 public class Circle extends SurfaceShape {
@@ -53,42 +52,61 @@ public class Circle extends SurfaceShape {
 		g.setColor(getColor());
 		g.drawOval(this.center.getX() - radius, this.center.getY() - radius, radius * 2, radius * 2);
 		fill(g);
-		
-		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.center.getX() - 3, this.center.getY() - 3, 6, 6);
-			g.drawRect(this.center.getX() - radius - 3, this.center.getY() - 3, 6, 6);
-			g.drawRect(this.center.getX() + radius - 3, this.center.getY() - 3, 6, 6);
-			g.drawRect(this.center.getX() - 3, this.center.getY() - radius - 3, 6, 6);
-			g.drawRect(this.center.getX() - 3, this.center.getY() + radius - 3, 6, 6);
-		}
-		
+		if (isSelected())
+			drawSelection(g);
 	}
 	
-	public boolean equals(Object obj) {
-		if (obj instanceof Circle) {
-			Circle prosledjen = (Circle)obj;
-			if (this.center.equals(prosledjen.getCenter()) && this.radius == prosledjen.getRadius()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+	@Override
+	protected void drawSelection(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawRect(this.center.getX() - 3, this.center.getY() - 3, 6, 6);
+		g.drawRect(this.center.getX() - radius - 3, this.center.getY() - 3, 6, 6);
+		g.drawRect(this.center.getX() + radius - 3, this.center.getY() - 3, 6, 6);
+		g.drawRect(this.center.getX() - 3, this.center.getY() - radius - 3, 6, 6);
+		g.drawRect(this.center.getX() - 3, this.center.getY() + radius - 3, 6, 6);
 	}
-
+	
+	@Override
 	public boolean contains(int x, int y) {
 		return this.getCenter().distance(x, y) <= radius;
 	}
 	
+	@Override
 	public boolean contains(Point p) {
-		return this.getCenter().distance(p.getX(), p.getY()) <= radius;
+		return contains(p.getX(), p.getY());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Circle) {
+			Circle circle = (Circle)obj;
+			return (this.center.equals(circle.getCenter()) && this.radius == circle.getRadius());
+		}
+		return false;
 	}
 	
 	@Override
 	public Circle clone() {
 		return new Circle(center.clone(), radius, isSelected(), getColor(), getInnerColor());
+	}
+	
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Circle) {
+			Circle circ = (Circle)shape;
+			this.center = circ.center.clone();
+			this.radius = circ.radius;
+			this.setSelected(circ.isSelected());
+			this.setColor(circ.getColor());
+			this.setInnerColor(circ.getInnerColor());
+		}
+		
+	}
+	
+	public String toString() {
+		return LoggerConstants.CIRCLE + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ") "
+				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB()+", "
+				+ "FC:" + this.getInnerColor().getRGB();
 	}
 
 	public Point getCenter() {
@@ -105,25 +123,6 @@ public class Circle extends SurfaceShape {
 
 	public void setRadius(int radius) {
 			this.radius = radius;
-	}
-	
-	public String toString() {
-		return LoggerConstants.CIRCLE + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ") "
-				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB()+", "
-				+ "FC:" + this.getInnerColor().getRGB();
-	}
-
-	@Override
-	public void setShapeFileds(Shape shape) {
-		if(shape instanceof Circle) {
-			Circle circ = (Circle)shape;
-			this.center = circ.center.clone();
-			this.radius = circ.radius;
-			this.setSelected(circ.isSelected());
-			this.setColor(circ.getColor());
-			this.setInnerColor(circ.getInnerColor());
-		}
-		
 	}
 
 }

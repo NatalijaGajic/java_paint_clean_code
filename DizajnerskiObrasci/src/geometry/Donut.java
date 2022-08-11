@@ -2,12 +2,12 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import logger.LoggerConstants;
 
 public class Donut extends Circle {
-	
-private int innerRadius;
+
+	private static final long serialVersionUID = 1L;
+	private int innerRadius;
 	
 	public Donut() {
 		
@@ -39,12 +39,14 @@ private int innerRadius;
 		setInnerColor(innerColor);
 	}
 	
+	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(getColor());
 		g.drawOval(getCenter().getX() - this.innerRadius, getCenter().getY() - this.innerRadius, getInnerRadius() * 2, getInnerRadius() * 2);
 	}
 	
+	@Override
 	public void fill(Graphics g) {
 		g.setColor(getInnerColor());
 		super.fill(g);
@@ -52,34 +54,46 @@ private int innerRadius;
 		g.fillOval(getCenter().getX() - getInnerRadius(), getCenter().getY() - getInnerRadius(), getInnerRadius() * 2, getInnerRadius() * 2);
 	}
 	
+	@Override
 	public boolean contains(int x, int y) {
 		double dFromCenter = this.getCenter().distance(x, y);
 		return super.contains(x, y) && dFromCenter > innerRadius;
 	}
 	
+	@Override
 	public boolean contains(Point p) {
 		double dFromCenter = this.getCenter().distance(p.getX(), p.getY());
 		return super.contains(p) && dFromCenter > innerRadius;
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Donut) {
-			Donut d = (Donut) obj;
-			if (this.getCenter().equals(d.getCenter()) &&
-					this.getRadius() == d.getRadius() &&
-					this.innerRadius == d.getInnerRadius()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+			Donut donut = (Donut) obj;
+			return (super.equals(donut) && this.innerRadius == donut.getInnerRadius());
 		}
+		return false;
 	}
 	
 	@Override
 	public Donut clone() {
 		return new Donut(getCenter().clone(), getRadius(), innerRadius, isSelected(), getColor(), getInnerColor());
+	}
+	
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Donut) {
+			super.setShapeFileds(shape);
+			Donut donut = (Donut)shape;
+			this.innerRadius = donut.innerRadius;
+		}	
+	}
+
+	@Override
+	public String toString() {
+		return LoggerConstants.DONUT + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
+				+ " OR:" + this.getRadius() + ", IR:" + this.getInnerRadius() + ", "
+						+ "BC:" + this.getColor().getRGB() + ", FC:" + this.getInnerColor().getRGB();
 	}
 	
 	public int getInnerRadius() {
@@ -90,22 +104,6 @@ private int innerRadius;
 		this.innerRadius = innerRadius;
 	}
 	
-	public String toString() {
-		return LoggerConstants.DONUT + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
-				+ " OR:" + this.getRadius() + ", IR:" + this.getInnerRadius() + ", "
-						+ "BC:" + this.getColor().getRGB() + ", FC:" + this.getInnerColor().getRGB();
-	}
 	
-	@Override
-	public void setShapeFileds(Shape shape) {
-		if(shape instanceof Donut) {
-			super.setShapeFileds(shape);
-			Donut donut = (Donut)shape;
-			this.innerRadius = donut.innerRadius;
-		}
-		
-	}
-
-
 
 }

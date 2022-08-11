@@ -34,27 +34,32 @@ public class Point extends Shape{
 		this(x, y, selected);
 		setColor(color);
 	}
-
 	
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getColor());
-		g.drawLine(this.x-2, this.y, this.x+2, this.y);
-		g.drawLine(this.x, this.y-2, this.x, this.y+2);
+		g.drawLine(this.x - 2, this.y, this.x + 2, this.y);
+		g.drawLine(this.x, this.y - 2, this.x, this.y + 2);
 		
-		if(isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.x-3, this.y-3, 6, 6);
-		}
+		if(isSelected())
+			drawSelection(g);
+	}
+	
+	@Override
+	protected void drawSelection(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawRect(this.x-3, this.y-3, 6, 6);
 		
 	}
 	
+	@Override
 	public boolean contains(int x, int y) {
 		return this.distance(x, y) <= 3 ;
 	}
 	
+	@Override
 	public boolean contains(Point point) {
-		return this.distance(point.x, point.y) <=3;
+		return contains(point.getX(), point.getY());
 	}
 	
 	public double distance(int x2, int y2) {
@@ -64,23 +69,35 @@ public class Point extends Shape{
 		return d; 
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Point) {
-			Point prosledjena = (Point)obj;
-			if (this.x == prosledjena.getX() 
-					&& this.y == prosledjena.getY()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+			Point point = (Point)obj;
+			return (this.x == point.getX() && this.y == point.getY());
 		}
+		return false;
 	}
 	
 	@Override
 	public Point clone() {
 		return new Point(x, y, isSelected(), getColor());
+	}
+	
+	@Override
+	public void setShapeFileds(Shape shape) {
+		if(shape instanceof Point) {
+			Point p = (Point) shape;
+			this.x = p.x;
+			this.y = p.y;
+			this.setSelected(p.isSelected());
+			this.setColor(p.getColor());
+		}
+		
+	}
+	
+	@Override
+	public String toString() {
+		return LoggerConstants.POINT + ":(" + this.getX() + "," + this.getY() + ") " + "BC:" + getColor().getRGB();
 	}
 	
 	public int getX() {
@@ -97,24 +114,6 @@ public class Point extends Shape{
 	
 	public void setY(int y) {
 		this.y = y;
-	}
-
-	@Override
-	public String toString() {
-		return LoggerConstants.POINT + ":(" + this.getX() + "," + this.getY() + ") " + "BC:" + getColor().getRGB();
-	}
-	
-
-	@Override
-	public void setShapeFileds(Shape shape) {
-		if(shape instanceof Point) {
-			Point p = (Point) shape;
-			this.x = p.x;
-			this.y = p.y;
-			this.setSelected(p.isSelected());
-			this.setColor(p.getColor());
-		}
-		
 	}
 
 }

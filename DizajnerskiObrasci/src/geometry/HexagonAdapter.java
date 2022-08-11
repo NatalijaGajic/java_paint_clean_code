@@ -2,7 +2,6 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import hexagon.Hexagon;
 import logger.LoggerConstants;
 
@@ -41,6 +40,10 @@ public class HexagonAdapter extends SurfaceShape{
 		hexagon.paint(g);
 	}
 
+	@Override
+	protected void drawSelection(Graphics g) {
+		throw new UnsupportedOperationException();
+	}
 
 	@Override
 	public boolean contains(int x, int y) {
@@ -50,6 +53,16 @@ public class HexagonAdapter extends SurfaceShape{
 	@Override
 	public boolean contains(Point point) {
 		return hexagon.doesContain(point.getX(), point.getY());
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof HexagonAdapter) {
+			HexagonAdapter hex = (HexagonAdapter) obj;
+			
+			return (this.getX() == hex.getX() && this.getY() == hex.getY()
+					&& this.getRadius() == hex.getRadius());
+		}
+		return false;
 	}
 
 	@Override
@@ -70,17 +83,6 @@ public class HexagonAdapter extends SurfaceShape{
 			this.setSelected(hexagonAdapter.isSelected());
 		}
 		
-	}
-	
-	public boolean equals(Object obj) {
-		if (obj instanceof HexagonAdapter) {
-			HexagonAdapter forwardedObjectToHexagon = (HexagonAdapter) obj;
-			
-			return (this.getX() == forwardedObjectToHexagon.getX() && this.getY() == forwardedObjectToHexagon.getY()
-					&& this.getRadius() == forwardedObjectToHexagon.getRadius());
-		}
-		
-		return false;
 	}
 	
 	public String toString() {
