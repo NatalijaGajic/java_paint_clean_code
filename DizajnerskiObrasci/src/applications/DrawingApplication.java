@@ -15,9 +15,9 @@ public class DrawingApplication {
 			DrawingModel model = new DrawingModel();
 			DrawingFrame frame = new DrawingFrame();
 			CommandsHandler commandsHandler = new CommandsHandler();
-			DrawingController drawingController = new DrawingController(model, frame, commandsHandler);
 			LogWriter logWriter = new LogWriter();
-			LogReader logReader = new LogReader(drawingController);
+			LogReader logReader = new LogReader(model);
+			DrawingController drawingController = new DrawingController(model, frame, commandsHandler, logWriter, logReader);
 			FileController fileController = new FileController(model, frame, logWriter, logReader);
 			ButtonsController buttonsController = new ButtonsController(model, frame);
 			DrawingPanel view = frame.getView();
@@ -26,9 +26,6 @@ public class DrawingApplication {
 			logReader.registerObserver(frame.getOptionsToolBar());
 			model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
 			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
-			
-			drawingController.setLogWriter(logWriter);
-			drawingController.setLogReader(logReader);
 			
 			frame.setDrawingController(drawingController);
 			frame.setDrawingControllerForToolBars(drawingController);

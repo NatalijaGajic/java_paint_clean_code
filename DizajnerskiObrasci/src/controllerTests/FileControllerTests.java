@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import commandHandler.CommandsHandler;
-import controllers.DrawingController;
 import controllers.FileController;
 import files.*;
 import frame.DrawingFrame;
@@ -18,8 +15,6 @@ class FileControllerTests {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private CommandsHandler commandsHandler;
-	private DrawingController controller;
 	private LogWriter logWriter;
 	private LogReader logReader;
 	private FileController fileController;
@@ -29,10 +24,8 @@ class FileControllerTests {
 	public void setUp() {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
-		commandsHandler = new CommandsHandler();
-		controller = new DrawingController(model, frame, commandsHandler);
 		logWriter = new LogWriter();
-		logReader = new LogReader(controller);
+		logReader = new LogReader(model);
 		fileController = new FileController(model, frame, logWriter, logReader);
 	}
 	

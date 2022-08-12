@@ -3,26 +3,19 @@ package logger;
 import java.util.*;
 import geometry.*;
 import commands.*;
-import controllers.DrawingController;
 import model.DrawingModel;
 import observer.*;
 
 public class LogReader implements LogReaderSubject{
 
 	private LogParser logParser;
-	private DrawingController controller;
 	private Queue<String> commandsToBeExecutedLog;
 	private DrawingModel model;
 	private String[] logLine;
-	private Shape shape;
-	private Shape modifiedShape;
-	private Command cmd;
-	
 	private ArrayList<LogReaderObserver> observers;
 	
-	public LogReader(DrawingController controller) {
-		this.controller = controller;
-		model = controller.getModel();
+	public LogReader(DrawingModel model) {
+		this.model = model;
 		logParser = new LogParser();
 		commandsToBeExecutedLog = new LinkedList<String>();
 		observers = new ArrayList<LogReaderObserver>();
@@ -33,103 +26,149 @@ public class LogReader implements LogReaderSubject{
 		notifyObservers();
 	}
 	
-	public void readCommandFromLog(){
+	public LoggerCommand readCommandFromLog(){
 		this.logLine = commandsToBeExecutedLog.poll().split("[, =():]");
 		
 		if(logLine[0].equals(LoggerConstants.ADD_COMMAND))
-			executeAddCommand();
+			return makeAddCommand();
 		else if (logLine[0].equals(LoggerConstants.SELECT_COMMAND))
-			executeSelectCommand();
+			return makeSelectCommand();
 		else if (logLine[0].equals(LoggerConstants.DESELECT_COMMAND))
-			executeDeselectCommand();
+			return makeDeselectCommand();
 		else if (logLine[0].equals(LoggerConstants.MODIFY_COMMAND))
-			executeModifyCommand();
+			return makeModifyCommand();
 		else if (logLine[0].equals(LoggerConstants.DELETE_COMMAND))
-			controller.deleteShapes();
+			return makeDeleteCommand();
 		else if (logLine[0].equals(LoggerConstants.UNDO_COMMAND))
-			controller.undoCommand();
+			return makeUndoCommand();
 		else if (logLine[0].equals(LoggerConstants.REDO_COMMAND))
-			controller.redoCommand();
+			return makeRedoCommand();
 		else if (logLine[0].equals(LoggerConstants.TO_BACK_COMMAND))
-			controller.moveShapeToBack();
+			return makeMoveShapeToBackCommand();
 		else if (logLine[0].equals(LoggerConstants.TO_FRONT_COMMAND))
-			controller.moveShapeToFront();
+			return makeMoveShapeToFrontCommand();
 		else if (logLine[0].equals(LoggerConstants.BRING_TO_FRONT_COMMAND))
-			controller.bringShapeToFront();
+			return makeBringShapeToFrontCommand();
 		else if (logLine[0].equals(LoggerConstants.BRING_TO_BACK_COMMAND))
-			controller.bringShapeToBack();
+			return makeBringShapeToBackCommand();
 		
 		notifyObservers();
+		return null;
 	}
 	
-	public void executeAddCommand() {
-		parseShapeFromLog();
-		cmd = new CmdAdd(model, shape);
-		controller.executeCommand(cmd);
+	public LoggerCommand makeAddCommand() {
+		Shape shape = parseShapeFromLog();
+		Command command = new CmdAdd(model, shape);
+		return new LoggerCommand(command, LoggerConstants.ADD_COMMAND);
 	}
 	
-	public void executeSelectCommand() {
-		parseShapeFromLog();
+	public LoggerCommand makeSelectCommand() {
+		Shape shape = parseShapeFromLog();
 		shape = model.getShapeEqualTo(shape);
-		cmd = new CmdSelect(model, shape);
-		controller.executeCommand(cmd);
+		Command command = new CmdSelect(model, shape);
+		return new LoggerCommand(command, LoggerConstants.SELECT_COMMAND);
 	}
 	
-	public void executeDeselectCommand() {
-		parseShapeFromLog();
-		shape = model.getSelectedShapeEqualTo(shape);
-		cmd = new CmdDeselect(model, shape);
-		controller.executeCommand(cmd);
+	public LoggerCommand makeDeselectCommand() {
+		Shape shape = parseShapeFromLog();
+		Shape selectedShape = model.getSelectedShapeEqualTo(shape);
+		Command command = new CmdDeselect(model, selectedShape);
+		return new LoggerCommand(command, LoggerConstants.DESELECT_COMMAND);
 	}
 	
-	public void executeModifyCommand() {
-		shape = model.getSelectedShape();
-		parseModifiedShapeFromLog();
-		cmd = new CmdModify(shape, modifiedShape.clone());
-		controller.executeCommand(cmd);
+	public LoggerCommand makeModifyCommand() {
+		Shape selectedShape = model.getSelectedShape();
+		Shape modifiedShape = parseModifiedShapeFromLog();
+		Command command = new CmdModify(selectedShape, modifiedShape.clone());
+		return new LoggerCommand(command, LoggerConstants.MODIFY_COMMAND);
 	}
 	
-	public void parseShapeFromLog() {
+	public LoggerCommand makeDeleteCommand() {
+		@SuppressWarnings("unchecked")
+		ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
+		Command command = new CmdDelete(model, shapesToDelete);
+		return new LoggerCommand(command, LoggerConstants.DELETE_COMMAND);
+	}
+	
+	public LoggerCommand makeUndoCommand() {
+		return new LoggerCommand(null, LoggerConstants.UNDO_COMMAND);
+	}
+	
+	public LoggerCommand makeRedoCommand() {
+		return new LoggerCommand(null, LoggerConstants.REDO_COMMAND);
+	}
+	
+	public LoggerCommand makeMoveShapeToBackCommand() {
+		Shape shape = model.getSelectedShape();
+		Command command = new CmdToBack(model, shape);
+		return new LoggerCommand(command, LoggerConstants.TO_BACK_COMMAND);
+	}
+	
+	public LoggerCommand makeMoveShapeToFrontCommand() {
+		Shape shape = model.getSelectedShape();
+		Command command = new CmdToFront(model, shape);
+		return new LoggerCommand(command, LoggerConstants.TO_FRONT_COMMAND);
+	}
+	
+	public LoggerCommand makeBringShapeToFrontCommand() {
+		Shape shape = model.getSelectedShape();
+		Command command = new CmdBringToFront(model, shape);
+		return new LoggerCommand(command, LoggerConstants.BRING_TO_FRONT_COMMAND);
+	}
+	
+	public LoggerCommand makeBringShapeToBackCommand() {
+		Shape shape = model.getSelectedShape();
+		Command command = new CmdBringToBack(model, shape);
+		return new LoggerCommand(command, LoggerConstants.BRING_TO_FRONT_COMMAND);
+	}
+	
+	private Shape parseShapeFromLog() {
 		logLine = Arrays.copyOfRange(logLine, 1, logLine.length);
 		
 		if (logLine[0].equals(LoggerConstants.POINT))
-			shape = logParser.parsePointFromLog(logLine);
+			return logParser.parsePointFromLog(logLine);
 		else if(logLine[0].equals(LoggerConstants.LINE))
-			shape = logParser.parseLineFromLog(logLine);
+			return logParser.parseLineFromLog(logLine);
 		else if (logLine[0].equals(LoggerConstants.CIRCLE))
-			shape = logParser.parseCircleFromLog(logLine);
+			return logParser.parseCircleFromLog(logLine);
 		else if (logLine[0].equals(LoggerConstants.DONUT))
-			shape = logParser.parseDonutFromLog(logLine);
+			return logParser.parseDonutFromLog(logLine);
 		else if (logLine[0].equals(LoggerConstants.HEXAGON))
-			shape = logParser.parseHexagonFromLog(logLine);
+			return logParser.parseHexagonFromLog(logLine);
 		else if (logLine[0].equals(LoggerConstants.RECTANGLE))
-			shape = logParser.parseRectangleFromLog(logLine);
-
+			return logParser.parseRectangleFromLog(logLine);
+		return null;
 	}
 	
-	public void parseModifiedShapeFromLog() {
+	private Shape parseModifiedShapeFromLog() {
+		Shape selectedShape = model.getSelectedShape();
+		Shape modifiedShape = null;
 		
-		if(shape instanceof Point) {
+		if(selectedShape instanceof Point) {
 			logLine = Arrays.copyOfRange(logLine, 9, logLine.length);
 			modifiedShape = logParser.parsePointFromLog(logLine);
-		}else if(shape instanceof Line) {
+		}else if(selectedShape instanceof Line) {
 			logLine = Arrays.copyOfRange(logLine, 13, logLine.length);
 			modifiedShape = logParser.parseLineFromLog(logLine);
-		}else if(shape instanceof Circle) {
-			logLine = Arrays.copyOfRange(logLine, 15, logLine.length);
-			modifiedShape = logParser.parseCircleFromLog(logLine);
-		}else if(shape instanceof Donut) {
+		}else if(selectedShape instanceof Donut) {
 			logLine = Arrays.copyOfRange(logLine, 18, logLine.length);
 			modifiedShape = logParser.parseDonutFromLog(logLine);
-		}else if(shape instanceof Rectangle) {
+		}else if(selectedShape instanceof Circle) {
+			logLine = Arrays.copyOfRange(logLine, 15, logLine.length);
+			modifiedShape = logParser.parseCircleFromLog(logLine);
+		}else if(selectedShape instanceof Rectangle) {
 			logLine = Arrays.copyOfRange(logLine, 18, logLine.length);
 			modifiedShape = logParser.parseRectangleFromLog(logLine);
-		}else if(shape instanceof HexagonAdapter) {
+		}else if(selectedShape instanceof HexagonAdapter) {
 			logLine = Arrays.copyOfRange(logLine, 15, logLine.length);
 			modifiedShape = logParser.parseHexagonFromLog(logLine);
 		}
 		
-		modifiedShape.setSelected(true);
+		if(modifiedShape != null) {
+			modifiedShape.setSelected(true);
+		}
+		
+		return modifiedShape;
 	}
 	
 	public void clearLog() {
@@ -162,10 +201,6 @@ public class LogReader implements LogReaderSubject{
 	
 	public Queue<String> getCommandsToBeExecutedLog() {
 		return commandsToBeExecutedLog;
-	}
-
-	public Command getCmd() {
-		return cmd;
 	}
 	
 }

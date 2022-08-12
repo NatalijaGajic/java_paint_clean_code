@@ -35,6 +35,13 @@ public class DrawingController {
 
 	}
 	
+	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler, LogWriter logWriter, LogReader logReader){
+		this(model, frame, commandsHandler);
+		this.logWriter = logWriter;
+		this.logReader = logReader;
+
+	}
+	
 	public void executeCommand(Command cmd) {
 		cmd.execute();
 		commandsHandler.addExecutedCommand(cmd);
@@ -271,9 +278,19 @@ public class DrawingController {
 		frame.getView().repaint();
 	}
 	
+	//TODO: When option for executing log is available, other options should be disabled, or log should be cleared if new command is executed
 	public void executeLog() {
-		logReader.readCommandFromLog();
-		frame.getView().repaint();
+		LoggerCommand cmd = logReader.readCommandFromLog();
+		String typeOfCommand = cmd.getTypeOfCommand();
+		if(cmd != null) {
+			if(typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
+				undoCommand();
+			else if(typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
+				redoCommand();
+			else
+				executeCommand(cmd.getCommand());
+		}
+		
 	}
 
 	public CommandsHandler getCommandsHandler() {

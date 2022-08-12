@@ -7,19 +7,13 @@ import logger.*;
 import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import commandHandler.CommandsHandler;
-import controllers.DrawingController;
 import files.FileLog;
-import frame.DrawingFrame;
 import model.DrawingModel;
 
 class FileLogTests {
 
 	private static Scanner scanner;
 	private DrawingModel model;
-	private DrawingFrame frame;
-	private CommandsHandler commandsHandler;
-	private DrawingController controller;
 	private LogWriter logWriter;
 	private LogReader logReader;
 	private FileLog fileLog;
@@ -36,11 +30,8 @@ class FileLogTests {
 	@BeforeEach
 	public void setUp() {
 		model = new DrawingModel();
-		frame = new DrawingFrame();
-		commandsHandler = new CommandsHandler();
-		controller = new DrawingController(model, frame, commandsHandler);
 		logWriter = new LogWriter();
-		logReader = new LogReader(controller);
+		logReader = new LogReader(model);
 		fileLog = new FileLog(logWriter, logReader);
 		initializeLists();
 		
