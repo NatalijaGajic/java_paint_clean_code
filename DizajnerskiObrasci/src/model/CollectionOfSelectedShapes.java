@@ -1,8 +1,10 @@
-package observer;
+package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import geometry.Shape;
+import observer.SelectedShapesObserver;
+import observer.SelectedShapesSubject;
 
 public class CollectionOfSelectedShapes implements SelectedShapesSubject{
 

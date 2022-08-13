@@ -1,9 +1,11 @@
-package observer;
+package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import geometry.Shape;
+import observer.ShapesObserver;
+import observer.ShapesSubject;
 
 public class CollectionOfShapes implements ShapesSubject {
 
