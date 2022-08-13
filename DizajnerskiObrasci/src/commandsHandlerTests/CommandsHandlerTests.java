@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Stack;
 import model.DrawingModel;
 import frame.DrawingFrame;
-import controllers.DrawingController;
+import controllers.*;
 import commandHandler.CommandsHandler;
 import frame.FrameOptionsToolBar;
 import geometry.*;
@@ -20,6 +20,7 @@ class CommandsHandlerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController controller;
+	private ButtonsController buttonsController;
 	private FrameOptionsToolBar optionsToolBar;
 	private CommandsHandler commandsHandler;
 	private Point point;
@@ -35,11 +36,13 @@ class CommandsHandlerTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		controller = new DrawingController(model, frame);
+		buttonsController = new ButtonsController(model, frame);
 		optionsToolBar = frame.getOptionsToolBar();
 		commandsHandler = new CommandsHandler();
 		
 		frame.setDrawingController(controller);
 		frame.setDrawingControllerForToolBars(controller);
+		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		commandsHandler.registerObserver(optionsToolBar);
 		executedCommands = commandsHandler.getExecutedCommands();
 		unexecutedCommands = commandsHandler.getUnexecutedCommands();

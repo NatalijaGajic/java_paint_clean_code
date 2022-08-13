@@ -218,6 +218,10 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	public boolean isBtnUndoEnabled() {
 		return btnUndo.isEnabled();
 	}
+	
+	public boolean isBtnExecuteLogEnabled() {
+		return btnExecuteLog.isEnabled();
+	}
 
 	public JButton getBtnModify() {
 		return btnModify;

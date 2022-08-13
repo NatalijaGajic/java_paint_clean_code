@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import controllers.ButtonsController;
 import controllers.DrawingController;
 import frame.*;
 import geometry.*;
@@ -14,6 +15,7 @@ class CollectionOfSelectedShapesTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController controller;
+	private ButtonsController buttonsController;
 	private FrameOptionsToolBar optionsToolBar;
 	private Point point;
 	private Circle circle;
@@ -25,12 +27,12 @@ class CollectionOfSelectedShapesTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		controller = new DrawingController(model, frame);
+		buttonsController = new ButtonsController(model, frame);
 		optionsToolBar = frame.getOptionsToolBar();
-		
 		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
 		frame.setDrawingController(controller);
 		frame.setDrawingControllerForToolBars(controller);
-		
+		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeShapes();
 		addShapes();
 	}

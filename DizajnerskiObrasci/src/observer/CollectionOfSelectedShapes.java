@@ -2,7 +2,6 @@ package observer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import geometry.Shape;
 
 public class CollectionOfSelectedShapes implements SelectedShapesSubject{
