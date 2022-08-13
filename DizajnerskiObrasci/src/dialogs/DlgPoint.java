@@ -57,7 +57,7 @@ public class DlgPoint extends DlgShape {
 		int y = Integer.parseInt( getTxtYCoord().getText());	
 		Color edgeColor = getEdgeColor();
 		
-		return new Point(x, y, edgeColor);	
+		return new Point(x, y, true, edgeColor);	
 	}
 	
 

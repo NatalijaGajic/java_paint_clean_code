@@ -1,10 +1,8 @@
 package loggerTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import logger.LogWriter;
 
 class LogWriterTests {
@@ -20,7 +18,7 @@ class LogWriterTests {
 	}
 	
 	@Test
-	void testLog_CommandAddedToExecutedCommandsLog() {
+	public void testLog_CommandAddedToExecutedCommandsLog() {
 		logWriter.log(logLine);
 		loggedCommand = logWriter.getExecutedCommandsLog().get(0);
 		assertEquals(logLine, loggedCommand);

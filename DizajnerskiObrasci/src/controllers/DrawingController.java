@@ -172,7 +172,6 @@ public class DrawingController {
 	public void modifyShapeIfAccepted(Dialog dlg, Shape selectedShape) {
 		if(dlg.isAccepted()) {
 			Shape shapeWithNewValues = dlg.getShapeFromDialog();
-			shapeWithNewValues.setSelected(true);
 			CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNewValues);
 			executeCommand(cmdModify);
 		}

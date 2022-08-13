@@ -144,7 +144,7 @@ public class DlgLine extends DlgShape{
 		
 		Color edgeColor = getEdgeColor();
 		
-		return new Line(startPoint, endPoint, edgeColor);
+		return new Line(startPoint, endPoint, true, edgeColor);
 	}
 
 	public JTextField getTxtEndPointXCoord() {

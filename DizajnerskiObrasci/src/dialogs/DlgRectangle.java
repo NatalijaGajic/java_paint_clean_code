@@ -152,7 +152,7 @@ public class DlgRectangle extends DlgSurfaceShape {
 		Color edgeColor = getEdgeColor();
 		Color innerColor = getInnerColor();
 		
-		return new Rectangle(new Point(x,y), height, width, edgeColor, innerColor);
+		return new Rectangle(new Point(x,y), height, width, true, edgeColor, innerColor);
 		
 	}
 

@@ -1,19 +1,8 @@
 package logger;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import commands.CmdAdd;
-import commands.CmdBringToBack;
-import commands.CmdBringToFront;
-import commands.CmdDelete;
-import commands.CmdDeselect;
-import commands.CmdModify;
-import commands.CmdSelect;
-import commands.CmdToBack;
-import commands.CmdToFront;
-import commands.Command;
+import java.util.*;
+import commands.*;
 import geometry.*;
 import model.DrawingModel;
 

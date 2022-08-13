@@ -7,15 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import commands.CmdAdd;
-import commands.CmdBringToBack;
-import commands.CmdBringToFront;
-import commands.CmdDelete;
-import commands.CmdDeselect;
-import commands.CmdModify;
-import commands.CmdSelect;
-import commands.CmdToBack;
-import commands.CmdToFront;
+import commands.*;
 import geometry.*;
 import logger.*;
 import model.DrawingModel;

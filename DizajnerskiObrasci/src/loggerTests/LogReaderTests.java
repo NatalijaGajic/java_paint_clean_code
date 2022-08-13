@@ -2,7 +2,6 @@ package loggerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Queue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class LogReaderTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private LogReader logReader;
-	ButtonsController buttonsController;
+	private ButtonsController buttonsController;
 	private FrameOptionsToolBar optionsToolBar;
 	private Point testPoint;
 	private CmdAdd cmdAdd;

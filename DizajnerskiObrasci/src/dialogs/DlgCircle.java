@@ -115,7 +115,7 @@ public class DlgCircle extends DlgSurfaceShape {
 		Color edgeColor = getEdgeColor();
 		Color innerColor = getInnerColor();
 		
-		return new Circle(center, radius, edgeColor, innerColor);
+		return new Circle(center, radius, true, edgeColor, innerColor);
 		
 	}
 

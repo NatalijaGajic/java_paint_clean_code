@@ -31,28 +31,28 @@ class FileControllerTests {
 	
 	
 	@Test
-	void testSaveLog_StrategyFileLogIsSetUp() {
+	public void testSaveLog_StrategyFileLogIsSetUp() {
 		fileController.saveLog();
 		fileStrategy = fileController.getFileManagerFileStrategy();
 		assertTrue(fileStrategy.getClass().equals(FileLog.class));
 	}
 	
 	@Test
-	void testLoadLog_StrategyFileLogIsSetUp() {
+	public void testLoadLog_StrategyFileLogIsSetUp() {
 		fileController.loadLog();
 		fileStrategy = fileController.getFileManagerFileStrategy();
 		assertTrue(fileStrategy.getClass().equals(FileLog.class));
 	}
 	
 	@Test
-	void testSaveDrawing_StrategyFileDrawingIsSetUp() {
+	public void testSaveDrawing_StrategyFileDrawingIsSetUp() {
 		fileController.saveDrawing();
 		fileStrategy = fileController.getFileManagerFileStrategy();
 		assertTrue(fileStrategy.getClass().equals(FileDrawing.class));
 	}
 	
 	@Test
-	void testLoadDrawing_StrategyFileDrawingIsSetUp() {
+	public void testLoadDrawing_StrategyFileDrawingIsSetUp() {
 		fileController.loadDrawing();
 		fileStrategy = fileController.getFileManagerFileStrategy();
 		assertTrue(fileStrategy.getClass().equals(FileDrawing.class));
