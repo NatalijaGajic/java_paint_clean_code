@@ -2,48 +2,48 @@ package loggerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import commands.CmdAdd;
+import commands.CmdBringToBack;
+import commands.CmdBringToFront;
+import commands.CmdDelete;
+import commands.CmdDeselect;
+import commands.CmdModify;
+import commands.CmdSelect;
+import commands.CmdToBack;
+import commands.CmdToFront;
 import geometry.*;
-import logger.LogParser;
-import logger.LoggerConstants;
+import logger.*;
+import model.DrawingModel;
 
 class LogParserTests {
 
-	private String pointLog;
-	private String lineLog;
-	private String circleLog;
-	private String donutLog;
-	private String rectangleLog;
-	private String hexagonLog;
+	private DrawingModel model;
+	private LogReader logReader;
+	private LogParser logParser;
 	private Point testPoint;
+	private Point modifiedTestPoint;
 	private Line testLine;
 	private Circle testCircle;
 	private Donut testDonut;
 	private Rectangle testRectangle;
 	private HexagonAdapter testHexagon;
-	private String[] logLine;
-	private LogParser logParser;
-	private Shape parsedShape;
 	
 	@BeforeEach
 	void setUp() {
-		logParser = new LogParser();
-		initializeStrings();
+		model = new DrawingModel();
+		logReader = new LogReader();
+		logParser = new LogParser(model, logReader);
 		initializeShapes();
-	}
-	
-	private void initializeStrings() {
-		pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
-		lineLog = LoggerConstants.LINE + ":SP(1,1) EP(2,2) BC:-16777216";
-		circleLog = LoggerConstants.CIRCLE + ":(1,1) R:10, BC:-1, FC:-16777216";
-		donutLog = LoggerConstants.DONUT + ":(1,1) OR:10, IR:5, BC:-1, FC:-16777216";
-		rectangleLog = LoggerConstants.RECTANGLE + ":(1,1) W:50, H:40, BC:-1, FC:-16777216";
-		hexagonLog = LoggerConstants.HEXAGON + ":(1,2) R:3, BC:-1, FC:-16777216";
 	}
 	
 	private void initializeShapes() {
 		testPoint = new Point(1, 1, false, Color.BLACK);
+		modifiedTestPoint = new Point(2, 2, false, Color.BLACK);
 		testLine = new Line(new Point(1,1), new Point(2,2), false, Color.BLACK);
 		testCircle = new Circle(new Point(1, 1), 10, false, Color.WHITE, Color.BLACK);
 		testDonut = new Donut(new Point(1, 1), 10, 5, false, Color.WHITE, Color.BLACK);
@@ -52,45 +52,182 @@ class LogParserTests {
 	}
 	
 	@Test
-	public void testParsePointFromLog_Success() {
-		logLine = pointLog.split("[, =():]");
-		parsedShape = logParser.parsePointFromLog(logLine);
-		assertEquals(testPoint, parsedShape);
+	public void testParseCommandFromLog_AddPoint_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testPoint);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
 	}
 	
 	@Test
-	public void testParseLineFromLog_Success() {
-		logLine = lineLog.split("[, =():]");
-		parsedShape = logParser.parseLineFromLog(logLine);
-		assertEquals(testLine, parsedShape);
+	public void testParseCommandFromLog_AddLine_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testLine);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
 	}
 	
 	@Test
-	public void testParseCircleFromLog_Success() {
-		logLine = circleLog.split("[, =():]");
-		parsedShape = logParser.parseCircleFromLog(logLine);
-		assertEquals(testCircle, parsedShape);
+	public void testParseCommandFromLog_AddCircle_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testCircle);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
 	}
 	
 	@Test
-	public void testParseDonutFromLog_Success() {
-		logLine = donutLog.split("[, =():]");
-		parsedShape = logParser.parseDonutFromLog(logLine);
-		assertEquals(testDonut, parsedShape);
+	public void testParseCommandFromLog_AddDonut_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testDonut);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
 	}
 	
 	@Test
-	public void testParseRectangleFromLog_Success() {
-		logLine = rectangleLog.split("[, =():]");
-		parsedShape = logParser.parseRectangleFromLog(logLine);
-		assertEquals(testRectangle, parsedShape);
+	public void testParseCommandFromLog_AddRectangle_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testRectangle);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
 	}
 	
 	@Test
-	public void testParseHexagonFromLog_Success() {
-		logLine = hexagonLog.split("[, =():]");
-		parsedShape = logParser.parseHexagonFromLog(logLine);
-		assertEquals(testHexagon, parsedShape);
+	public void testParseCommandFromLog_AddHexagon_Success() {
+		CmdAdd cmdAdd = new CmdAdd(model, testHexagon);
+		String commandLog = cmdAdd.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdAdd, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_ModifyPoint_Success() {
+		addSelectedTestPointToModel();
+		CmdModify cmdModify = new CmdModify(testPoint, modifiedTestPoint);
+		String cmdModifyLog = cmdModify.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdModify, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_SelectPoint_Success() {
+		model.addShape(testPoint);
+		CmdSelect cmdSelect = new CmdSelect(model, testPoint);
+		String cmdSelectLog = cmdSelect.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdSelect, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_DeselectPoint_Success() {
+		addSelectedTestPointToModel();
+		CmdDeselect cmdDeselect = new CmdDeselect(model, testPoint);
+		String cmdDeselectLog = cmdDeselect.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdDeselect, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_MovePointToFront_Success() {
+		addSelectedTestPointToModel();
+		CmdToFront cmdToFront = new CmdToFront(model, testPoint);
+		String cmdToFrontLog = cmdToFront.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToFrontLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdToFront, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_MovePointToBack_Success() {
+		addSelectedTestPointToModel();
+		CmdToBack cmdToBack = new CmdToBack(model, testPoint);
+		String cmdToBackLog = cmdToBack.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdToBackLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdToBack, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_BringPointToFront_Success() {
+		addSelectedTestPointToModel();
+		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, testPoint);
+		String cmdBringToFrontLog = cmdBringToFront.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToFrontLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdBringToFront, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_BringPointToBack_Success() {
+		addSelectedTestPointToModel();
+		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, testPoint);
+		String cmdBringToBackLog = cmdBringToBack.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToBackLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdBringToBack, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_DeletePoint_Success() {
+		addSelectedTestPointToModel();
+		ArrayList<Shape> shapesToDelete = new ArrayList<Shape>();
+		shapesToDelete.add(testPoint);
+		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
+		String cmdDeleteLog = cmdDelete.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdDelete, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_DeleteMultipleShapes_Success() {
+		addSelectedTestPointToModel();
+		addSelectedLineToModel();
+		ArrayList<Shape> shapesToDelete = new ArrayList<Shape>();
+		shapesToDelete.add(testPoint);
+		shapesToDelete.add(testLine);
+		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
+		String cmdDeleteLog = cmdDelete.toString();
+		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(cmdDelete, loggerCommand.getCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_Undo_Success() {
+		logReader.addCommandToCommandsToBeExecutedLog(LoggerConstants.UNDO_COMMAND);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(null, loggerCommand.getCommand());
+		assertEquals(LoggerConstants.UNDO_COMMAND, loggerCommand.getTypeOfCommand());
+	}
+	
+	@Test
+	public void testParseCommandFromLog_Redo_Success() {
+		logReader.addCommandToCommandsToBeExecutedLog(LoggerConstants.REDO_COMMAND);
+		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
+		assertEquals(null, loggerCommand.getCommand());
+		assertEquals(LoggerConstants.REDO_COMMAND, loggerCommand.getTypeOfCommand());
+	}
+	
+	
+	private void addSelectedTestPointToModel() {
+		testPoint.setSelected(true);
+		model.addShape(testPoint);
+		model.addSelectedShape(testPoint);
+	}
+	
+	private void addSelectedLineToModel() {
+		testLine.setSelected(true);
+		model.addShape(testLine);
+		model.addSelectedShape(testLine);
 	}
 
 }

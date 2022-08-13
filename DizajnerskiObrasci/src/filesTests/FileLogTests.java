@@ -8,12 +8,10 @@ import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import files.FileLog;
-import model.DrawingModel;
 
 class FileLogTests {
 
 	private static Scanner scanner;
-	private DrawingModel model;
 	private LogWriter logWriter;
 	private LogReader logReader;
 	private FileLog fileLog;
@@ -23,17 +21,17 @@ class FileLogTests {
 	private Queue<String> queueOfCommandsReadFromFile;
 	private ArrayList<String> listOfCommandsReadFromFile;
 	
-	private String pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
-	private String cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
-	private String cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
+	private String pointLog;
+	private String cmdAddLog;
+	private String cmdSelectLog;
 	
 	@BeforeEach
 	public void setUp() {
-		model = new DrawingModel();
 		logWriter = new LogWriter();
-		logReader = new LogReader(model);
+		logReader = new LogReader();
 		fileLog = new FileLog(logWriter, logReader);
 		initializeLists();
+		initializeLogs();
 		
 	}
 	
@@ -41,6 +39,12 @@ class FileLogTests {
 		listOfLogsSavedInFile = new ArrayList<String>();
 		listOfCommandLogsToSave = new ArrayList<String>();
 		listOfCommandsReadFromFile = new ArrayList<String>();
+	}
+	
+	private void initializeLogs() {
+		pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
+		cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
+		cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
 	}
 
 	@Test

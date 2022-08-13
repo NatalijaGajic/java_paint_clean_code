@@ -17,7 +17,7 @@ public class DrawingController {
 	private DrawingFrame frame;
 	private CommandsHandler commandsHandler;
 	private LogWriter logWriter;
-	private LogReader logReader;
+	private LogParser logParser;
 	private Color activeEdgeColor;
 	private Color activeInnerColor;
 	private Point startPoint;
@@ -35,11 +35,10 @@ public class DrawingController {
 
 	}
 	
-	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler, LogWriter logWriter, LogReader logReader){
+	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler, LogWriter logWriter, LogParser logParser){
 		this(model, frame, commandsHandler);
 		this.logWriter = logWriter;
-		this.logReader = logReader;
-
+		this.logParser = logParser;
 	}
 	
 	public void executeCommand(Command cmd) {
@@ -280,9 +279,9 @@ public class DrawingController {
 	
 	//TODO: When option for executing log is available, other options should be disabled, or log should be cleared if new command is executed
 	public void executeLog() {
-		LoggerCommand commandFromLog = logReader.readCommandFromLog();
-		String typeOfCommand = commandFromLog.getTypeOfCommand();
+		LoggerCommand commandFromLog = logParser.parseCommandFromLog();
 		if(commandFromLog != null) {
+			String typeOfCommand = commandFromLog.getTypeOfCommand();
 			if(typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
 				undoCommand();
 			else if(typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
@@ -290,7 +289,6 @@ public class DrawingController {
 			else
 				executeCommand(commandFromLog.getCommand());
 		}
-		
 	}
 
 	public CommandsHandler getCommandsHandler() {
@@ -303,14 +301,6 @@ public class DrawingController {
 
 	public void setCommandsHandler(CommandsHandler commandsHandler) {
 		this.commandsHandler = commandsHandler;
-	}
-
-	public void setLogWriter(LogWriter logWriter) {
-		this.logWriter = logWriter;
-	}
-
-	public void setLogReader(LogReader logReader) {
-		this.logReader = logReader;
 	}
 	
 	

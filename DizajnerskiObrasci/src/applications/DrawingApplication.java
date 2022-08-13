@@ -16,8 +16,9 @@ public class DrawingApplication {
 			DrawingFrame frame = new DrawingFrame();
 			CommandsHandler commandsHandler = new CommandsHandler();
 			LogWriter logWriter = new LogWriter();
-			LogReader logReader = new LogReader(model);
-			DrawingController drawingController = new DrawingController(model, frame, commandsHandler, logWriter, logReader);
+			LogReader logReader = new LogReader();
+			LogParser logParser = new LogParser(model, logReader);
+			DrawingController drawingController = new DrawingController(model, frame, commandsHandler, logWriter, logParser);
 			FileController fileController = new FileController(model, frame, logWriter, logReader);
 			ButtonsController buttonsController = new ButtonsController(model, frame);
 			DrawingPanel view = frame.getView();

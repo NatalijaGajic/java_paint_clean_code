@@ -25,7 +25,7 @@ class FileControllerTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		logWriter = new LogWriter();
-		logReader = new LogReader(model);
+		logReader = new LogReader();
 		fileController = new FileController(model, frame, logWriter, logReader);
 	}
 	
