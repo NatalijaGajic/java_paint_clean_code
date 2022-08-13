@@ -44,18 +44,35 @@ public class ButtonsController {
 	private void enablePositionButtons() {
 		Shape selectedShape = model.getSelectedShape();
 		int indexOfSelectedShape = model.getIndexOfShape(selectedShape);
-		if(indexOfSelectedShape < model.getNumberOfShapes() - 1) {
-			if(indexOfSelectedShape == 0) {
-				disableToBackPositionButtons();
-			}
+		
+		if(isSelectedShapeTheOnlyShape()) {
+			disableToBackPositionButtons();
+			disableToFrontPositionButtons();
+			return;
+		}
+			
+		if(areThereShapesAboveSelectedShape(indexOfSelectedShape))
 			enableToFrontPositionButtons();
-		}
-		if(indexOfSelectedShape > 0) {
-			if(indexOfSelectedShape == model.getNumberOfShapes() - 1) {
-				disableToFrontPositionButtons();
-			}
+		else
+			disableToFrontPositionButtons();
+		
+		if(areThereShapesUnderSelectedShape(indexOfSelectedShape))
 			enableToBackPositionButtons();
-		}
+		else
+			disableToBackPositionButtons();
+		
+	}
+	
+	private boolean isSelectedShapeTheOnlyShape() {
+		return model.getNumberOfShapes() == 1;
+	}
+	
+	private boolean areThereShapesAboveSelectedShape(int indexOfSelectedShape) {
+		return indexOfSelectedShape < model.getNumberOfShapes() - 1;
+	}
+	
+	private boolean areThereShapesUnderSelectedShape(int indexOfSelectedShape) {
+		return indexOfSelectedShape > 0;
 	}
 	
 	/**
@@ -68,16 +85,30 @@ public class ButtonsController {
 	public void updateSelectedShapesObserverButtons(int numberOfSelectedShapes) {
 		if(numberOfSelectedShapes == 0) {
 			disableNoneSelectedButtons();
-		} else if(numberOfSelectedShapes == 1) { 
-			if(model.getNumberOfShapes() == 1) {
-				disablePositionButtons();
-			}else {
-				enablePositionButtons();
-			}
-			enableOneSelectedButtons();
-		}else {
-			enableMultipleSelectedButtons();
+			return;
 		}
+		
+		if (numberOfSelectedShapes > 1) {
+			enableMultipleSelectedButtons();
+			return;
+		}
+		
+		if(numberOfSelectedShapes == 1)
+			enableOneSelectedButtons();
+		
+		if (isOneShapeSelectedAndTheOnlyShape(numberOfSelectedShapes))
+			disablePositionButtons();
+		
+		if(isOneShapeSelectedAndNotTheOnlyShape(numberOfSelectedShapes))
+			enablePositionButtons();
+	}
+
+	private boolean isOneShapeSelectedAndTheOnlyShape(int numOfSelectedShapes) {
+		return numOfSelectedShapes == 1 && model.getNumberOfShapes() == 1;
+	}
+
+	private boolean isOneShapeSelectedAndNotTheOnlyShape(int numOfSelectedShapes) {
+		return numOfSelectedShapes == 1 && model.getNumberOfShapes() != 1;
 	}
 	
 	private void disableNoneSelectedButtons() {

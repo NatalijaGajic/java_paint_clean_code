@@ -52,27 +52,17 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddSelectedShape_OneSelected_ButtonsEnabled() {
-		rect.setSelected(true);
+	public void testAddSelectedShape_OneSelected_ButtonsEnabled() {
 		model.addSelectedShape(rect);
 		assertTrue(oneSelectedButtonsAreEnabled());
 	}
 	
 	private boolean oneSelectedButtonsAreEnabled() {
-		return editButtonsAreEnabled() && positionButtonsAreEnabled();
-	}
-	
-	private boolean editButtonsAreEnabled() {
 		return optionsToolBar.isBtnDeleteEnabled() && optionsToolBar.isBtnModifyEnabled();
 	}
 	
-	private boolean positionButtonsAreEnabled() {
-		return optionsToolBar.isBtnBringToFrontEnabled() && optionsToolBar.isBtnBringToBackEnabled()
-				&& optionsToolBar.isBtnToFrontEnabled() && optionsToolBar.isBtnToBackEnabled();
-	}
-	
 	@Test
-	void testRemoveSelectedShape_NoneSelected_ButtonsDisabled() {
+	public void testRemoveSelectedShape_NoneSelected_ButtonsDisabled() {
 		model.addSelectedShape(rect);
 		model.removeSelectedShape(rect);
 		assertTrue(noneSelectedButtonsAreDisabled());
@@ -92,7 +82,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddSelectedShape_MultipleSelected_ButtonsDisabled() {
+	public void testAddSelectedShape_MultipleSelected_ButtonsDisabled() {
 		model.addSelectedShape(rect);
 		model.addSelectedShape(point);
 		assertTrue(multipleSelectedButtonsAreDisabled());
@@ -103,7 +93,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddSelectedShape_MultipleSelected_ButtonsEnabled() {
+	public void testAddSelectedShape_MultipleSelected_ButtonsEnabled() {
 		model.addSelectedShape(rect);
 		model.addSelectedShape(point);
 		assertTrue(optionsToolBar.isBtnDeleteEnabled());
@@ -111,7 +101,7 @@ class CollectionOfSelectedShapesTests {
 	
 
 	@Test
-	void testAddSelectedShape_LastAddedShapeSelected_ButtonsToFrontDisabled() {
+	public void testAddSelectedShape_LastAddedShapeSelected_ButtonsToFrontDisabled() {
 		model.addSelectedShape(line);
 		assertTrue(buttonsToFrontAreDisabled());
 	}
@@ -121,13 +111,31 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	@Test
-	void testAddSelectedShape_FirstAddedShapeSelected_ButtonsToBackDisabled() {
+	public void testAddSelectedShape_FirstAddedShapeSelected_ButtonsToBackDisabled() {
 		model.addSelectedShape(point);
 		assertTrue(buttonsToBackAreDisabled());
 	}
 	
 	private boolean buttonsToBackAreDisabled() {
 		return !optionsToolBar.isBtnBringToBackEnabled() && !optionsToolBar.isBtnToBackEnabled();
+	}
+	
+	@Test
+	public void testAddSelectedShape_PositionButtonsEnabled() {
+		model.addSelectedShape(rect);
+		assertTrue(positionButtonsAreEnabled());
+	}
+	
+	private boolean positionButtonsAreEnabled() {
+		return buttonsToBackAreEnabled() && buttonsToFrontAreEnabled();
+	}
+	
+	private boolean buttonsToBackAreEnabled() {
+		return optionsToolBar.isBtnBringToBackEnabled() && optionsToolBar.isBtnToBackEnabled();
+	}
+	
+	private boolean buttonsToFrontAreEnabled() {
+		return optionsToolBar.isBtnBringToFrontEnabled() && optionsToolBar.isBtnToFrontEnabled();
 	}
 
 
