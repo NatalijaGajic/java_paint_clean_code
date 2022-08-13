@@ -30,8 +30,18 @@ public class CmdBringToFront implements Command {
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 	}
 	
+	@Override
 	public String toString() {
 		return LoggerConstants.BRING_TO_FRONT_COMMAND + " " + shapeToMove.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdBringToFront) {
+			Shape forwardedShape = ((CmdBringToFront) obj).shapeToMove;
+			return shapeToMove.equals(forwardedShape);
+		}
+		return false;
 	}
 
 }

@@ -280,15 +280,15 @@ public class DrawingController {
 	
 	//TODO: When option for executing log is available, other options should be disabled, or log should be cleared if new command is executed
 	public void executeLog() {
-		LoggerCommand cmd = logReader.readCommandFromLog();
-		String typeOfCommand = cmd.getTypeOfCommand();
-		if(cmd != null) {
+		LoggerCommand commandFromLog = logReader.readCommandFromLog();
+		String typeOfCommand = commandFromLog.getTypeOfCommand();
+		if(commandFromLog != null) {
 			if(typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
 				undoCommand();
 			else if(typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
 				redoCommand();
 			else
-				executeCommand(cmd.getCommand());
+				executeCommand(commandFromLog.getCommand());
 		}
 		
 	}

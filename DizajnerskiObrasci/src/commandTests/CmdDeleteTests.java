@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import commands.CmdDelete;
+import commands.*;
 import logger.LoggerConstants;
 import model.DrawingModel;
 import java.awt.Color;
@@ -88,6 +88,27 @@ class CmdDeleteTests {
 	public void testToString_Success() {
 		String expected =  LoggerConstants.DELETE_COMMAND + " " + line.toString() + ";" + rect.toString() + ";" + point.toString();
 		assertEquals(expected, cmdDelete.toString());
+	}
+	
+	@Test 
+	void testEquals_NotSameType() {
+		CmdSelect cmdSelect = new CmdSelect(model, point);
+		assertFalse(cmdDelete.equals(cmdSelect));
+	}
+	
+	@Test 
+	void testEquals_ExpectFalse() {
+		Point otherPoint = new Point(20,20);
+		ArrayList<Shape> otherShapesToDelete = new ArrayList<Shape>();
+		otherShapesToDelete.add(otherPoint);
+		CmdDelete otherCmd = new CmdDelete(model, otherShapesToDelete);
+		assertFalse(cmdDelete.equals(otherCmd));
+	}
+	
+	@Test 
+	void testEquals_ExpectTrue() {
+		CmdDelete sameCmd = new CmdDelete(model, shapesToDelete);
+		assertTrue(cmdDelete.equals(sameCmd));
 	}
 
 }

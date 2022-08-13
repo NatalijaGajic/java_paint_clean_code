@@ -31,8 +31,18 @@ public class CmdBringToBack implements Command{
 		model.addShapeAtIndex(indexOfShape, shapeToMove);
 	}
 	
+	@Override
 	public String toString() {
 		return LoggerConstants.BRING_TO_BACK_COMMAND + " " + shapeToMove.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdBringToBack) {
+			Shape forwardedShape = ((CmdBringToBack) obj).shapeToMove;
+			return shapeToMove.equals(forwardedShape);
+		}
+		return false;
 	}
 
 

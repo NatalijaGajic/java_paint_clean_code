@@ -24,8 +24,18 @@ public class CmdAdd implements Command{
 		model.removeShape(shape);
 	}
 	
+	@Override
 	public String toString() {
 		return LoggerConstants.ADD_COMMAND + " " + shape.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdAdd) {
+			Shape forwardedShape = ((CmdAdd) obj).shape;
+			return shape.equals(forwardedShape);
+		}
+		return false;
 	}
 
 }

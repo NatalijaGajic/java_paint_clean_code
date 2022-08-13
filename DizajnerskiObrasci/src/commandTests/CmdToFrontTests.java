@@ -1,6 +1,6 @@
 package commandTests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import commands.*;
@@ -86,6 +86,29 @@ public class CmdToFrontTests {
 		cmdToFront = new CmdToFront(model, circle);
 		String expected =  LoggerConstants.TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToFront.toString());
+	}
+	
+	@Test 
+	public void testEquals_NotSameType() {
+		CmdToFront cmdToFront = new CmdToFront(model, circle);
+		CmdSelect cmdSelect = new CmdSelect(model, point);
+		assertFalse(cmdToFront.equals(cmdSelect));
+		
+	}
+	
+	@Test 
+	public void testEquals_ExpectFalse() {
+		CmdToFront cmdToFront = new CmdToFront(model, circle);
+		Circle otherCircle = new Circle(new Point(10, 10), 10, Color.black, Color.blue);
+		CmdBringToFront otherCmd = new CmdBringToFront(model, otherCircle);
+		assertFalse(cmdToFront.equals(otherCmd));
+	}
+	
+	@Test 
+	public void testEquals_ExpectTrue() {
+		CmdToFront cmdToFront = new CmdToFront(model, circle);
+		CmdToFront otherCmd = new CmdToFront(model, circle);
+		assertTrue(cmdToFront.equals(otherCmd));
 	}
 
 }

@@ -54,6 +54,7 @@ public class CmdDelete implements Command{
 		}
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder compositionOfStrings = new StringBuilder("");
 		Iterator<Shape> it = shapesToDelete.iterator();
@@ -64,5 +65,14 @@ public class CmdDelete implements Command{
 			compositionOfStrings.append(it.next().toString());
 		}
 		return compositionOfStrings.toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdDelete) {
+			ArrayList<Shape> forwardedShapes = ((CmdDelete) obj).shapesToDelete;
+			return shapesToDelete.equals(forwardedShapes);
+		}
+		return false;
 	}
 }

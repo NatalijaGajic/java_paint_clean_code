@@ -87,5 +87,28 @@ class CmdToBackTests {
 		String expected =  LoggerConstants.TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
 	}
+	
+	@Test 
+	public void testEquals_NotSameType() {
+		CmdToBack cmdToBack = new CmdToBack(model, circle);
+		CmdSelect cmdSelect = new CmdSelect(model, point);
+		assertFalse(cmdToBack.equals(cmdSelect));
+		
+	}
+	
+	@Test 
+	public void testEquals_ExpectFalse() {
+		CmdToBack cmdToBack = new CmdToBack(model, circle);
+		Circle otherCircle = new Circle(new Point(10, 10), 10, Color.black, Color.blue);
+		CmdToBack otherCmd = new CmdToBack(model, otherCircle);
+		assertFalse(cmdToBack.equals(otherCmd));
+	}
+	
+	@Test 
+	public void testEquals_ExpectTrue() {
+		CmdToBack cmdToBack = new CmdToBack(model, circle);
+		CmdToBack otherCmd = new CmdToBack(model, circle);
+		assertTrue(cmdToBack.equals(otherCmd));
+	}
 
 }

@@ -30,5 +30,14 @@ public class CmdDeselect implements Command{
 	public String toString() {
 		return LoggerConstants.DESELECT_COMMAND + " " + shape.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdDeselect) {
+			Shape forwardedShape = ((CmdDeselect) obj).shape;
+			return shape.equals(forwardedShape);
+		}
+		return false;
+	}
 
 }

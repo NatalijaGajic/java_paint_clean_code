@@ -3,7 +3,7 @@ package commandTests;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
-import commands.CmdDeselect;
+import commands.*;
 import geometry.Point;
 import logger.LoggerConstants;
 import model.DrawingModel;
@@ -51,5 +51,24 @@ public class CmdDeselectTests {
 	public void testToString_Success() {
 		String expected =  LoggerConstants.DESELECT_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdDeselect.toString());
+	}
+	
+	@Test 
+	public void testEquals_NotSameType() {
+		CmdSelect cmdSelect = new CmdSelect(model, point);
+		assertFalse(cmdDeselect.equals(cmdSelect));
+	}
+	
+	@Test 
+	public void testEquals_ExpectFalse() {
+		Point otherPoint = new Point(20, 20, true);
+		CmdDeselect otherCmd = new CmdDeselect(model, otherPoint);
+		assertFalse(cmdDeselect.equals(otherCmd));
+	}
+	
+	@Test 
+	public void testEquals_ExpectTrue() {
+		CmdDeselect sameCmd = new CmdDeselect(model, point);
+		assertTrue(cmdDeselect.equals(sameCmd));
 	}
 }

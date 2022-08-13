@@ -35,4 +35,13 @@ public class CmdToFront implements Command{
 	public String toString() {
 		return LoggerConstants.TO_FRONT_COMMAND + " " + shapeToMove.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdToFront) {
+			Shape forwardedShape = ((CmdToFront) obj).shapeToMove;
+			return shapeToMove.equals(forwardedShape);
+		}
+		return false;
+	}
 }

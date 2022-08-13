@@ -30,5 +30,14 @@ public class CmdSelect implements Command {
 	public String toString() {
 		return LoggerConstants.SELECT_COMMAND + " " + shape.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdSelect) {
+			Shape forwardedShape = ((CmdSelect) obj).shape;
+			return shape.equals(forwardedShape);
+		}
+		return false;
+	}
 
 }

@@ -25,7 +25,19 @@ public class CmdModify implements Command{
 		oldState.setShapeFileds(originalState);
 	}
 
+	@Override
 	public String toString() {
 		return LoggerConstants.MODIFY_COMMAND + " " + originalState.toString() + " to " + newState.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdModify) {
+			Shape forwardedOldState = ((CmdModify) obj).oldState;
+			Shape forwardedNewState = ((CmdModify) obj).newState;
+			return (oldState.equals(forwardedOldState) && newState.equals(forwardedNewState));
+		}
+		return false;
+	}
+
 }

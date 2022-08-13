@@ -32,8 +32,19 @@ public class CmdToBack implements Command {
 		
 	}
 	
+	@Override
 	public String toString() {
 		return LoggerConstants.TO_BACK_COMMAND + " " + shapeToMove.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CmdToBack) {
+			Shape forwardedShape = ((CmdToBack) obj).shapeToMove;
+			return shapeToMove.equals(forwardedShape);
+		}
+		return false;
+	}
+
 
 }

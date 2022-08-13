@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.Color;
-import commands.CmdModify;
+import commands.*;
 import geometry.Point;
 import logger.LoggerConstants;
+import model.DrawingModel;
 
 class CmdModifyTests {
 
@@ -40,6 +41,26 @@ class CmdModifyTests {
 	public void testToString_Success() {
 		String expected =  LoggerConstants.MODIFY_COMMAND + " " +  oldState.toString() + " to " + newState.toString();
 		assertEquals(expected, commandModifyPoint.toString());
+	}
+	
+	@Test 
+	public void testEquals_NotSameType() {
+		DrawingModel model = new DrawingModel();
+		CmdSelect cmdSelect = new CmdSelect(model, oldState);
+		assertFalse(commandModifyPoint.equals(cmdSelect));
+	}
+	
+	@Test 
+	public void testEquals_ExpectFalse() {
+		Point otherPoint = new Point(20,20);
+		CmdModify otherCmd = new CmdModify(oldState, otherPoint);
+		assertFalse(commandModifyPoint.equals(otherCmd));
+	}
+	
+	@Test 
+	public void testEquals_ExpectTrue() {
+		CmdModify sameCmd = new CmdModify(oldState, newState);
+		assertTrue(commandModifyPoint.equals(sameCmd));
 	}
 
 }
