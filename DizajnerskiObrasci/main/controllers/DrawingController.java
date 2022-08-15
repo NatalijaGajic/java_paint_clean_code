@@ -199,8 +199,7 @@ public class DrawingController {
 	 * @param click
 	 */
 	public void selectOrDeselectShape(Point click) {
-		for(int indexOfShape = model.getNumberOfShapes() - 1; indexOfShape >= 0; indexOfShape--) {
-			Shape shape = model.getShapeAtIndex(indexOfShape);
+		for (Shape shape : model.getShapes()) {
 			
 			if(isShapeClickedAndNotSelected(shape, click)) {
 				CmdSelect cmdSelect = new CmdSelect(model, shape);

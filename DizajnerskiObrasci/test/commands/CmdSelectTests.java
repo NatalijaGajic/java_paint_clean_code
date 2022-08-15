@@ -2,8 +2,8 @@ package commands;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import geometry.Point;
 import logger.TypeOfCommand;
 import model.DrawingModel;
@@ -14,7 +14,7 @@ public class CmdSelectTests {
 	private Point point;
 	private CmdSelect cmdSelect;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		model = new DrawingModel();
 		point = new Point(10, 20, false, Color.black);
@@ -36,12 +36,14 @@ public class CmdSelectTests {
 
 	@Test
 	public void testUnexecute_ShapeNotSelected() {
+		cmdSelect.execute();
 		cmdSelect.unexecute();
 		assertFalse(point.isSelected());
 	}
 
 	@Test
 	public void testUnexecute_ShapeRemovedFromSelectedShapes() {
+		cmdSelect.execute();
 		cmdSelect.unexecute();
 		assertFalse(model.doesContainSelectedShape(point));
 	}
