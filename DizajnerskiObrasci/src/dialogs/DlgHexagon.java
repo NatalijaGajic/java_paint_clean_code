@@ -111,7 +111,7 @@ public class DlgHexagon extends DlgSurfaceShape{
 		Color edgeColor = getEdgeColor();
 		Color innerColor = getInnerColor();
 		
-		return new HexagonAdapter(center, radius, edgeColor, innerColor, true);
+		return new HexagonAdapter(center, radius, edgeColor, innerColor);
 	}
 	
 	public JTextField getTxtRadius() {

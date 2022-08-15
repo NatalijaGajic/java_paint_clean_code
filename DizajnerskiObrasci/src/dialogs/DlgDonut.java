@@ -159,7 +159,7 @@ public class DlgDonut extends DlgSurfaceShape {
 		Color edgeColor = getEdgeColor();
 		Color innerColor = getInnerColor();
 		
-		return new Donut(new Point(x,y), radius, innerRadius, true, edgeColor, innerColor);
+		return new Donut(new Point(x,y), radius, innerRadius, edgeColor, innerColor);
 	}
 
 	public JTextField getTxtRad() {
