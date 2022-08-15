@@ -78,15 +78,13 @@ public class DlgLine extends DlgShape{
 
 	@Override
 	public boolean areAllFieldsFilled() {
-		String xCoorfStartPointValue = getTxtXCoord().getText();
+		String xCoordOfStartPointValue = getTxtXCoord().getText();
 		String yCoordOfStartPointValue = getTxtYCoord().getText();
 		String xCoordOfEndPointValue = txtEndPointXCoord.getText();
 		String yCoordOfEndPointValue = txtEndPointYCoord.getText();
 
-		if (xCoorfStartPointValue.isEmpty() || yCoordOfStartPointValue.isEmpty()
-				|| xCoordOfEndPointValue.isEmpty() || yCoordOfEndPointValue.isEmpty())
-			return false;
-		return true;
+		return (!xCoordOfStartPointValue.isEmpty() && !yCoordOfStartPointValue.isEmpty()
+				&& !xCoordOfEndPointValue.isEmpty() && !yCoordOfEndPointValue.isEmpty());
 	}
 	
 	public void setCreateDialogFields(Point startPoint, Point endPoint, Color edgeColor) {

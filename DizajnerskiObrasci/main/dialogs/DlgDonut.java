@@ -88,10 +88,8 @@ public class DlgDonut extends DlgSurfaceShape {
 		String xCoordValue = getTxtXCoord().getText();
 		String yCoordValue = getTxtYCoord().getText();
 
-		if (xCoordValue.isEmpty() || yCoordValue.isEmpty() || innerRadiusValue.isEmpty()
-				|| radiusValue.isEmpty())
-			return false;
-		return true;
+		return (!xCoordValue.isEmpty() && !yCoordValue.isEmpty() && !innerRadiusValue.isEmpty()
+				&& !radiusValue.isEmpty());
 	}
 
 	@Override

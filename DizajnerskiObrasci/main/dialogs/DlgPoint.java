@@ -25,9 +25,7 @@ public class DlgPoint extends DlgShape {
 		String xCoordValue = getTxtXCoord().getText();
 		String yCoordValue = getTxtYCoord().getText();
 
-		if (xCoordValue.isEmpty() || yCoordValue.isEmpty())
-			return false;
-		return true;
+		return (!xCoordValue.isEmpty() && !yCoordValue.isEmpty());
 	}
 
 	@Override

@@ -130,11 +130,11 @@ public class DrawingController {
 	}
 	
 	public void modifyLineIfAccepted(Shape selectedShape) {
-		Point point = (Point) selectedShape;
-		DlgPoint dlg = new DlgPoint();
-		dlg.setModifyDialogFields(point);
+		Line line = (Line) selectedShape;
+		DlgLine dlg = new DlgLine();
+		dlg.setModifyDialogFields(line);
 		dlg.setVisible(true);
-		modifyShapeIfAccepted(dlg, point);
+		modifyShapeIfAccepted(dlg, line);
 	}
 	
 	public void modifyCircleIfAccepted(Shape selectedShape) {

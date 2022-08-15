@@ -58,9 +58,7 @@ public class DlgCircle extends DlgSurfaceShape {
 		String xCoordValue = getTxtXCoord().getText();
 		String yCoordValue = getTxtYCoord().getText();
 
-		if (xCoordValue.isEmpty() || yCoordValue.isEmpty() || radiusValue.isEmpty())
-			return false;
-		return true;
+		return (!xCoordValue.isEmpty() && !yCoordValue.isEmpty() && !radiusValue.isEmpty());
 	}
 
 	@Override

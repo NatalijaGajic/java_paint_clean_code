@@ -83,9 +83,7 @@ public class DlgRectangle extends DlgSurfaceShape {
 		String heightValue = txtHeight.getText();
 		String widthValue = txtWidth.getText();
 
-		if (xCoordValue.isEmpty() || yCoordValue.isEmpty() || heightValue.isEmpty() || widthValue.isEmpty())
-			return false;
-		return true;
+		return (!xCoordValue.isEmpty() && !yCoordValue.isEmpty() && !heightValue.isEmpty() && !widthValue.isEmpty());
 	}
 
 	@Override
