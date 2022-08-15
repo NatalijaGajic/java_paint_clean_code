@@ -130,10 +130,6 @@ public class DrawingFrame extends JFrame {
 		this.view = view;
 	}
 
-	public void setDrawingController(DrawingController drawingController) {
-		this.drawingController = drawingController;
-	}
-
 	public DrawingController getDrawingController() {
 		return drawingController;
 	}
@@ -154,7 +150,16 @@ public class DrawingFrame extends JFrame {
 		return optionsToolBar;
 	}
 	
-	public void setDrawingControllerForToolBars(DrawingController drawingController) {
+	public FrameMenuBar getFrameMenuBar() {
+		return menuBar;
+	}
+	
+	public void setDrawingController(DrawingController drawingController) {
+		this.drawingController = drawingController;
+		setDrawingControllerForToolBars();
+	}
+	
+	private void setDrawingControllerForToolBars() {
 		colorToolBar.setDrawingController(drawingController);
 		optionsToolBar.setDrawingController(drawingController);
 	}
@@ -165,10 +170,6 @@ public class DrawingFrame extends JFrame {
 	
 	public void setDefaultListModelForScrollPane(DefaultListModel<String> defaultListModel) {
 		scrollPane.setDefaultListModel(defaultListModel);
-	}
-
-	public FrameMenuBar getFrameMenuBar() {
-		return menuBar;
 	}
 	
 	public void setFileControllerForMenuBar(FileController fileController) {

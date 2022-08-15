@@ -17,7 +17,6 @@ class FrameColorToorBarTests {
 		frame = new DrawingFrame();
 		controller = mock(DrawingController.class);
 		frame.setDrawingController(controller);
-		frame.setDrawingControllerForToolBars(controller);
 		colorToolBar = frame.getColorToolBar();
 	}
 	

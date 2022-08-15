@@ -19,7 +19,6 @@ class CommandsHandlerTests {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private DrawingController controller;
 	private ButtonsController buttonsController;
 	private FrameOptionsToolBar optionsToolBar;
 	private CommandsHandler commandsHandler;
@@ -35,17 +34,13 @@ class CommandsHandlerTests {
 	public void setUp() {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
-		controller = new DrawingController(model, frame);
 		buttonsController = new ButtonsController(model, frame);
-		optionsToolBar = frame.getOptionsToolBar();
 		commandsHandler = new CommandsHandler();
-		
-		frame.setDrawingController(controller);
-		frame.setDrawingControllerForToolBars(controller);
-		frame.setButtonsControllerForOptionsToolBar(buttonsController);
-		commandsHandler.registerObserver(optionsToolBar);
+		optionsToolBar = frame.getOptionsToolBar();
 		executedCommands = commandsHandler.getExecutedCommands();
 		unexecutedCommands = commandsHandler.getUnexecutedCommands();
+		frame.setButtonsControllerForOptionsToolBar(buttonsController);
+		commandsHandler.registerObserver(optionsToolBar);
 		initializeCommands();
 		
 	}
@@ -79,59 +74,59 @@ class CommandsHandlerTests {
 	}
 	
 	@Test
-	public void testUndo_CommandPopedFromExecutedCommandsStack() {
+	public void testUndoExecutedCommand_CommandPopedFromExecutedCommandsStack() {
 		executedCommands.push(cmdAddPoint);
-		commandsHandler.undo();
+		commandsHandler.undoExecutedCommand();
 		assertEquals(0, executedCommands.size());
 	}
 	
 	@Test
-	public void testUndo_CommandPushedToUnexcutedCommandsStack() {
+	public void testUndoExecutedCommand_CommandPushedToUnexcutedCommandsStack() {
 		executedCommands.push(cmdAddPoint);
-		commandsHandler.undo();
+		commandsHandler.undoExecutedCommand();
 		assertEquals(1, unexecutedCommands.size());
 	}
 	
 	@Test
-	public void testUndo_UnexecuteCalled() {
+	public void testUndoExecutedCommand_UnexecuteCalled() {
 		executedCommands.push(cmdAddMock);
-		commandsHandler.undo();
+		commandsHandler.undoExecutedCommand();
 		verify(cmdAddMock).unexecute();
 	}
 	
 	@Test
-	public void testUndo_RedoButtonEnabled() {
+	public void testUndoExecutedCommand_RedoButtonEnabled() {
 		cmdAddPoint.execute();
 		executedCommands.push(cmdAddPoint);
-		commandsHandler.undo();
+		commandsHandler.undoExecutedCommand();
 		assertTrue(optionsToolBar.isBtnRedoEnabled());
 	}
 	
 	@Test
-	public void testRedo_CommandPopedFromUnexecutedCommandsStack() {
+	public void testRedoUnexecutedCommand_CommandPopedFromUnexecutedCommandsStack() {
 		unexecutedCommands.push(cmdAddPoint);
-		commandsHandler.redo();
+		commandsHandler.redoUnexecutedCommand();
 		assertEquals(0, unexecutedCommands.size());
 	}
 	
 	@Test
-	public void testRedo_CommandPushedToExecutedCommandsStack() {
+	public void testRedoUnexecutedCommand_CommandPushedToExecutedCommandsStack() {
 		unexecutedCommands.push(cmdAddPoint);
-		commandsHandler.redo();
+		commandsHandler.redoUnexecutedCommand();
 		assertEquals(1, executedCommands.size());
 	}
 	
 	@Test
-	public void testRedo_ExecuteCalled() {
+	public void testRedoUnexecutedCommand_ExecuteCalled() {
 		unexecutedCommands.push(cmdAddMock);
-		commandsHandler.redo();
+		commandsHandler.redoUnexecutedCommand();
 		verify(cmdAddMock).execute();
 	}
 	
 	@Test
-	public void testRedo_UndoButtonEnabled() {
+	public void testRedoUnexecutedCommand_UndoButtonEnabled() {
 		unexecutedCommands.push(cmdAddMock);
-		commandsHandler.redo();
+		commandsHandler.redoUnexecutedCommand();
 		assertTrue(optionsToolBar.isBtnUndoEnabled());
 	}
 	

@@ -16,17 +16,17 @@ public class CommandsHandler implements CommandsHandlerSubject{
 		observers = new ArrayList<CommandsHandlerObserver>();
 	}
 	
-	public void undo() {
-		Command cmd = executedCommands.pop();
-		cmd.unexecute();
-		unexecutedCommands.push(cmd);
+	public void undoExecutedCommand() {
+		Command executedCommand = executedCommands.pop();
+		executedCommand.unexecute();
+		unexecutedCommands.push(executedCommand);
 		notifyObservers();
 	}
 	
-	public void redo() {
-		Command cmd = unexecutedCommands.pop();
-		cmd.execute();
-		executedCommands.push(cmd);
+	public void redoUnexecutedCommand() {
+		Command unexecutedCommand = unexecutedCommands.pop();
+		unexecutedCommand.execute();
+		executedCommands.push(unexecutedCommand);
 		notifyObservers();
 	}
 	

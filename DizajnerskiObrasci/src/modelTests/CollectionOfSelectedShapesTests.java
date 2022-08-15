@@ -14,7 +14,6 @@ class CollectionOfSelectedShapesTests {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private DrawingController controller;
 	private ButtonsController buttonsController;
 	private FrameOptionsToolBar optionsToolBar;
 	private Point point;
@@ -26,12 +25,9 @@ class CollectionOfSelectedShapesTests {
 	public void setUp() {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
-		controller = new DrawingController(model, frame);
 		buttonsController = new ButtonsController(model, frame);
 		optionsToolBar = frame.getOptionsToolBar();
 		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
-		frame.setDrawingController(controller);
-		frame.setDrawingControllerForToolBars(controller);
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeShapes();
 		addShapes();

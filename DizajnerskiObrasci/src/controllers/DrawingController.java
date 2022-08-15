@@ -265,13 +265,13 @@ public class DrawingController {
 	}	
 	
 	public void undoCommand() {
-		commandsHandler.undo();
+		commandsHandler.undoExecutedCommand();
 		logWriter.log(LoggerConstants.UNDO_COMMAND);
 		frame.getView().repaint();
 	}
 	
 	public void redoCommand() {
-		commandsHandler.redo();
+		commandsHandler.redoUnexecutedCommand();
 		logWriter.log(LoggerConstants.REDO_COMMAND);
 		frame.getView().repaint();
 	}
@@ -290,18 +290,5 @@ public class DrawingController {
 		}
 	}
 
-	public CommandsHandler getCommandsHandler() {
-		return commandsHandler;
-	}
-
-	public DrawingModel getModel() {
-		return model;
-	}
-
-	public void setCommandsHandler(CommandsHandler commandsHandler) {
-		this.commandsHandler = commandsHandler;
-	}
-	
-	
 	
 }

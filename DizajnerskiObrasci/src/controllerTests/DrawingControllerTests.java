@@ -47,9 +47,7 @@ class DrawingControllerTests {
 		logParser = new LogParser(model, logReader);
 		drawingController = new DrawingController(model, frame, commandsHandler, logWriter, logParser);
 		executedCommands = commandsHandler.getExecutedCommands();
-		frame.getView().setModel(model);
 		frame.setDrawingController(drawingController);
-
 		initializeShapes();
 	}
 	

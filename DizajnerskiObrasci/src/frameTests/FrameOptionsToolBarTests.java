@@ -17,7 +17,6 @@ class FrameOptionsToolBarTests {
 		frame = new DrawingFrame();
 		controller = mock(DrawingController.class);
 		frame.setDrawingController(controller);
-		frame.setDrawingControllerForToolBars(controller);
 		optionsToolBar = frame.getOptionsToolBar();
 	}
 	

@@ -25,12 +25,9 @@ class CollectionOfShapesTests {
 	public void setUp() {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
-		controller = new DrawingController(model, frame);
 		buttonsController = new ButtonsController(model, frame);
 		optionsToolBar = frame.getOptionsToolBar();
 		model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
-		frame.setDrawingController(controller);
-		frame.setDrawingControllerForToolBars(controller);
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeShapes();
 		addShapes();

@@ -29,7 +29,6 @@ public class DrawingApplication {
 			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
 			
 			frame.setDrawingController(drawingController);
-			frame.setDrawingControllerForToolBars(drawingController);
 			frame.setFileControllerForMenuBar(fileController);
 			frame.setButtonsControllerForOptionsToolBar(buttonsController);
 			frame.setDefaultListModelForScrollPane(logWriter.getExecutedCommandsLog());
