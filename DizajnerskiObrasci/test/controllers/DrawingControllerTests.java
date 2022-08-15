@@ -350,7 +350,52 @@ class DrawingControllerTests {
 		assertFalse(model.doesContainSelectedShape(point));
 	}
 	
+	@Test
+	public void testDeleteShapes_ShapesRemovedFromModel() {
+		model.addShape(testCircle);
+		model.addShape(testLine);
+		model.addSelectedShape(testCircle);
+		model.addSelectedShape(testLine);
+		drawingController.deleteShapes();
+		assertEquals(0, model.getNumberOfShapes());
+		assertEquals(0, model.getNumberOfSelectedShapes());
+	}
 	
+	@Test
+	public void testMoveShapeToBack_ShapeMoved() {
+		model.addShape(testCircle);
+		model.addShape(testLine);
+		model.addSelectedShape(testLine);
+		drawingController.moveShapeToBack();
+		assertEquals(0, model.getIndexOfShape(testLine));
+	}
+	
+	@Test
+	public void testMoveShapeToFront_ShapeMoved() {
+		model.addShape(testCircle);
+		model.addShape(testLine);
+		model.addSelectedShape(testCircle);
+		drawingController.moveShapeToFront();
+		assertEquals(1, model.getIndexOfShape(testCircle));
+	}
+	
+	@Test
+	public void testBringShapeToBack_ShapeMoved() {
+		model.addShape(testCircle);
+		model.addShape(testLine);
+		model.addSelectedShape(testLine);
+		drawingController.bringShapeToBack();
+		assertEquals(0, model.getIndexOfShape(testLine));
+	}
+	
+	@Test
+	public void testBringShapeToFront_ShapeMoved() {
+		model.addShape(testCircle);
+		model.addShape(testLine);
+		model.addSelectedShape(testCircle);
+		drawingController.moveShapeToFront();
+		assertEquals(1, model.getIndexOfShape(testCircle));
+	}
 	
 
 }
