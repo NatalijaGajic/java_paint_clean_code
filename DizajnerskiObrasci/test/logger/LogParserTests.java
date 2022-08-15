@@ -3,13 +3,10 @@ package logger;
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import commands.*;
 import geometry.*;
-import logger.*;
 import model.DrawingModel;
 
 class LogParserTests {

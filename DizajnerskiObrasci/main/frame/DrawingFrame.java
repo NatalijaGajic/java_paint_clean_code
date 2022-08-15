@@ -1,7 +1,10 @@
 package frame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +19,8 @@ public class DrawingFrame extends JFrame {
 	private JPanel pnlWest;
 	private JPanel pnlNorth;
 	private JPanel pnlSouth;
+	private JPanel pnlAuthor;
+	private JLabel lblAuthor;
 	private FrameScrollPane scrollPane;
 	private FrameShapeToolBar shapeToolBar;
 	private FrameColorToolBar colorToolBar;
@@ -55,6 +60,8 @@ public class DrawingFrame extends JFrame {
 		pnlNorth = new JPanel();
 		pnlSouth = new JPanel();
 		pnlWest = new JPanel();
+		pnlAuthor = new JPanel();
+		lblAuthor = new JLabel("Author: Natalija Gajic ");
 	}
 	
 	private void createToolBars() {
@@ -65,9 +72,9 @@ public class DrawingFrame extends JFrame {
 	}
 	
 	private void buildFrame() {
-		setTitle("Dizajnerski obrasci");
+		setTitle("Drawing Application");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 585);
+		setBounds(100, 100, 900, 605);
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,8 +93,16 @@ public class DrawingFrame extends JFrame {
 		pnlWest.add(drawingOptionsToolBar);
 		pnlWest.add(commandOptionsToolBar);
 		
-		pnlSouth.setLayout(new BorderLayout(0, 0));
+		lblAuthor.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAuthor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAuthor.setForeground(Color.LIGHT_GRAY);
+		
+		pnlAuthor.setLayout(new GridLayout(0, 1, 0, 0));
+		pnlAuthor.add(lblAuthor);
+		
+		pnlSouth.setLayout(new BoxLayout(pnlSouth, BoxLayout.Y_AXIS));
 		pnlSouth.add(scrollPane);
+		pnlSouth.add(pnlAuthor);
 		
 	}
 	

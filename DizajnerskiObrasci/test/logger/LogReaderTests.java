@@ -9,7 +9,6 @@ import commands.*;
 import controllers.ButtonsController;
 import frame.*;
 import geometry.*;
-import logger.*;
 import model.DrawingModel;
 
 class LogReaderTests {
