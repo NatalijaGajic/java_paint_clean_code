@@ -202,11 +202,13 @@ public class DrawingController {
 		for(int indexOfShape = model.getNumberOfShapes() - 1; indexOfShape >= 0; indexOfShape--) {
 			Shape shape = model.getShapeAtIndex(indexOfShape);
 			
-			if(shape.contains(click) && !shape.isSelected()) {
+			if(isShapeClickedAndNotSelected(shape, click)) {
 				CmdSelect cmdSelect = new CmdSelect(model, shape);
 				commandController.executeCommand(cmdSelect);
 				break;
-			}else if(shape.contains(click) && shape.isSelected()) {
+			}
+			
+			if(isShapeClickedAndSelected(shape, click)) {
 				CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
 				commandController.executeCommand(cmdDeselect);
 				break;
@@ -214,6 +216,14 @@ public class DrawingController {
 		}
 		
 	}	
+	
+	private boolean isShapeClickedAndNotSelected(Shape shape, Point click) {
+		return shape.contains(click) && !shape.isSelected();
+	}
+	
+	private boolean isShapeClickedAndSelected(Shape shape, Point click) {
+		return shape.contains(click) && shape.isSelected();
+	}
 	
 	public void moveShapeToBack() {
 		Shape selectedShape = model.getSelectedShape();
