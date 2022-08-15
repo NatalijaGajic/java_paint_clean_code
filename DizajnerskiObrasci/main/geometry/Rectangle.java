@@ -2,7 +2,8 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 public class Rectangle extends SurfaceShape {
 	
@@ -115,7 +116,7 @@ public class Rectangle extends SurfaceShape {
 	
 	@Override
 	public String toString() {
-		return LoggerConstants.RECTANGLE + ":(" + this.getUpperLeftPoint().getX() + "," + this.getUpperLeftPoint().getY() + ") "
+		return TypeOfShape.RECTANGLE + ":(" + this.getUpperLeftPoint().getX() + "," + this.getUpperLeftPoint().getY() + ") "
 				+ "W:" + this.getWidth() + ", H:" + this.getHeight() + ", BC:" + this.getColor().getRGB() + ", "
 						+ "FC:" + this.getInnerColor().getRGB();
 	}

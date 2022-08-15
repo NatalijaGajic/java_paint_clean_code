@@ -6,7 +6,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 class DonutTests {
 
@@ -85,7 +86,7 @@ class DonutTests {
 
 	@Test
 	public void testToString_Success() {
-		String expected = LoggerConstants.DONUT + ":(" + donut.getCenter().getX() + "," + donut.getCenter().getY() + ")"
+		String expected = TypeOfShape.DONUT + ":(" + donut.getCenter().getX() + "," + donut.getCenter().getY() + ")"
 				+ " OR:" + donut.getRadius() + ", IR:" + donut.getInnerRadius() + ", "
 				+ "BC:" + donut.getColor().getRGB() + ", FC:" + donut.getInnerColor().getRGB();
 		assertEquals(expected, donut.toString());

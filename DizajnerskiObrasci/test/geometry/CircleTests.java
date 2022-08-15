@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
+import logger.TypeOfShape;
 
 class CircleTests {
 
@@ -91,7 +91,7 @@ class CircleTests {
 
 	@Test
 	public void testToString_Success() {
-		String expected = LoggerConstants.CIRCLE + ":(" + circle.getCenter().getX() + "," + circle.getCenter().getY()+") "
+		String expected = TypeOfShape.CIRCLE + ":(" + circle.getCenter().getX() + "," + circle.getCenter().getY()+") "
 				+ "R:" + circle.getRadius() + ", BC:" + circle.getColor().getRGB() + ", "
 				+ "FC:" + circle.getInnerColor().getRGB();
 		assertEquals(expected, circle.toString());

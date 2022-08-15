@@ -3,10 +3,10 @@ package commands;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
 import model.DrawingModel;
 import java.awt.Color;
 import geometry.*;
+import logger.TypeOfCommand;
 
 
 class CmdBringToBackTests {
@@ -79,7 +79,7 @@ class CmdBringToBackTests {
 	@Test
 	public void testToString_Success() {
 		CmdBringToBack cmdToBack = new CmdBringToBack(model, circle);
-		String expected =  LoggerConstants.BRING_TO_BACK_COMMAND + " " + circle.toString();
+		String expected =  TypeOfCommand.BRING_TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
 	}
 	

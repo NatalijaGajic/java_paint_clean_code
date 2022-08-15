@@ -1,7 +1,7 @@
 package commands;
 
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdToFront implements Command{
@@ -33,7 +33,7 @@ public class CmdToFront implements Command{
 	}
 	
 	public String toString() {
-		return LoggerConstants.TO_FRONT_COMMAND + " " + shapeToMove.toString();
+		return TypeOfCommand.TO_FRONT_COMMAND + " " + shapeToMove.toString();
 	}
 	
 	@Override

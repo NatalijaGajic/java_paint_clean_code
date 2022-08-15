@@ -1,7 +1,7 @@
 package commands;
 
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 
 public class CmdModify implements Command{
 
@@ -27,7 +27,7 @@ public class CmdModify implements Command{
 
 	@Override
 	public String toString() {
-		return LoggerConstants.MODIFY_COMMAND + " " + originalState.toString() + " to " + newState.toString();
+		return TypeOfCommand.MODIFY_COMMAND + " " + originalState.toString() + " to " + newState.toString();
 	}
 	
 	@Override

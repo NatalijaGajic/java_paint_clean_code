@@ -195,18 +195,18 @@ class LogParserTests {
 	
 	@Test
 	public void testParseCommandFromLog_Undo_Success() {
-		logReader.addCommandToCommandsToBeExecutedLog(LoggerConstants.UNDO_COMMAND);
+		logReader.addCommandToCommandsToBeExecutedLog(TypeOfCommand.UNDO_COMMAND.toString());
 		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
 		assertEquals(null, loggerCommand.getCommand());
-		assertEquals(LoggerConstants.UNDO_COMMAND, loggerCommand.getTypeOfCommand());
+		assertEquals(TypeOfCommand.UNDO_COMMAND, loggerCommand.getTypeOfCommand());
 	}
 	
 	@Test
 	public void testParseCommandFromLog_Redo_Success() {
-		logReader.addCommandToCommandsToBeExecutedLog(LoggerConstants.REDO_COMMAND);
+		logReader.addCommandToCommandsToBeExecutedLog(TypeOfCommand.REDO_COMMAND.toString());
 		LoggerCommand loggerCommand = logParser.parseCommandFromLog();
 		assertEquals(null, loggerCommand.getCommand());
-		assertEquals(LoggerConstants.REDO_COMMAND, loggerCommand.getTypeOfCommand());
+		assertEquals(TypeOfCommand.REDO_COMMAND, loggerCommand.getTypeOfCommand());
 	}
 	
 	

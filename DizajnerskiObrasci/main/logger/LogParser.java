@@ -5,6 +5,7 @@ import java.util.*;
 import commands.*;
 import geometry.*;
 import model.DrawingModel;
+import logger.TypeOfCommand;
 
 public class LogParser {
 
@@ -25,27 +26,27 @@ public class LogParser {
 		String[] splitedLog = logLine.split("[, =():]");
 		String typeOfCommand = splitedLog[0];
 		
-		if(typeOfCommand.equals(LoggerConstants.ADD_COMMAND))
+		if(typeOfCommand.equals(TypeOfCommand.ADD_COMMAND.toString()))
 			return makeAddCommand(splitedLog);
-		else if (typeOfCommand.equals(LoggerConstants.SELECT_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.SELECT_COMMAND.toString()))
 			return makeSelectCommand(splitedLog);
-		else if (typeOfCommand.equals(LoggerConstants.DESELECT_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.DESELECT_COMMAND.toString()))
 			return makeDeselectCommand(splitedLog);
-		else if (typeOfCommand.equals(LoggerConstants.MODIFY_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.MODIFY_COMMAND.toString()))
 			return makeModifyCommand(splitedLog);
-		else if (typeOfCommand.equals(LoggerConstants.DELETE_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.DELETE_COMMAND.toString()))
 			return makeDeleteCommand();
-		else if (typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.UNDO_COMMAND.toString()))
 			return makeUndoCommand();
-		else if (typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.REDO_COMMAND.toString()))
 			return makeRedoCommand();
-		else if (typeOfCommand.equals(LoggerConstants.TO_BACK_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.TO_BACK_COMMAND.toString()))
 			return makeMoveShapeToBackCommand();
-		else if (typeOfCommand.equals(LoggerConstants.TO_FRONT_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.TO_FRONT_COMMAND.toString()))
 			return makeMoveShapeToFrontCommand();
-		else if (typeOfCommand.equals(LoggerConstants.BRING_TO_FRONT_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.BRING_TO_FRONT_COMMAND.toString()))
 			return makeBringShapeToFrontCommand();
-		else if (typeOfCommand.equals(LoggerConstants.BRING_TO_BACK_COMMAND))
+		else if (typeOfCommand.equals(TypeOfCommand.BRING_TO_BACK_COMMAND.toString()))
 			return makeBringShapeToBackCommand();
 		
 		return null;
@@ -54,84 +55,84 @@ public class LogParser {
 	private LoggerCommand makeAddCommand(String[] splitedLogLine) {
 		Shape shape = parseShapeFromLog(splitedLogLine);
 		Command command = new CmdAdd(model, shape);
-		return new LoggerCommand(command, LoggerConstants.ADD_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.ADD_COMMAND);
 	}
 	
 	private LoggerCommand makeSelectCommand(String[] splitedLogLine) {
 		Shape shape = parseShapeFromLog(splitedLogLine);
 		shape = model.getShapeEqualTo(shape);
 		Command command = new CmdSelect(model, shape);
-		return new LoggerCommand(command, LoggerConstants.SELECT_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.SELECT_COMMAND);
 	}
 	
 	private LoggerCommand makeDeselectCommand(String[] splitedLogLine) {
 		Shape shape = parseShapeFromLog(splitedLogLine);
 		Shape selectedShape = model.getSelectedShapeEqualTo(shape);
 		Command command = new CmdDeselect(model, selectedShape);
-		return new LoggerCommand(command, LoggerConstants.DESELECT_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.DESELECT_COMMAND);
 	}
 	
 	private LoggerCommand makeModifyCommand(String[] splitedLogLine) {
 		Shape selectedShape = model.getSelectedShape();
 		Shape modifiedShape = parseModifiedShapeFromLog(splitedLogLine);
 		Command command = new CmdModify(selectedShape, modifiedShape.clone());
-		return new LoggerCommand(command, LoggerConstants.MODIFY_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.MODIFY_COMMAND);
 	}
 	
 	private LoggerCommand makeDeleteCommand() {
 		@SuppressWarnings("unchecked")
 		ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
 		Command command = new CmdDelete(model, shapesToDelete);
-		return new LoggerCommand(command, LoggerConstants.DELETE_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.DELETE_COMMAND);
 	}
 	
 	private LoggerCommand makeUndoCommand() {
-		return new LoggerCommand(null, LoggerConstants.UNDO_COMMAND);
+		return new LoggerCommand(null, TypeOfCommand.UNDO_COMMAND);
 	}
 	
 	private LoggerCommand makeRedoCommand() {
-		return new LoggerCommand(null, LoggerConstants.REDO_COMMAND);
+		return new LoggerCommand(null, TypeOfCommand.REDO_COMMAND);
 	}
 	
 	private LoggerCommand makeMoveShapeToBackCommand() {
 		Shape shape = model.getSelectedShape();
 		Command command = new CmdToBack(model, shape);
-		return new LoggerCommand(command, LoggerConstants.TO_BACK_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.TO_BACK_COMMAND);
 	}
 	
 	private LoggerCommand makeMoveShapeToFrontCommand() {
 		Shape shape = model.getSelectedShape();
 		Command command = new CmdToFront(model, shape);
-		return new LoggerCommand(command, LoggerConstants.TO_FRONT_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.TO_FRONT_COMMAND);
 	}
 	
 	private LoggerCommand makeBringShapeToFrontCommand() {
 		Shape shape = model.getSelectedShape();
 		Command command = new CmdBringToFront(model, shape);
-		return new LoggerCommand(command, LoggerConstants.BRING_TO_FRONT_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.BRING_TO_FRONT_COMMAND);
 	}
 	
 	private LoggerCommand makeBringShapeToBackCommand() {
 		Shape shape = model.getSelectedShape();
 		Command command = new CmdBringToBack(model, shape);
-		return new LoggerCommand(command, LoggerConstants.BRING_TO_FRONT_COMMAND);
+		return new LoggerCommand(command, TypeOfCommand.BRING_TO_FRONT_COMMAND);
 	}
 	
 	private Shape parseShapeFromLog(String[] splitedLogLine) {
 		splitedLogLine = Arrays.copyOfRange(splitedLogLine, 1, splitedLogLine.length);
 		String typeOfShape = splitedLogLine[0];
 		
-		if (typeOfShape.equals(LoggerConstants.POINT))
+		if (typeOfShape.equals(TypeOfShape.POINT.toString()))
 			return parsePointFromLog(splitedLogLine);
-		else if(typeOfShape.equals(LoggerConstants.LINE))
+		else if(typeOfShape.equals(TypeOfShape.LINE.toString()))
 			return parseLineFromLog(splitedLogLine);
-		else if (typeOfShape.equals(LoggerConstants.CIRCLE))
+		else if (typeOfShape.equals(TypeOfShape.CIRCLE.toString()))
 			return parseCircleFromLog(splitedLogLine);
-		else if (typeOfShape.equals(LoggerConstants.DONUT))
+		else if (typeOfShape.equals(TypeOfShape.DONUT.toString()))
 			return parseDonutFromLog(splitedLogLine);
-		else if (typeOfShape.equals(LoggerConstants.HEXAGON))
+		else if (typeOfShape.equals(TypeOfShape.HEXAGON.toString()))
 			return parseHexagonFromLog(splitedLogLine);
-		else if (typeOfShape.equals(LoggerConstants.RECTANGLE))
+		else if (typeOfShape.equals(TypeOfShape.RECTANGLE.toString()))
 			return parseRectangleFromLog(splitedLogLine);
 		return null;
 	}

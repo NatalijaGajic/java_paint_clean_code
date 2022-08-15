@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 import geometry.Point;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 import java.awt.Color;
 
@@ -48,7 +48,7 @@ public class CmdDeselectTests {
 	
 	@Test
 	public void testToString_Success() {
-		String expected =  LoggerConstants.DESELECT_COMMAND + " " + point.toString();
+		String expected =  TypeOfCommand.DESELECT_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdDeselect.toString());
 	}
 	

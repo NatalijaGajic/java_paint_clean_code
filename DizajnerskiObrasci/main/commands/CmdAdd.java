@@ -1,7 +1,7 @@
 package commands;
 
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdAdd implements Command{
@@ -26,7 +26,7 @@ public class CmdAdd implements Command{
 	
 	@Override
 	public String toString() {
-		return LoggerConstants.ADD_COMMAND + " " + shape.toString();
+		return TypeOfCommand.ADD_COMMAND + " " + shape.toString();
 	}
 	
 	@Override

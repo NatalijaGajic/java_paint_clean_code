@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
 import model.DrawingModel;
 import java.awt.Color;
 import geometry.*;
+import logger.TypeOfCommand;
 
 class CmdDeleteTests {
 
@@ -85,7 +85,7 @@ class CmdDeleteTests {
 	
 	@Test
 	public void testToString_Success() {
-		String expected =  LoggerConstants.DELETE_COMMAND + " " + line.toString() + ";" + rect.toString() + ";" + point.toString();
+		String expected =  TypeOfCommand.DELETE_COMMAND + " " + line.toString() + ";" + rect.toString() + ";" + point.toString();
 		assertEquals(expected, cmdDelete.toString());
 	}
 	

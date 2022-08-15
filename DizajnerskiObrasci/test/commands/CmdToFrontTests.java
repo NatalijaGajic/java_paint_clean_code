@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import geometry.*;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 import java.awt.Color;
 
@@ -83,7 +83,7 @@ public class CmdToFrontTests {
 	@Test
 	public void testToString_Success() {
 		cmdToFront = new CmdToFront(model, circle);
-		String expected =  LoggerConstants.TO_FRONT_COMMAND + " " + circle.toString();
+		String expected =  TypeOfCommand.TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToFront.toString());
 	}
 	

@@ -4,9 +4,9 @@ import commands.Command;
 
 public class LoggerCommand {
 	private Command command;
-	private String typeOfCommand;
+	private TypeOfCommand typeOfCommand;
 	
-	public LoggerCommand(Command command, String typeOfCommand) {
+	public LoggerCommand(Command command, TypeOfCommand typeOfCommand) {
 		this.command = command;
 		this.typeOfCommand = typeOfCommand;
 	}
@@ -15,7 +15,7 @@ public class LoggerCommand {
 		return command;
 	}
 
-	public String getTypeOfCommand() {
+	public TypeOfCommand getTypeOfCommand() {
 		return typeOfCommand;
 	}
 	

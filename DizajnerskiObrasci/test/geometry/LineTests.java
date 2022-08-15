@@ -7,7 +7,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 class LineTests {
 
@@ -101,7 +102,7 @@ class LineTests {
 
 	@Test
 	public void testToString_Success() {
-		String expected = LoggerConstants.LINE + ":SP(" + line.getStartPoint().getX() + "," + line.getStartPoint().getY() + ") EP(" +
+		String expected = TypeOfShape.LINE + ":SP(" + line.getStartPoint().getX() + "," + line.getStartPoint().getY() + ") EP(" +
 				line.getEndPoint().getX() + "," + line.getEndPoint().getY() + ") " + "BC:" + line.getColor().getRGB();
 		assertEquals(expected, line.toString());
 	}

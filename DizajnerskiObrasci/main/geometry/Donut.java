@@ -2,7 +2,8 @@ package geometry;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 public class Donut extends Circle {
 
@@ -91,7 +92,7 @@ public class Donut extends Circle {
 
 	@Override
 	public String toString() {
-		return LoggerConstants.DONUT + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
+		return TypeOfShape.DONUT + ":(" + this.getCenter().getX() + "," + this.getCenter().getY() + ")"
 				+ " OR:" + this.getRadius() + ", IR:" + this.getInnerRadius() + ", "
 						+ "BC:" + this.getColor().getRGB() + ", FC:" + this.getInnerColor().getRGB();
 	}

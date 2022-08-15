@@ -7,7 +7,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 class PointTests {
 
@@ -81,7 +82,7 @@ class PointTests {
 	
 	@Test
 	public void testToString_Success() {
-		String expected = LoggerConstants.POINT + ":(" + point.getX() + "," + point.getY() + ") " + "BC:" + point.getColor().getRGB();
+		String expected = TypeOfShape.POINT + ":(" + point.getX() + "," + point.getY() + ") " + "BC:" + point.getColor().getRGB();
 		assertEquals(expected, point.toString());
 	}
 	

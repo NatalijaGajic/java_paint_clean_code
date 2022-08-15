@@ -3,10 +3,10 @@ package commands;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
 import model.DrawingModel;
 import java.awt.Color;
 import geometry.*;
+import logger.TypeOfCommand;
 
 public class CmdBringToFrontTests {
 
@@ -80,7 +80,7 @@ public class CmdBringToFrontTests {
 	@Test
 	public void testToString_Success() {
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, circle);
-		String expected =  LoggerConstants.BRING_TO_FRONT_COMMAND + " " + circle.toString();
+		String expected =  TypeOfCommand.BRING_TO_FRONT_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdBringToFront.toString());
 	}
 	

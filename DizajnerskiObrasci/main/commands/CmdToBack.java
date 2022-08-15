@@ -1,7 +1,7 @@
 package commands;
 
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdToBack implements Command {
@@ -34,7 +34,7 @@ public class CmdToBack implements Command {
 	
 	@Override
 	public String toString() {
-		return LoggerConstants.TO_BACK_COMMAND + " " + shapeToMove.toString();
+		return TypeOfCommand.TO_BACK_COMMAND + " " + shapeToMove.toString();
 	}
 	
 	@Override

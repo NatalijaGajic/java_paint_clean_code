@@ -3,7 +3,7 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 import hexagon.Hexagon;
-import logger.LoggerConstants;
+import logger.TypeOfShape;
 
 public class HexagonAdapter extends SurfaceShape{
 
@@ -86,7 +86,7 @@ public class HexagonAdapter extends SurfaceShape{
 	}
 	
 	public String toString() {
-		return LoggerConstants.HEXAGON + ":(" + this.getX() + "," + this.getY() + ") "
+		return TypeOfShape.HEXAGON + ":(" + this.getX() + "," + this.getY() + ") "
 				+ "R:" + this.getRadius() + ", BC:" + this.getColor().getRGB() + ", "
 				+ "FC:" + this.getInnerColor().getRGB();
 	}

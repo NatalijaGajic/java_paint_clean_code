@@ -2,7 +2,7 @@ package commands;
 
 import java.util.*;
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdDelete implements Command{
@@ -58,7 +58,7 @@ public class CmdDelete implements Command{
 	public String toString() {
 		StringBuilder compositionOfStrings = new StringBuilder("");
 		Iterator<Shape> it = shapesToDelete.iterator();
-		compositionOfStrings.append(LoggerConstants.DELETE_COMMAND + " ");
+		compositionOfStrings.append(TypeOfCommand.DELETE_COMMAND + " ");
 		compositionOfStrings.append(it.next().toString());
 		while(it.hasNext()) {
 			compositionOfStrings.append(";");

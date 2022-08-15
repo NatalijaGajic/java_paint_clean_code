@@ -44,9 +44,9 @@ class FileLogTests {
 	}
 	
 	private void initializeLogs() {
-		pointLog = LoggerConstants.POINT + ":(1,1) BC:-16777216";
-		cmdAddLog = LoggerConstants.ADD_COMMAND + " " + pointLog;
-		cmdSelectLog = LoggerConstants.SELECT_COMMAND + " " + pointLog;
+		pointLog = TypeOfShape.POINT + ":(1,1) BC:-16777216";
+		cmdAddLog = TypeOfCommand.ADD_COMMAND + " " + pointLog;
+		cmdSelectLog = TypeOfCommand.SELECT_COMMAND + " " + pointLog;
 	}
 
 	@Test

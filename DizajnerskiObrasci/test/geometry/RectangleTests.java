@@ -7,7 +7,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import logger.LoggerConstants;
+
+import logger.TypeOfShape;
 
 class RectangleTests {
 
@@ -98,7 +99,7 @@ class RectangleTests {
 
 	@Test
 	public void testToString_Sucess() {
-		String expected = LoggerConstants.RECTANGLE + ":(" + rectangle.getUpperLeftPoint().getX() + "," + rectangle.getUpperLeftPoint().getY() + ") "
+		String expected = TypeOfShape.RECTANGLE + ":(" + rectangle.getUpperLeftPoint().getX() + "," + rectangle.getUpperLeftPoint().getY() + ") "
 				+ "W:" + rectangle.getWidth() + ", H:" + rectangle.getHeight() + ", BC:" + rectangle.getColor().getRGB() + ", "
 				+ "FC:" + rectangle.getInnerColor().getRGB();
 		assertEquals(expected, rectangle.toString());

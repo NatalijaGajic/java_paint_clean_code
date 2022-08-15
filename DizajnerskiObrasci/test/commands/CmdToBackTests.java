@@ -6,7 +6,7 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import geometry.*;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 class CmdToBackTests {
@@ -83,7 +83,7 @@ class CmdToBackTests {
 	@Test
 	public void testToString_Success() {
 		cmdToBack = new CmdToBack(model, circle);
-		String expected =  LoggerConstants.TO_BACK_COMMAND + " " + circle.toString();
+		String expected =  TypeOfCommand.TO_BACK_COMMAND + " " + circle.toString();
 		assertEquals(expected, cmdToBack.toString());
 	}
 	

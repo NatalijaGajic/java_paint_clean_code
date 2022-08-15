@@ -1,7 +1,7 @@
 package commands;
 
 import geometry.Shape;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdDeselect implements Command{
@@ -28,7 +28,7 @@ public class CmdDeselect implements Command{
 	
 	@Override
 	public String toString() {
-		return LoggerConstants.DESELECT_COMMAND + " " + shape.toString();
+		return TypeOfCommand.DESELECT_COMMAND + " " + shape.toString();
 	}
 	
 	@Override

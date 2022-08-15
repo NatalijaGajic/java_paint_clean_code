@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.Color;
 import geometry.Point;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 class CmdModifyTests {
@@ -38,7 +38,7 @@ class CmdModifyTests {
 	
 	@Test
 	public void testToString_Success() {
-		String expected =  LoggerConstants.MODIFY_COMMAND + " " +  oldState.toString() + " to " + newState.toString();
+		String expected =  TypeOfCommand.MODIFY_COMMAND + " " +  oldState.toString() + " to " + newState.toString();
 		assertEquals(expected, commandModifyPoint.toString());
 	}
 	

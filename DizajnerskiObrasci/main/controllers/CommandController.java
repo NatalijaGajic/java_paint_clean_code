@@ -28,13 +28,13 @@ public class CommandController {
 	
 	public void undoCommand() {
 		commandsHandler.undoExecutedCommand();
-		logWriter.log(LoggerConstants.UNDO_COMMAND);
+		logWriter.log(TypeOfCommand.UNDO_COMMAND.toString());
 		frame.getView().repaint();
 	}
 	
 	public void redoCommand() {
 		commandsHandler.redoUnexecutedCommand();
-		logWriter.log(LoggerConstants.REDO_COMMAND);
+		logWriter.log(TypeOfCommand.REDO_COMMAND.toString());
 		frame.getView().repaint();
 	}
 	
@@ -42,10 +42,10 @@ public class CommandController {
 	public void executeLog() {
 		LoggerCommand commandFromLog = logParser.parseCommandFromLog();
 		if(commandFromLog != null) {
-			String typeOfCommand = commandFromLog.getTypeOfCommand();
-			if(typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
+			TypeOfCommand typeOfCommand = commandFromLog.getTypeOfCommand();
+			if(typeOfCommand.equals(TypeOfCommand.UNDO_COMMAND))
 				undoCommand();
-			else if(typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
+			else if(typeOfCommand.equals(TypeOfCommand.REDO_COMMAND))
 				redoCommand();
 			else
 				executeCommand(commandFromLog.getCommand());

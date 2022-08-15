@@ -5,7 +5,7 @@ import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;
 import geometry.Point;
-import logger.LoggerConstants;
+import logger.TypeOfCommand;
 import model.DrawingModel;
 
 public class CmdSelectTests {
@@ -48,7 +48,7 @@ public class CmdSelectTests {
 	
 	@Test
 	public void testToString_Success() {
-		String expected =  LoggerConstants.SELECT_COMMAND + " " + point.toString();
+		String expected =  TypeOfCommand.SELECT_COMMAND + " " + point.toString();
 		assertEquals(expected, cmdSelect.toString());
 	}
 	
