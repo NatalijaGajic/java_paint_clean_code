@@ -1,5 +1,7 @@
 package controllers;
 
+import javax.swing.JButton;
+
 import frame.*;
 import geometry.Shape;
 import model.DrawingModel;
@@ -7,13 +9,35 @@ import model.DrawingModel;
 public class ButtonsController {
 	
 	private DrawingModel model;
-	private FrameDrawingOptionsToolBar drawingOptionsToolBar;
-	private FrameCommandOptionsToolBar commandOptionsToolBar;
+	private DrawingFrame frame;
+	private JButton btnModify;
+	private JButton btnDelete;
+	private JButton btnToBack;
+	private JButton btnToFront;
+	private JButton btnBringToFront;
+	private JButton btnBringToBack;
+	private JButton btnUndo;
+	private JButton btnRedo;
+	private JButton btnExecuteLog;
 	
 	public ButtonsController(DrawingModel model, DrawingFrame frame) {
 		this.model = model;
-		drawingOptionsToolBar = frame.getDrawingOptionsToolBar();
-		commandOptionsToolBar = frame.getCommandOptionsToolBar();
+		this.frame = frame;
+		initializeButtons();
+	}
+	
+	private void initializeButtons() {
+		FrameDrawingOptionsToolBar drawingOptionsToolBar = frame.getDrawingOptionsToolBar();
+		FrameCommandOptionsToolBar commandOptionsToolBar = frame.getCommandOptionsToolBar();
+		btnModify = drawingOptionsToolBar.getBtnModify();
+		btnDelete = drawingOptionsToolBar.getBtnDelete();
+		btnToBack = drawingOptionsToolBar.getBtnToBack();
+		btnToFront = drawingOptionsToolBar.getBtnToFront();
+		btnBringToFront = drawingOptionsToolBar.getBtnBringToFront();
+		btnBringToBack = drawingOptionsToolBar.getBtnBringToBack();
+		btnUndo = commandOptionsToolBar.getBtnUndo();
+		btnRedo = commandOptionsToolBar.getBtnRedo();
+		btnExecuteLog = commandOptionsToolBar.getBtnExecuteLog();
 	}
 	
 	/**
@@ -30,18 +54,12 @@ public class ButtonsController {
 	}
 	
 	private void disablePositionButtons() {
-		drawingOptionsToolBar.getBtnBringToBack().setEnabled(false);
-		drawingOptionsToolBar.getBtnBringToFront().setEnabled(false);
-		drawingOptionsToolBar.getBtnToBack().setEnabled(false);
-		drawingOptionsToolBar.getBtnToFront().setEnabled(false);
+		btnBringToBack.setEnabled(false);
+		btnBringToFront.setEnabled(false);
+		btnToBack.setEnabled(false);
+		btnToFront.setEnabled(false);
 	}
 	
-	/**
-	 * If the selected shape is the only shape, all position buttons are disabled
-	 * If the selected shape is the last shape in the list, ToFront buttons are disabled, ToBack enabled
-	 * If the selected shape is the first shape in the list, ToBack buttons are disabled, ToFront enabled
-	 * If the selected shape is nor the only shape, nor the first, nor the last, all position buttons are enabled 
-	 */
 	private void enablePositionButtons() {
 		Shape selectedShape = model.getSelectedShape();
 		int indexOfSelectedShape = model.getIndexOfShape(selectedShape);
@@ -76,13 +94,6 @@ public class ButtonsController {
 		return indexOfSelectedShape > 0;
 	}
 	
-	/**
-	 * When the number of selected shapes is changed, enable property of Modify, Delete and position buttons is updated
-	 * If no shape is selected, Modify, Delete and position buttons are disabled
-	 * If one shape is selected, Modify, Delete and appropriate position buttons are enabled
-	 * If multiple shapes are selected, Delete button is enabled, Modify and position buttons are disabled
-	 * @param numberOfSelectedShapes
-	 */
 	public void updateSelectedShapesObserverButtons(int numberOfSelectedShapes) {
 		if(numberOfSelectedShapes == 0) {
 			disableNoneSelectedButtons();
@@ -113,40 +124,40 @@ public class ButtonsController {
 	}
 	
 	private void disableNoneSelectedButtons() {
-		drawingOptionsToolBar.getBtnDelete().setEnabled(false);
-		drawingOptionsToolBar.getBtnModify().setEnabled(false);
+		btnDelete.setEnabled(false);
+		btnModify.setEnabled(false);
 		disablePositionButtons();
 	}
 	
 	private void enableOneSelectedButtons() {
-		drawingOptionsToolBar.getBtnModify().setEnabled(true);
-		drawingOptionsToolBar.getBtnDelete().setEnabled(true);
+		btnModify.setEnabled(true);
+		btnDelete.setEnabled(true);
 	}
 	
 	private void enableMultipleSelectedButtons() {
-		drawingOptionsToolBar.getBtnDelete().setEnabled(true);
-		drawingOptionsToolBar.getBtnModify().setEnabled(false);
+		btnDelete.setEnabled(true);
+		btnModify.setEnabled(false);
 		disablePositionButtons();
 	}
 	
 	private void disableToFrontPositionButtons() {
-		drawingOptionsToolBar.getBtnBringToFront().setEnabled(false);
-		drawingOptionsToolBar.getBtnToFront().setEnabled(false);
+		btnBringToFront.setEnabled(false);
+		btnToFront.setEnabled(false);
 	}
 	
 	private void disableToBackPositionButtons() {
-		drawingOptionsToolBar.getBtnBringToBack().setEnabled(false);
-		drawingOptionsToolBar.getBtnToBack().setEnabled(false);
+		btnBringToBack.setEnabled(false);
+		btnToBack.setEnabled(false);
 	}
 	
 	private void enableToFrontPositionButtons() {
-		drawingOptionsToolBar.getBtnBringToFront().setEnabled(true);
-		drawingOptionsToolBar.getBtnToFront().setEnabled(true);
+		btnBringToFront.setEnabled(true);
+		btnToFront.setEnabled(true);
 	}
 	
 	private void enableToBackPositionButtons() {
-		drawingOptionsToolBar.getBtnBringToBack().setEnabled(true);
-		drawingOptionsToolBar.getBtnToBack().setEnabled(true);
+		btnBringToBack.setEnabled(true);
+		btnToBack.setEnabled(true);
 	}
 	
 	
@@ -157,25 +168,25 @@ public class ButtonsController {
 	
 	private void updateUndoButton(int numberOfExecutedCommands) {
 		if(numberOfExecutedCommands > 0) {
-			commandOptionsToolBar.getBtnUndo().setEnabled(true);
+			btnUndo.setEnabled(true);
 		}else if(numberOfExecutedCommands == 0) {
-			commandOptionsToolBar.getBtnUndo().setEnabled(false);
+			btnUndo.setEnabled(false);
 		}
 	}
 	
 	private void updateRedoButton(int numberOfUnexecutedCommands) {
 		if(numberOfUnexecutedCommands > 0) {
-			commandOptionsToolBar.getBtnRedo().setEnabled(true);
+			btnRedo.setEnabled(true);
 		}else if(numberOfUnexecutedCommands == 0) {
-			commandOptionsToolBar.getBtnRedo().setEnabled(false);
+			btnRedo.setEnabled(false);
 		}
 	}
 	
 	public void updateLogReaderObserverButtons(int numberOfCommandsToBeExecuted) {
 		if(numberOfCommandsToBeExecuted > 0) {
-			commandOptionsToolBar.getBtnExecuteLog().setEnabled(true);
+			btnExecuteLog.setEnabled(true);
 		}else if(numberOfCommandsToBeExecuted == 0) {
-			commandOptionsToolBar.getBtnExecuteLog().setEnabled(false);
+			btnExecuteLog.setEnabled(false);
 		}
 	}
 }

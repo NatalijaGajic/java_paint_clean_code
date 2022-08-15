@@ -34,7 +34,6 @@ public class DrawingApplication {
 			frame.setButtonsControllerForOptionsToolBar(buttonsController);
 			frame.setCommandControllerForOptionsToolBar(commandController);
 			frame.setDefaultListModelForScrollPane(logWriter.getExecutedCommandsLog());
-			frame.setView(view);
 			
 			view.setModel(model);
 			frame.setVisible(true);

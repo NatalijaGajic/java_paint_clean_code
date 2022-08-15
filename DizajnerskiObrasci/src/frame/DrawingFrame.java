@@ -128,10 +128,6 @@ public class DrawingFrame extends JFrame {
 		return view;
 	}
 
-	public void setView(DrawingPanel view) {
-		this.view = view;
-	}
-
 	public DrawingController getDrawingController() {
 		return drawingController;
 	}
