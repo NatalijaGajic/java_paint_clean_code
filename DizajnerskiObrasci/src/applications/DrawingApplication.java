@@ -24,10 +24,10 @@ public class DrawingApplication {
 			ButtonsController buttonsController = new ButtonsController(model, frame);
 			DrawingPanel view = frame.getView();
 			
-			commandsHandler.registerObserver(frame.getOptionsToolBar());
-			logReader.registerObserver(frame.getOptionsToolBar());
-			model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
-			model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
+			commandsHandler.registerObserver(frame.getCommandOptionsToolBar());
+			logReader.registerObserver(frame.getCommandOptionsToolBar());
+			model.getCollectionOfSelectedShapes().registerObserver(frame.getDrawingOptionsToolBar());
+			model.getCollectionOfShapes().registerObserver(frame.getDrawingOptionsToolBar());
 			
 			frame.setDrawingController(drawingController);
 			frame.setFileControllerForMenuBar(fileController);

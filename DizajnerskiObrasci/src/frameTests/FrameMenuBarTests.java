@@ -10,39 +10,39 @@ import frame.*;
 public class FrameMenuBarTests {
 
 	private DrawingFrame frame;
-	private FileController controller;
+	private FileController fileController;
 	private FrameMenuBar menuBar;
 	
 	@BeforeEach
 	public void setUp() {
 		frame = new DrawingFrame();
 		menuBar = frame.getFrameMenuBar();
-		controller = mock(FileController.class);
-		menuBar.setFileController(controller);
+		fileController = mock(FileController.class);
+		menuBar.setFileController(fileController);
 	}
 	
 	@Test
 	public void testOpenLogFileClick_ControllerMethodCalled() {
 		menuBar.getOptionOpenLogFile().doClick();
-		verify(controller).loadLog();
+		verify(fileController).loadLog();
 	}
 	
 	@Test
 	public void testOpenDrawingFileClick_ControllerMethodCalled() {
 		menuBar.getOptionOpenDrawingFile().doClick();
-		verify(controller).loadDrawing();
+		verify(fileController).loadDrawing();
 	}
 	
 	@Test
 	public void testSaveAsLogClick_ControllerMethodCalled() {
 		menuBar.getOptionSaveAsLog().doClick();
-		verify(controller).saveLog();
+		verify(fileController).saveLog();
 	}
 	
 	@Test
 	public void testSaveAsDrawingClick_ControllerMethodCalled() {
 		menuBar.getOptionSaveAsDrawing().doClick();
-		verify(controller).saveDrawing();
+		verify(fileController).saveDrawing();
 	}
 
 }

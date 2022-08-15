@@ -24,7 +24,6 @@ class CommandControllerTests {
 	private LogReader logReader;
 	private LogParser logParser;
 	private Stack<Command> executedCommands;
-
 	private Point testPoint;
 	private Line testLine;
 	private Point modifiedTestPoint;

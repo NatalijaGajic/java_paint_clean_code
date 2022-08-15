@@ -5,7 +5,7 @@ import javax.swing.*;
 import controllers.*;
 import observer.*;
 
-public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver, LogReaderObserver {
+public class FrameDrawingOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver {
 
 	private static final long serialVersionUID = 1L;
 	private final ButtonGroup btnMode = new ButtonGroup();
@@ -17,22 +17,16 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	private JButton btnToFront;
 	private JButton btnBringToFront;
 	private JButton btnBringToBack;
-	private JButton btnUndo;
-	private JButton btnRedo;
-	private JButton btnExecuteLog;
+
 	private DrawingController drawingController;
 	private ButtonsController buttonsController;
-	private CommandController commandController;
 	
-	public FrameOptionsToolBar() {
+	public FrameDrawingOptionsToolBar() {
 		setOrientation(SwingConstants.VERTICAL);
 		createButtons();
 		addBtnModifyListener();
 		addBtnDeleteListener();
 		addMovePositionButtonsListeners();
-		addRedoButtonListener();
-		addUndoButtonListener();
-		addExecuteLogButtonListener();
 		addButtonsToToolBar();
 		addButtonsToButtonGroup();
 		disableButtons();
@@ -47,9 +41,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnToFront = new JButton("      To Front        ");
 		btnBringToFront = new JButton("  Bring To Front ");
 		btnBringToBack = new JButton("  Bring To Back ");
-		btnUndo = new JButton("          Undo          ");
-		btnRedo = new JButton("          Redo          ");
-		btnExecuteLog = new JButton("   Execute Log   ");
 	}
 	
 	private void addButtonsToToolBar() {
@@ -61,9 +52,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		add(btnToFront);
 		add(btnBringToBack);
 		add(btnBringToFront);
-		add(btnUndo);
-		add(btnRedo);
-		add(btnExecuteLog);
 	}
 	
 	public void disableButtons() {
@@ -73,9 +61,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnToFront.setEnabled(false);
 		btnBringToFront.setEnabled(false);
 		btnBringToBack.setEnabled(false);
-		btnUndo.setEnabled(false);
-		btnRedo.setEnabled(false);
-		btnExecuteLog.setEnabled(false);
 	}
 	
 	private void addButtonsToButtonGroup() {
@@ -132,32 +117,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		});
 	}
 	
-	private void addRedoButtonListener() {
-		btnRedo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				commandController.redoCommand();
-			}
-		});
-	}
 	
-	private void addUndoButtonListener() {
-		btnUndo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				commandController.undoCommand();
-			}
-		});
-	}
-	
-	public void addExecuteLogButtonListener() {
-		btnExecuteLog.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				commandController.executeLog();
-			}
-		});
-	}
 	
 	@Override
 	public void updateSelectedShapesObserver(int numberOfSelectedShapes) {
@@ -167,17 +127,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	@Override
 	public void updateShapesObserver() {
 		buttonsController.updateShapesObserverButtons();
-	}
-
-	@Override
-	public void updateCommandsHandlerObserver(int numberOfExecutedCommands, int numberOfUnexecutedCommands) {
-		buttonsController.updateObservableUndoRedoButtons(numberOfExecutedCommands, numberOfUnexecutedCommands);
-	}
-
-	@Override
-	public void updateLogReaderObserver(int numberOfCommandsToBeExecuted) {
-		buttonsController.updateLogReaderObserverButtons(numberOfCommandsToBeExecuted);
-		
 	}
 	
 	public boolean isTglBtnSelectSelected() {
@@ -209,18 +158,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	public boolean isBtnToBackEnabled() {
 		return btnToBack.isEnabled();
 	}
-	
-	public boolean isBtnRedoEnabled() {
-		return btnRedo.isEnabled();
-	}
-	
-	public boolean isBtnUndoEnabled() {
-		return btnUndo.isEnabled();
-	}
-	
-	public boolean isBtnExecuteLogEnabled() {
-		return btnExecuteLog.isEnabled();
-	}
 
 	public JButton getBtnModify() {
 		return btnModify;
@@ -246,18 +183,6 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		return btnBringToBack;
 	}
 
-	public JButton getBtnUndo() {
-		return btnUndo;
-	}
-
-	public JButton getBtnRedo() {
-		return btnRedo;
-	}
-
-	public JButton getBtnExecuteLog() {
-		return btnExecuteLog;
-	}
-
 	public void setDrawingController(DrawingController drawingController) {
 		this.drawingController = drawingController;
 	}
@@ -266,10 +191,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		this.buttonsController = buttonsController;
 	}
 
-	public void setCommandController(CommandController commandController) {
-		this.commandController = commandController;
-	}
-	
+
 	
 	
 

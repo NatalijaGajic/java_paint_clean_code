@@ -9,27 +9,27 @@ import frame.*;
 class FrameColorToorBarTests {
 
 	private DrawingFrame frame;
-	private DrawingController controller;
+	private DrawingController drawingController;
 	private FrameColorToolBar colorToolBar;
 	
 	@BeforeEach
 	public void setUp() {
 		frame = new DrawingFrame();
-		controller = mock(DrawingController.class);
-		frame.setDrawingController(controller);
+		drawingController = mock(DrawingController.class);
+		frame.setDrawingController(drawingController);
 		colorToolBar = frame.getColorToolBar();
 	}
 	
 	@Test
 	public void testBtnActiveEdgeColorClick_ControllerMethodCalled() {
 		colorToolBar.getBtnActiveEdgeColor().doClick();
-		verify(controller).setActiveEdgeColor();
+		verify(drawingController).setActiveEdgeColor();
 	}
 
 	@Test
 	public void testBtnActiveInnerColorClick_ControllerMethodCalled() {
 		colorToolBar.getBtnActiveInnerColor().doClick();
-		verify(controller).setActiveInnerColor();
+		verify(drawingController).setActiveInnerColor();
 	}
 
 }

@@ -7,10 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Stack;
 import model.DrawingModel;
-import frame.DrawingFrame;
+import frame.*;
 import controllers.*;
 import commandHandler.CommandsHandler;
-import frame.FrameOptionsToolBar;
 import geometry.*;
 import commands.*;
 
@@ -20,7 +19,7 @@ class CommandsHandlerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private ButtonsController buttonsController;
-	private FrameOptionsToolBar optionsToolBar;
+	private FrameCommandOptionsToolBar commandOptionsToolBar;
 	private CommandsHandler commandsHandler;
 	private Point point;
 	private Circle circle;
@@ -36,11 +35,11 @@ class CommandsHandlerTests {
 		frame = new DrawingFrame();
 		buttonsController = new ButtonsController(model, frame);
 		commandsHandler = new CommandsHandler();
-		optionsToolBar = frame.getOptionsToolBar();
+		commandOptionsToolBar = frame.getCommandOptionsToolBar();
 		executedCommands = commandsHandler.getExecutedCommands();
 		unexecutedCommands = commandsHandler.getUnexecutedCommands();
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
-		commandsHandler.registerObserver(optionsToolBar);
+		commandsHandler.registerObserver(commandOptionsToolBar);
 		initializeCommands();
 		
 	}
@@ -70,7 +69,7 @@ class CommandsHandlerTests {
 	@Test
 	public void testAddExecuted_CommandUndoButtonEnabled() {
 		commandsHandler.addExecutedCommand(cmdAddCircle);
-		assertTrue(optionsToolBar.isBtnUndoEnabled());
+		assertTrue(commandOptionsToolBar.isBtnUndoEnabled());
 	}
 	
 	@Test
@@ -99,7 +98,7 @@ class CommandsHandlerTests {
 		cmdAddPoint.execute();
 		executedCommands.push(cmdAddPoint);
 		commandsHandler.undoExecutedCommand();
-		assertTrue(optionsToolBar.isBtnRedoEnabled());
+		assertTrue(commandOptionsToolBar.isBtnRedoEnabled());
 	}
 	
 	@Test
@@ -127,7 +126,7 @@ class CommandsHandlerTests {
 	public void testRedoUnexecutedCommand_UndoButtonEnabled() {
 		unexecutedCommands.push(cmdAddMock);
 		commandsHandler.redoUnexecutedCommand();
-		assertTrue(optionsToolBar.isBtnUndoEnabled());
+		assertTrue(commandOptionsToolBar.isBtnUndoEnabled());
 	}
 	
 

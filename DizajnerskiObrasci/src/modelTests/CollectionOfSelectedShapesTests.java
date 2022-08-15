@@ -15,7 +15,7 @@ class CollectionOfSelectedShapesTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private ButtonsController buttonsController;
-	private FrameOptionsToolBar optionsToolBar;
+	private FrameDrawingOptionsToolBar drawingOptionsToolBar;
 	private Point point;
 	private Circle circle;
 	private Rectangle rect;
@@ -26,8 +26,8 @@ class CollectionOfSelectedShapesTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		buttonsController = new ButtonsController(model, frame);
-		optionsToolBar = frame.getOptionsToolBar();
-		model.getCollectionOfSelectedShapes().registerObserver(frame.getOptionsToolBar());
+		drawingOptionsToolBar = frame.getDrawingOptionsToolBar();
+		model.getCollectionOfSelectedShapes().registerObserver(frame.getDrawingOptionsToolBar());
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeShapes();
 		addShapes();
@@ -54,7 +54,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean oneSelectedButtonsAreEnabled() {
-		return optionsToolBar.isBtnDeleteEnabled() && optionsToolBar.isBtnModifyEnabled();
+		return drawingOptionsToolBar.isBtnDeleteEnabled() && drawingOptionsToolBar.isBtnModifyEnabled();
 	}
 	
 	@Test
@@ -69,12 +69,12 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean editButtonsAreDisabled() {
-		return !optionsToolBar.isBtnDeleteEnabled() && !optionsToolBar.isBtnModifyEnabled();
+		return !drawingOptionsToolBar.isBtnDeleteEnabled() && !drawingOptionsToolBar.isBtnModifyEnabled();
 	}
 	
 	private boolean positionButtonsAreDisabled() {
-		return !optionsToolBar.isBtnBringToFrontEnabled() && !optionsToolBar.isBtnBringToBackEnabled()
-				&& !optionsToolBar.isBtnToFrontEnabled() && !optionsToolBar.isBtnToBackEnabled();
+		return !drawingOptionsToolBar.isBtnBringToFrontEnabled() && !drawingOptionsToolBar.isBtnBringToBackEnabled()
+				&& !drawingOptionsToolBar.isBtnToFrontEnabled() && !drawingOptionsToolBar.isBtnToBackEnabled();
 	}
 	
 	@Test
@@ -85,14 +85,14 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean multipleSelectedButtonsAreDisabled() {
-		return !optionsToolBar.isBtnModifyEnabled() && positionButtonsAreDisabled();
+		return !drawingOptionsToolBar.isBtnModifyEnabled() && positionButtonsAreDisabled();
 	}
 	
 	@Test
 	public void testAddSelectedShape_MultipleSelected_ButtonsEnabled() {
 		model.addSelectedShape(rect);
 		model.addSelectedShape(point);
-		assertTrue(optionsToolBar.isBtnDeleteEnabled());
+		assertTrue(drawingOptionsToolBar.isBtnDeleteEnabled());
 	}
 	
 
@@ -103,7 +103,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean buttonsToFrontAreDisabled() {
-		return !optionsToolBar.isBtnBringToFrontEnabled() && !optionsToolBar.isBtnToFrontEnabled();
+		return !drawingOptionsToolBar.isBtnBringToFrontEnabled() && !drawingOptionsToolBar.isBtnToFrontEnabled();
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean buttonsToBackAreDisabled() {
-		return !optionsToolBar.isBtnBringToBackEnabled() && !optionsToolBar.isBtnToBackEnabled();
+		return !drawingOptionsToolBar.isBtnBringToBackEnabled() && !drawingOptionsToolBar.isBtnToBackEnabled();
 	}
 	
 	@Test
@@ -127,11 +127,11 @@ class CollectionOfSelectedShapesTests {
 	}
 	
 	private boolean buttonsToBackAreEnabled() {
-		return optionsToolBar.isBtnBringToBackEnabled() && optionsToolBar.isBtnToBackEnabled();
+		return drawingOptionsToolBar.isBtnBringToBackEnabled() && drawingOptionsToolBar.isBtnToBackEnabled();
 	}
 	
 	private boolean buttonsToFrontAreEnabled() {
-		return optionsToolBar.isBtnBringToFrontEnabled() && optionsToolBar.isBtnToFrontEnabled();
+		return drawingOptionsToolBar.isBtnBringToFrontEnabled() && drawingOptionsToolBar.isBtnToFrontEnabled();
 	}
 
 

@@ -19,7 +19,8 @@ public class DrawingFrame extends JFrame {
 	private FrameScrollPane scrollPane;
 	private FrameShapeToolBar shapeToolBar;
 	private FrameColorToolBar colorToolBar;
-	private FrameOptionsToolBar optionsToolBar;
+	private FrameDrawingOptionsToolBar drawingOptionsToolBar;
+	private FrameCommandOptionsToolBar commandOptionsToolBar;
 	private FrameMenuBar menuBar;
 	private DrawingPanel view;
 	private DrawingController drawingController;
@@ -57,10 +58,10 @@ public class DrawingFrame extends JFrame {
 	}
 	
 	private void createToolBars() {
-		optionsToolBar = new FrameOptionsToolBar();
+		drawingOptionsToolBar = new FrameDrawingOptionsToolBar();
+		commandOptionsToolBar = new FrameCommandOptionsToolBar();
 		shapeToolBar = new FrameShapeToolBar();
 		colorToolBar = new FrameColorToolBar();
-		shapeToolBar = new FrameShapeToolBar();
 	}
 	
 	private void buildFrame() {
@@ -82,7 +83,8 @@ public class DrawingFrame extends JFrame {
 		pnlNorth.add(colorToolBar);
 		
 		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.Y_AXIS));
-		pnlWest.add(optionsToolBar);
+		pnlWest.add(drawingOptionsToolBar);
+		pnlWest.add(commandOptionsToolBar);
 		
 		pnlSouth.setLayout(new BorderLayout(0, 0));
 		pnlSouth.add(scrollPane);
@@ -103,9 +105,9 @@ public class DrawingFrame extends JFrame {
 		int y = click.getY();
 		Point clickedPoint = new Point(x, y);
 		
-		if(optionsToolBar.isTglBtnSelectSelected()){
+		if(drawingOptionsToolBar.isTglBtnSelectSelected()){
 			drawingController.selectOrDeselectShape(clickedPoint);
-		} else if (optionsToolBar.isTglBtnDrawSelected()) {
+		} else if (drawingOptionsToolBar.isTglBtnDrawSelected()) {
 			if (shapeToolBar.isTlgBtnPointSelected()) {
 				drawingController.drawPointIfAccepted(clickedPoint);
 			} else if (shapeToolBar.isTlgBtnLineSelected()) {
@@ -145,11 +147,15 @@ public class DrawingFrame extends JFrame {
 	public FrameColorToolBar getColorToolBar() {
 		return colorToolBar;
 	}
-
-	public FrameOptionsToolBar getOptionsToolBar() {
-		return optionsToolBar;
-	}
 	
+	public FrameDrawingOptionsToolBar getDrawingOptionsToolBar() {
+		return drawingOptionsToolBar;
+	}
+
+	public FrameCommandOptionsToolBar getCommandOptionsToolBar() {
+		return commandOptionsToolBar;
+	}
+
 	public FrameMenuBar getFrameMenuBar() {
 		return menuBar;
 	}
@@ -161,11 +167,12 @@ public class DrawingFrame extends JFrame {
 	
 	private void setDrawingControllerForToolBars() {
 		colorToolBar.setDrawingController(drawingController);
-		optionsToolBar.setDrawingController(drawingController);
+		drawingOptionsToolBar.setDrawingController(drawingController);
 	}
 	
 	public void setButtonsControllerForOptionsToolBar(ButtonsController buttonsController) {
-		optionsToolBar.setButtonsController(buttonsController);
+		drawingOptionsToolBar.setButtonsController(buttonsController);
+		commandOptionsToolBar.setButtonsController(buttonsController);
 	}
 	
 	public void setDefaultListModelForScrollPane(DefaultListModel<String> defaultListModel) {
@@ -177,6 +184,6 @@ public class DrawingFrame extends JFrame {
 	}
 	
 	public void setCommandControllerForOptionsToolBar(CommandController commandController) {
-		optionsToolBar.setCommandController(commandController);
+		commandOptionsToolBar.setCommandController(commandController);
 	}
 }

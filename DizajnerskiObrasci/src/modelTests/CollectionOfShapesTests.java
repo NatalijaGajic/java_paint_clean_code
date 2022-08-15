@@ -12,9 +12,8 @@ class CollectionOfShapesTests {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private DrawingController controller;
 	private ButtonsController buttonsController;
-	private FrameOptionsToolBar optionsToolBar;
+	private FrameDrawingOptionsToolBar drawingOptionsToolBar;
 	private Point point;
 	private Circle circle;
 	private Rectangle rect;
@@ -26,8 +25,8 @@ class CollectionOfShapesTests {
 		model = new DrawingModel();
 		frame = new DrawingFrame();
 		buttonsController = new ButtonsController(model, frame);
-		optionsToolBar = frame.getOptionsToolBar();
-		model.getCollectionOfShapes().registerObserver(frame.getOptionsToolBar());
+		drawingOptionsToolBar = frame.getDrawingOptionsToolBar();
+		model.getCollectionOfShapes().registerObserver(frame.getDrawingOptionsToolBar());
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeShapes();
 		addShapes();
@@ -57,7 +56,7 @@ class CollectionOfShapesTests {
 	}
 	
 	private boolean buttonsToFrontAreEnabled() {
-		return optionsToolBar.isBtnBringToFrontEnabled() && optionsToolBar.isBtnToFrontEnabled();
+		return drawingOptionsToolBar.isBtnBringToFrontEnabled() && drawingOptionsToolBar.isBtnToFrontEnabled();
 	}
 	
 	@Test
@@ -70,7 +69,7 @@ class CollectionOfShapesTests {
 	}
 	
 	private boolean buttonsToBackAreEnabled() {
-		return optionsToolBar.isBtnBringToBackEnabled() && optionsToolBar.isBtnToBackEnabled();
+		return drawingOptionsToolBar.isBtnBringToBackEnabled() && drawingOptionsToolBar.isBtnToBackEnabled();
 	}
 
 	@Test

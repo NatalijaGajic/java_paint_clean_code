@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import commands.*;
 import controllers.ButtonsController;
-import frame.DrawingFrame;
-import frame.FrameOptionsToolBar;
+import frame.*;
 import geometry.*;
 import logger.*;
 import model.DrawingModel;
@@ -19,7 +18,7 @@ class LogReaderTests {
 	private DrawingFrame frame;
 	private LogReader logReader;
 	private ButtonsController buttonsController;
-	private FrameOptionsToolBar optionsToolBar;
+	private FrameCommandOptionsToolBar commandOptionsToolBar;
 	private Point testPoint;
 	private CmdAdd cmdAdd;
 	
@@ -29,8 +28,8 @@ class LogReaderTests {
 		frame = new DrawingFrame();
 		logReader = new LogReader();
 		buttonsController = new ButtonsController(model, frame);
-		optionsToolBar = frame.getOptionsToolBar();
-		logReader.registerObserver(optionsToolBar);
+		commandOptionsToolBar = frame.getCommandOptionsToolBar();
+		logReader.registerObserver(commandOptionsToolBar);
 		frame.setButtonsControllerForOptionsToolBar(buttonsController);
 		initializeCommand();
 	}
@@ -52,7 +51,7 @@ class LogReaderTests {
 	public void testAddCommandToCommandsToBeExecutedLog_FirstLog_ExecuteLogButtonEnabled() {
 		String commandLog = cmdAdd.toString();
 		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
-		assertTrue(optionsToolBar.isBtnExecuteLogEnabled());
+		assertTrue(commandOptionsToolBar.isBtnExecuteLogEnabled());
 	}
 	
 	@Test
@@ -77,6 +76,6 @@ class LogReaderTests {
 		String commandLog = cmdAdd.toString();
 		logReader.addCommandToCommandsToBeExecutedLog(commandLog);
 		logReader.readCommandFromLog();
-		assertFalse	(optionsToolBar.isBtnExecuteLogEnabled());
+		assertFalse	(commandOptionsToolBar.isBtnExecuteLogEnabled());
 	}
 }
