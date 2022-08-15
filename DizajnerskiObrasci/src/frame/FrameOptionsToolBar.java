@@ -2,9 +2,7 @@ package frame;
 
 import java.awt.event.*;
 import javax.swing.*;
-
-import controllers.ButtonsController;
-import controllers.DrawingController;
+import controllers.*;
 import observer.*;
 
 public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObserver, ShapesObserver, CommandsHandlerObserver, LogReaderObserver {
@@ -24,6 +22,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	private JButton btnExecuteLog;
 	private DrawingController drawingController;
 	private ButtonsController buttonsController;
+	private CommandController commandController;
 	
 	public FrameOptionsToolBar() {
 		setOrientation(SwingConstants.VERTICAL);
@@ -137,7 +136,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnRedo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawingController.redoCommand();
+				commandController.redoCommand();
 			}
 		});
 	}
@@ -146,7 +145,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnUndo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawingController.undoCommand();
+				commandController.undoCommand();
 			}
 		});
 	}
@@ -155,7 +154,7 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 		btnExecuteLog.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawingController.executeLog();
+				commandController.executeLog();
 			}
 		});
 	}
@@ -266,6 +265,12 @@ public class FrameOptionsToolBar extends JToolBar implements SelectedShapesObser
 	public void setButtonsController(ButtonsController buttonsController) {
 		this.buttonsController = buttonsController;
 	}
+
+	public void setCommandController(CommandController commandController) {
+		this.commandController = commandController;
+	}
+	
+	
 	
 
 

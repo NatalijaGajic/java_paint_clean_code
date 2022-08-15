@@ -3,21 +3,17 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.*;
-import commandHandler.CommandsHandler;
 import commands.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
-import logger.*;
 import model.DrawingModel;
 
 public class DrawingController {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	private CommandsHandler commandsHandler;
-	private LogWriter logWriter;
-	private LogParser logParser;
+	private CommandController commandController;
 	private Color activeEdgeColor;
 	private Color activeInnerColor;
 	private Point startPoint;
@@ -29,23 +25,27 @@ public class DrawingController {
 		activeInnerColor = Color.WHITE;
 	}
 	
-	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler){
+	public DrawingController(DrawingModel model, DrawingFrame frame, CommandController commandController){
 		this(model, frame);
-		this.commandsHandler = commandsHandler;
-
+		this.commandController = commandController;
 	}
 	
-	public DrawingController(DrawingModel model, DrawingFrame frame, CommandsHandler commandsHandler, LogWriter logWriter, LogParser logParser){
-		this(model, frame, commandsHandler);
-		this.logWriter = logWriter;
-		this.logParser = logParser;
+	public void setActiveEdgeColor() {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
+		if (chosenColor != null) {
+			activeEdgeColor = chosenColor;
+			JPanel activeEdgeColorPanel = frame.getColorToolBar().getPnlActiveEdgeColor();
+			activeEdgeColorPanel.setBackground(activeEdgeColor);
+		}
 	}
 	
-	public void executeCommand(Command cmd) {
-		cmd.execute();
-		commandsHandler.addExecutedCommand(cmd);
-		logWriter.log(cmd.toString());
-		frame.getView().repaint();
+	public void setActiveInnerColor() {
+		Color chosenColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
+		if (chosenColor != null) {
+			activeInnerColor = chosenColor;
+			JPanel pnlActiveInnerColor = frame.getColorToolBar().getPnlActiveInnerColor();
+			pnlActiveInnerColor.setBackground(activeInnerColor);
+		}
 	}
 	
 	public void drawPointIfAccepted(Point click) {
@@ -99,7 +99,7 @@ public class DrawingController {
 		if(dlg.isAccepted()) {
 			Shape shape = dlg.getShapeFromDialog();
 			CmdAdd cmdAdd = new CmdAdd(model, shape);
-			executeCommand(cmdAdd);
+			commandController.executeCommand(cmdAdd);
 		}
 	}
 	
@@ -173,7 +173,7 @@ public class DrawingController {
 		if(dlg.isAccepted()) {
 			Shape shapeWithNewValues = dlg.getShapeFromDialog();
 			CmdModify cmdModify = new CmdModify(selectedShape, shapeWithNewValues);
-			executeCommand(cmdModify);
+			commandController.executeCommand(cmdModify);
 		}
 	}
 	
@@ -190,7 +190,7 @@ public class DrawingController {
 		@SuppressWarnings("unchecked")
 		ArrayList<Shape> shapesToDelete = (ArrayList<Shape>) model.getSelectedShapes().clone();
 		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
-		executeCommand(cmdDelete);
+		commandController.executeCommand(cmdDelete);
 	}
 	
 	/**
@@ -203,41 +203,23 @@ public class DrawingController {
 			
 			if(shape.contains(click) && !shape.isSelected()) {
 				CmdSelect cmdSelect = new CmdSelect(model, shape);
-				executeCommand(cmdSelect);
+				commandController.executeCommand(cmdSelect);
 				break;
 			}else if(shape.contains(click) && shape.isSelected()) {
 				CmdDeselect cmdDeselect = new CmdDeselect(model, shape);
-				executeCommand(cmdDeselect);
+				commandController.executeCommand(cmdDeselect);
 				break;
 			}
 		}
 		
 	}	
 	
-	public void setActiveEdgeColor() {
-		Color chosenColor = JColorChooser.showDialog(null, "Choose edge color", Color.BLACK);
-		if (chosenColor != null) {
-			activeEdgeColor = chosenColor;
-			JPanel activeEdgeColorPanel = frame.getColorToolBar().getPnlActiveEdgeColor();
-			activeEdgeColorPanel.setBackground(activeEdgeColor);
-		}
-	}
-	
-	public void setActiveInnerColor() {
-		Color chosenColor = JColorChooser.showDialog(null, "Choose inner color", Color.WHITE);
-		if (chosenColor != null) {
-			activeInnerColor = chosenColor;
-			JPanel pnlActiveInnerColor = frame.getColorToolBar().getPnlActiveInnerColor();
-			pnlActiveInnerColor.setBackground(activeInnerColor);
-		}
-	}
-	
 	public void moveShapeToBack() {
 		Shape selectedShape = model.getSelectedShape();
 		if(model.getIndexOfShape(selectedShape) == 0)
 			return;
 		CmdToBack cmdToBack = new CmdToBack(model, selectedShape);
-		executeCommand(cmdToBack);
+		commandController.executeCommand(cmdToBack);
 	}
 	
 	public void moveShapeToFront() {
@@ -245,7 +227,7 @@ public class DrawingController {
 		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
 			return;
 		CmdToFront cmdToFront = new CmdToFront(model, selectedShape);
-		executeCommand(cmdToFront);
+		commandController.executeCommand(cmdToFront);
 	}
 	
 	public void bringShapeToFront() {
@@ -253,7 +235,7 @@ public class DrawingController {
 		if(model.getIndexOfShape(selectedShape) == model.getNumberOfShapes() - 1)
 			return;
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, selectedShape);
-		executeCommand(cmdBringToFront);
+		commandController.executeCommand(cmdBringToFront);
 	}
 	
 	public void bringShapeToBack() {
@@ -261,34 +243,7 @@ public class DrawingController {
 		if(model.getIndexOfShape(selectedShape) == 0)
 			return;
 		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, selectedShape);
-		executeCommand(cmdBringToBack);
+		commandController.executeCommand(cmdBringToBack);
 	}	
-	
-	public void undoCommand() {
-		commandsHandler.undoExecutedCommand();
-		logWriter.log(LoggerConstants.UNDO_COMMAND);
-		frame.getView().repaint();
-	}
-	
-	public void redoCommand() {
-		commandsHandler.redoUnexecutedCommand();
-		logWriter.log(LoggerConstants.REDO_COMMAND);
-		frame.getView().repaint();
-	}
-	
-	//TODO: When option for executing log is available, other options should be disabled, or log should be cleared if new command is executed
-	public void executeLog() {
-		LoggerCommand commandFromLog = logParser.parseCommandFromLog();
-		if(commandFromLog != null) {
-			String typeOfCommand = commandFromLog.getTypeOfCommand();
-			if(typeOfCommand.equals(LoggerConstants.UNDO_COMMAND))
-				undoCommand();
-			else if(typeOfCommand.equals(LoggerConstants.REDO_COMMAND))
-				redoCommand();
-			else
-				executeCommand(commandFromLog.getCommand());
-		}
-	}
-
 	
 }

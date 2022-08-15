@@ -2,13 +2,10 @@ package controllerTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import commandHandler.CommandsHandler;
-import commands.*;
-import controllers.DrawingController;
+import controllers.*;
 import dialogs.*;
 import frame.DrawingFrame;
 import geometry.*;
@@ -21,11 +18,11 @@ class DrawingControllerTests {
 	private DrawingModel model;
 	private DrawingFrame frame;
 	private DrawingController drawingController;
+	private CommandController commandController;
 	private CommandsHandler commandsHandler;
 	private LogWriter logWriter;
 	private LogReader logReader;
 	private LogParser logParser;
-	private Stack<Command> executedCommands;
 	
 	private Point click;
 	private Point testPoint;
@@ -34,7 +31,6 @@ class DrawingControllerTests {
 	private Circle testCircle;
 	private Donut testDonut;
 	private HexagonAdapter testHexagon;
-	private Point modifiedTestPoint;
 	
 	@BeforeEach
 	public void setUp() {
@@ -45,8 +41,8 @@ class DrawingControllerTests {
 		logWriter = new LogWriter();
 		logReader = new LogReader();
 		logParser = new LogParser(model, logReader);
-		drawingController = new DrawingController(model, frame, commandsHandler, logWriter, logParser);
-		executedCommands = commandsHandler.getExecutedCommands();
+		commandController = new CommandController(frame, commandsHandler, logWriter, logParser);
+		drawingController = new DrawingController(model, frame, commandController);
 		frame.setDrawingController(drawingController);
 		initializeShapes();
 	}
@@ -59,7 +55,6 @@ class DrawingControllerTests {
 		testCircle = new Circle(new Point(1, 1), 10, false, Color.WHITE, Color.BLACK);
 		testDonut = new Donut(new Point(1, 1), 10, 5, false, Color.WHITE, Color.BLACK);
 		testHexagon = new HexagonAdapter(new Point(1,2), 3, Color.WHITE, Color.BLACK);
-		modifiedTestPoint = new Point(2, 2, false, Color.BLACK);
 	}
 	
 	@Test
@@ -355,212 +350,7 @@ class DrawingControllerTests {
 		assertFalse(model.doesContainSelectedShape(point));
 	}
 	
-	@Test
-	public void testExecuteLog_CmdAdd_ShapeAddedToModel() {
-		CmdAdd cmdAdd = new CmdAdd(model, testPoint);
-		String cmdAddLog = cmdAdd.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdAddLog);
-		drawingController.executeLog();
-		assertEquals(testPoint, model.getShapeAtIndex(0));
-	}
 	
-	@Test
-	public void testExecuteLog_CmdAddAddedToExecutedCommands() {
-		CmdAdd cmdAdd = new CmdAdd(model, testPoint);
-		String cmdAddLog = cmdAdd.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdAddLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdAdd));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdModify_ShapeModified() {
-		testPoint.setSelected(true);
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		Point modifiedPoint = new Point(2, 2, true, Color.BLACK);
-		CmdModify cmdModify = new CmdModify(testPoint, modifiedTestPoint);
-		String cmdModifyLog = cmdModify.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
-		drawingController.executeLog();
-		assertEquals(modifiedPoint, model.getShapeAtIndex(0));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdModifyAddedToExecutedCommands() {
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdModify cmdModify = new CmdModify(testPoint, modifiedTestPoint);
-		String cmdModifyLog = cmdModify.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdModifyLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdModify));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdSelect_ShapeSelected() {
-		testPoint.setSelected(false);
-		model.addShape(testPoint);
-		CmdSelect cmdSelect = new CmdSelect(model, testPoint);
-		String cmdSelectLog = cmdSelect.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
-		drawingController.executeLog();
-		assertTrue(testPoint.isSelected());
-	}
-	
-	@Test
-	public void testExecuteLog_CmdSelectAddedToExecutedCommands() {
-		testPoint.setSelected(false);
-		model.addShape(testPoint);
-		CmdSelect cmdSelect = new CmdSelect(model, testPoint);
-		String cmdSelectLog = cmdSelect.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdSelectLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdSelect));
-	}
-	@Test
-	public void testExecuteLog_CmdDeselect_ShapeDeselected() {
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdDeselect cmdDeselect = new CmdDeselect(model, testPoint);
-		String cmdDeselectLog = cmdDeselect.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
-		drawingController.executeLog();
-		assertFalse(testPoint.isSelected());
-	}
-	
-	@Test
-	public void testExecuteLog_CmdDeselectAddedToExecutedCommands() {
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdDeselect cmdDeselect = new CmdDeselect(model, testPoint);
-		String cmdDeselectLog = cmdDeselect.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdDeselectLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdDeselect));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdToFront_ShapeBroughtFront() {
-		model.addShape(testPoint);
-		model.addShape(testLine);
-		model.addSelectedShape(testPoint);
-		CmdToFront cmdToFront = new CmdToFront(model, testPoint);
-		String cmdToFrontLog = cmdToFront.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdToFrontLog);
-		drawingController.executeLog();
-		assertEquals(testPoint, model.getShapeAtIndex(1));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdToFrontAddedToExecutedCommands() {
-		model.addShape(testPoint);
-		model.addShape(testLine);
-		model.addSelectedShape(testPoint);
-		CmdToFront cmdToFront = new CmdToFront(model, testPoint);
-		String cmdToFrontLog = cmdToFront.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdToFrontLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdToFront));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdToBack_ShapeBroughtBack() {
-		model.addShape(testLine);
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdToBack cmdToBack = new CmdToBack(model, testPoint);
-		String cmdToBackLog = cmdToBack.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdToBackLog);
-		drawingController.executeLog();
-		assertEquals(testPoint, model.getShapeAtIndex(0));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdToBackAddedToExecutedCommands() {
-		model.addShape(testLine);
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdToBack cmdToBack = new CmdToBack(model, testPoint);
-		String cmdToBackLog = cmdToBack.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdToBackLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdToBack));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdBringToFront_ShapeBroughtToFront() {
-		model.addShape(testPoint);
-		model.addShape(testLine);
-		model.addSelectedShape(testPoint);
-		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, testPoint);
-		String cmdBringToFrontLog = cmdBringToFront.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToFrontLog);
-		drawingController.executeLog();
-		assertEquals(testPoint, model.getShapeAtIndex(1));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdBringToFrontAddedToExecutedCommands() {
-		model.addShape(testPoint);
-		model.addShape(testLine);
-		model.addSelectedShape(testPoint);
-		CmdBringToFront cmdBringToFront = new CmdBringToFront(model, testPoint);
-		String cmdBringToFrontLog = cmdBringToFront.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToFrontLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdBringToFront));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdBringToBack_ShapeBroughtToBack() {
-		model.addShape(testLine);
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, testPoint);
-		String cmdBringToBackLog = cmdBringToBack.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToBackLog);
-		drawingController.executeLog();
-		assertEquals(testPoint, model.getShapeAtIndex(0));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdBringToBackAddedToExecutedCommands() {
-		model.addShape(testLine);
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		CmdBringToBack cmdBringToBack = new CmdBringToBack(model, testPoint);
-		String cmdBringToBackLog = cmdBringToBack.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdBringToBackLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdBringToBack));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdDelete_ShapeDeleted() {
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		ArrayList<Shape> shapesToDelete = new ArrayList<Shape>();
-		shapesToDelete.add(testPoint);
-		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
-		String cmdDeleteLog = cmdDelete.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
-		drawingController.executeLog();
-		assertFalse(model.doesContainShape(testPoint));
-	}
-	
-	@Test
-	public void testExecuteLog_CmdDeleteAddedToExecutedCommands() {
-		model.addShape(testPoint);
-		model.addSelectedShape(testPoint);
-		ArrayList<Shape> shapesToDelete = new ArrayList<Shape>();
-		shapesToDelete.add(testPoint);
-		CmdDelete cmdDelete = new CmdDelete(model, shapesToDelete);
-		String cmdDeleteLog = cmdDelete.toString();
-		logReader.addCommandToCommandsToBeExecutedLog(cmdDeleteLog);
-		drawingController.executeLog();
-		assertTrue(executedCommands.get(0).equals(cmdDelete));
-	}
 	
 
 }

@@ -176,4 +176,7 @@ public class DrawingFrame extends JFrame {
 		menuBar.setFileController(fileController);
 	}
 	
+	public void setCommandControllerForOptionsToolBar(CommandController commandController) {
+		optionsToolBar.setCommandController(commandController);
+	}
 }
